@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="nav.css">
+    <!-- <link rel="stylesheet" href="test.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=1.4.2"></script>
+
+    <script src="test.js"></script>
+</head>
+<body>
+    <nav>
+        <ul>
+          <li><a href="#">suivi de colis </a></li>
+          <li><a href="#">envoi de colis</a></li>
+          <li><a href="#">Nos points de relais </a></li>
+          <li><a href="#">Aide</a></li>
+          <div id="loginContainer">
+            <div id="loginButton" style="display:flex; width: fit-content;"><span>Connexion</span></div>
+            <div style="clear:both"></div>
+            <div id="loginBox">                
+                <form id="loginForm">
+                    <fieldset id="body">
+                        <fieldset>
+                            <label for="email">Adresse email</label>
+                            <input type="text" name="email" id="email" />
+                        </fieldset>
+                        <fieldset>
+                            <label for="password">Mot de passe</label>
+                            <input type="password" name="password" id="password" />
+                        </fieldset>
+                        <input type="submit" id="login" value="Je me connecte" />
+                        <span style="text-align:right; text-decoration: underline;"><a href="#">Mot de passe oublié?</a></span>
+                        <input type="submit" id="login2" value="Creer un compte" style="margin-top: 5px;" />
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+          </div>
+        </div>
+        </ul>
+      </nav> 
+</body>
+</html>
