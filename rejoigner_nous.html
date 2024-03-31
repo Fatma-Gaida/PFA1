@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="nav.css">  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=1.4.2"></script>
+
+
+    <title>Document</title>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="acceuil.php">acceuil</a></li>
+      <li><a href="#">suivi de colis </a></li>
+      <li><a href="#">envoi de colis</a></li>
+      <li><a href="#">Nos points de relais </a></li>
+      <li><a href="#">Aide</a></li>
+      <li>
+      <div id="loginContainer" style="padding-top: 2.5px;">
+        <div id="loginButton" style="display: flex; align-items: center; justify-content: center; width: fit-content;">
+          <span>Connexion</span>
+        </div>
+        <div style="clear:both"></div>
+        <div id="loginBox">                
+            <form id="loginForm">
+                <fieldset id="body">
+                    <fieldset>
+                        <label for="email">Adresse email</label>
+                        <input type="text" name="email" id="email" />
+                    </fieldset>
+                    <fieldset>
+                        <label for="password">Mot de passe</label>
+                        <input type="password" name="password" id="password" />
+                    </fieldset>
+                    <input type="submit" id="login" value="Je me connecte" />
+                    <span style="text-align:right; text-decoration: underline;"><a href="#">Mot de passe oublié?</a></span>
+                    <input type="button" id="signup" value="Créer un compte" />
+
+                    <!-- <a href="signup.html" style="border: 1px solid black; width: 100%; display: block; height: 30px; text-align: center; vertical-align: center;">Créer un compte</a> -->
+            </form>
+        </div>
+    </div>
+      </div>
+    </div></li>
+    </ul>
+  </nav> 
+  <script src="nav.js"></script>
+    
+      <div class="login-box">     
+        <form class="form1" action="index.php" method="GET">
+          <div class="part1">
+            <div class="user-box">
+            <input type="text" name="nom_d" required="">
+            <label>Nom</label>
+            </div>
+            <div class="user-box">
+            <input type="text" name="numtel_d" required="">
+            <label>Numero de Téléphone</label>
+            </div>
+            <div class="user-box">
+            <input type="text" name="ville_d" required="">
+            <label>Ville</label>
+            </div>
+            <div class="user-box">
+            <input type="text" name="adresse_d" required="">
+            <label>Adresse</label>
+            </div>
+        </div>
+        <div class="part2">
+            <div class="user-box">
+            <input type="text" name="prenom-d" required="">
+            <label>Prénom</label>
+            </div>
+            <div class="user-box">
+            <input type="text" name="email_d" required="">
+            <label>Adresse Email</label>
+            </div>
+      
+            <div class="user-box">
+            <input type="text" name="pointrelais_d" required="">
+            <label>Point de Relais</label>
+            </div>
+           <input class="button2" type="submit" name="page2" value="Envoyer"/>
+        </div>
+        </form>
+
+</body>
+</html>
