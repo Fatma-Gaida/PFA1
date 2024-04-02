@@ -9,7 +9,7 @@ body{
   flex-direction: column;
 }
 .login-box {
-    margin-top: 10%;
+    margin-top: 5%;
     position: relative;
     width:60%;
     margin-left:20%;
@@ -23,7 +23,8 @@ body{
   .login-box .user-box {
     position: relative;
   }
-  .form1{display: flex; margin-top:5%}
+  .form1{margin-top:3%}
+  .section1{display: flex;}
   .part1{
     margin-left: 70px;
     margin-right: 20px;
@@ -100,15 +101,18 @@ margin-right: 9%; }
   }
   .buttons{
     display: flex;
-    border-radius: 100px;
-   
- }
+    border-radius: 100px;}
+  .boutons {
+      cursor: pointer;
+      height: 10%;
+    }
+ 
  .button1{
     margin: 20px;
     margin-left: 13%;
     background-color: #d2d2d2;
     border-radius: 100px;
-    width:fit-content; 
+    width:35%; 
     height:40px;
  }
  .button2{
@@ -132,7 +136,7 @@ margin-right: 9%; }
     color: white;
     -webkit-transition: 500ms;
     transition: 500ms;
-    width:fit-content; 
+    width:35%; 
     height:40px;}
  
       .button2:hover {
@@ -449,9 +453,9 @@ input[type="checkbox"]:checked {
  accent-color: #96154a;}
  select{
   width: 70%;
-  height: 20%;
-  margin-top: 7%;
-  margin-bottom: 13%;
+  height: 10%;
+  margin-top: 5%;
+  margin-bottom: 10%;
   box-shadow: 0 0 5px #96154a;
   padding: 3%;
   

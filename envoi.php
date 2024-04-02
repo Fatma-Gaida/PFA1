@@ -3,57 +3,102 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 $page =  1 ;
-if( isset($_GET['page1'])){
+if( isset($_POST['page1'])){
   // traitmenet de verification du contenu de la page 
   // si c'est vrai alors incrémenter variable page et refresh
   // si c'est faux rester dans la méme page et afficher les erreurs
   
   $page = 2 ;
 }
-if (isset($_GET['page2']) && $_GET['page2'] == "Continuer") {
+if (isset($_POST['page2']) && $_POST['page2'] == "Continuer") {
   // Traitement de vérification du contenu de la page
   // Si c'est vrai alors incrémenter la variable page et refresh
   // Si c'est faux rester dans la même page et afficher les erreurs
   $page = 3; // Mettre à jour pour passer à la page suivante
 }
 
-if( isset($_GET['page2']) && $_GET['page2'] == "Retourner"){
+if( isset($_POST['page2']) && $_POST['page2'] == "Retourner"){
   // traitmenet de verification du contenu de la page 
   // si c'est vrai alors incrémenter variable page et refresh
   // si c'est faux rester dans la méme page et afficher les erreurs
   $page = 1 ;
 }
-if( isset($_GET['page3']) && $_GET['page3'] == "Retourner"){
+if( isset($_POST['page3']) && $_POST['page3'] == "Retourner"){
   // traitmenet de verification du contenu de la page 
   // si c'est vrai alors incrémenter variable page et refresh
   // si c'est faux rester dans la méme page et afficher les erreurs
   $page = 2 ;
 }
-if( isset($_GET['page3']) && $_GET['page3'] == "Continuer"){
+if( isset($_POST['page3']) && $_POST['page3'] == "Continuer"){
   $page = 4 ;
 }
 
-if( isset($_GET['page4']) && $_GET['page4'] == "Retourner"){
+if( isset($_POST['page4']) && $_POST['page4'] == "Retourner"){
   $page =  3;
 }
-if( isset($_GET['page5']) && $_GET['page5'] == "Retourner"){
+if( isset($_POST['page5']) && $_POST['page5'] == "Retourner"){
   $page =  4;
 }
-if (isset($_GET['payment-method'])) {
-  if ($_GET['payment-method'] == "par-carte" && $_GET['page4'] == "Continuer") {
+if (isset($_POST['payment-method'])) {
+  if ($_POST['payment-method'] == "par-carte" && $_POST['page4'] == "Continuer") {
       // Si la méthode de paiement est "par carte", afficher la page 5
       $page = 5;
       
-  } elseif ($_GET['payment-method'] == "cash"&& $_GET['page4'] == "Continuer") {
+  } elseif ($_POST['payment-method'] == "cash"&& $_POST['page4'] == "Continuer") {
       // Si la méthode de paiement est "espèces", afficher la page 6
       $page = 6;
   }
  
 }
-if( isset($_GET['page5']) && $_GET['page5'] == "Terminer"){
+if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
   $page = 6 ;
 }
 
+$nom_cli = $_POST['nom_ex'] ?? '';
+$prenom_cli = $_POST['prenom_ex'] ?? '';
+$adresse_cli = $_POST['adresse_ex'] ?? '';
+$email_cli = $_POST['email_ex'] ?? '';
+$num_tel_cli = $_POST['numtel_ex'] ?? '';
+$ville_cli = $_POST['ville_ex'] ?? '';
+$code_postal = $_POST['code_postal'] ?? '';
+$type_cli = 'expediteur';
+
+// Informations de connexion à la base de données
+$host = 'localhost';
+$dbname = 'mysql';
+$username = 'root';
+$password = '';
+
+try {
+    // Connexion à la base de données MySQL
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Préparation de la requête d'insertion
+    $sql = "INSERT INTO client (nom_cli, prenom_cli, adresse_cli, email_cli, num_tel_cli, ville_cli, code_postal_cli, type_cli) 
+            VALUES (:nom_cli, :prenom_cli, :adresse_cli, :email_cli, :num_tel_cli, :ville_cli, :code_postal, :type_cli)";
+    $stmt = $pdo->prepare($sql);
+
+    // Liaison des valeurs aux paramètres de la requête
+    $stmt->bindParam(':nom_cli', $nom_cli);
+    $stmt->bindParam(':prenom_cli', $prenom_cli);
+    $stmt->bindParam(':adresse_cli', $adresse_cli);
+    $stmt->bindParam(':email_cli', $email_cli);
+    $stmt->bindParam(':num_tel_cli', $num_tel_cli);
+    $stmt->bindParam(':ville_cli', $ville_cli);
+    $stmt->bindParam(':code_postal', $code_postal);
+    $stmt->bindParam(':type_cli', $type_cli);
+
+    // Exécution de la requête d'insertion
+    $stmt->execute();
+
+    // Redirection vers une page de confirmation
+    header("Location: envoi.php?message=Votre compte a été créé avec succès");
+    exit();
+} catch (PDOException $e) {
+    // En cas d'erreur, affichage du message d'erreur
+    echo "Erreur lors de l'insertion des données : " . $e->getMessage();
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -109,248 +154,268 @@ if( isset($_GET['page5']) && $_GET['page5'] == "Terminer"){
       <div class="login-box">
        
         <?php 
-        if($page == 1)
-        echo '
-        <div class="progression">
-        <ul id="progressbar">
-          <li class="active">Détails de l\'expéditeur</li>
-          <li>Détails du destinataire</li>
-          <li>Détails de colis</li>
-          <li>Option de paiment</li>
-        </ul>
-      </div>
-        <h4>Veuillez remplir les coordonnées de l\'expéditeur</h4>
-        <p>Quelques clics suffisent pour préparer votre envoi.</p>
-        <form class="form1" action="index.php" method="GET" onsubmit="return validateForm()">
-          <div class="part1">
-          <div class="user-box">
-            <input type="text" name="nom_ex" required="">
-            <label>Nom</label>
-          </div>
-          <div class="user-box">
-            <input type="text" id="numero" name="numtel_ex" required onblur="onBlurNumero()">
-            <div id="numero-error" class="error-message"></div> 
-            <label>Numero de Téléphone</label>
-          </div>
-          <div class="user-box">
-            <input type="text" name="ville_ex" required="">
-            <label>Ville</label>
-          </div>
-          <div class="user-box">
-            <input type="text" name="adresse_ex" required="">
-            <label>Adresse</label>
-          </div>
+          if($page == 1)
+          echo '
+          <div class="progression">
+          <ul id="progressbar">
+            <li class="active">Détails de l\'expéditeur</li>
+            <li>Détails du destinataire</li>
+            <li>Détails de colis</li>
+            <li>Option de paiment</li>
+          </ul>
         </div>
-        <div class="part2">
-          <div class="user-box">
-            <input type="text" name="prenom_ex" required="">
-            <label>Prénom</label>
-          </div>
-          <div class="user-box">
-            <input type="text" name="email_ex" id="email" required onblur="validateEmail()">
-            <div id="email-error" class="error-message"></div>
-            <label>Adresse Email</label>
-          </div>
-          
-           
-          <label>Point de Relais</label><br>
-          <div class="select">
-          <select>
-            <option>First select</option>
-            <option>Option</option>
-            <option>Option</option>
-            <option>Option</option>
-            <option>Option</option>
-            <option>Option</option>
-          </select>
-          </div>
-
-          <input class="button2" type="submit" name="page1" value="Continuer"/>
-       
-       </div>
-        </form>
-        ';
-        else if ($page == 2)
-        echo '
-        <div class="progression">
-        <ul id="progressbar">
-          <li class="active">Détails de l\'expéditeur</li>
-          <li class="active">Détails du destinataire</li>
-          <li>Détails de colis</li>
-          <li>Option de paiment</li>
-        </ul>
-      </div>
-      <h4>Veuillez remplir les coordonnées de le destinataire</h4>
-      
-        <form class="form1" action="index.php" method="GET" onsubmit="return validateForm()">
+          <h4>Veuillez remplir les coordonnées de l\'expéditeur</h4>
+          <p>Quelques clics suffisent pour préparer votre envoi.</p>
+          <form class="form1" action="envoi.php" method="POST" onsubmit="return validateForm()">
+          <div class="section1">
           <div class="part1">
-          <div class="user-box">
-            <input type="text" name="nom_d" required="">
-            <label>Nom</label>
+            <div class="user-box">
+              <input type="text" name="nom_ex" required="">
+              <label>Nom</label>
+            </div>
+            <div class="user-box">
+              <input type="text" id="numero" name="numtel_ex" required onblur="onBlurNumero()">
+              <div id="numero-error" class="error-message"></div> 
+              <label>Numero de Téléphone</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="ville_ex" required="">
+              <label>Ville</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="adresse_ex" required="">
+              <label>Adresse</label>
+            </div>
+            
           </div>
-          <div class="user-box">
-            <input type="text" id="numero" name="numtel_d" required onblur="onBlurNumero()">
-            <div id="numero-error" class="error-message"></div>
-            <label>Numero de Téléphone</label>
+          <div class="part2">
+            <div class="user-box">
+              <input type="text" name="prenom_ex" required="">
+              <label>Prénom</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="email_ex" id="email" required onblur="validateEmail()">
+              <div id="email-error" class="error-message"></div>
+              <label>Adresse Email</label>
+            </div>
+            
+            <div class="user-box">
+            <input type="text" name="code_postal_cli" required="">
+            <label>Code postal</label>
           </div>
-          <div class="user-box">
-            <input type="text" name="ville_d" required="">
-            <label>Ville</label>
-          </div>
-          <div class="user-box">
-            <input type="text" name="adresse_d" required="">
-            <label>Adresse</label>
-          </div>
-          <input class="button1" type="submit" name="page2" value="Retourner"/>
+            <label>Point de Relais</label><br>
+            <div class="select">
+            <select>
+              <option>First select</option>
+              <option>Option</option>
+              <option>Option</option>
+              <option>Option</option>
+              <option>Option</option>
+              <option>Option</option>
+            </select>
+            </div>
+            </div></div>
+  
+            <div  class="boutons">
+            <input class="button2" type="submit" name="page1" value="Continuer"/>
+         </div>
+         
+          </form>
+          ';
+          else if ($page == 2)
+          echo '
+          <div class="progression">
+          <ul id="progressbar">
+            <li class="active">Détails de l\'expéditeur</li>
+            <li class="active">Détails du destinataire</li>
+            <li>Détails de colis</li>
+            <li>Option de paiment</li>
+          </ul>
         </div>
-        <div class="part2">
-          <div class="user-box">
-            <input type="text" name="prenom-d" required="">
-            <label>Prénom</label>
-          </div>
-          <div class="user-box">
-            <input type="text" name="email_d" id="email" required onblur="validateEmail()">
-            <div id="email-error" class="error-message"></div>
-            <label>Adresse Email</label>
-          </div>
-      
-          
-          <label>Point de Relais</label><br>
-          <div class="select">
-          <select>
-            <option>First select</option>
-            <option>Option</option>
-            <option>Option</option>
-            <option>Option</option>
-            <option>Option</option>
-            <option>Option</option>
-          </select>
-          </div>
-
-
-          
-        <input class="button2" type="submit" name="page2" style="margin-top: 45px ;" value="Continuer"/>
-       
+        <h4>Veuillez remplir les coordonnées de le destinataire</h4>
         
-
-        </form>
-        ';
-        else if ($page == 3)
-        echo '<div class="progression">
+          <form class="form1" action="envoi.php" method="POST" onsubmit="return validateForm()">
+          <div class="section1">
+            <div class="part1">
+            <div class="user-box">
+              <input type="text" name="nom_d" required="">
+              <label>Nom</label>
+            </div>
+            <div class="user-box">
+              <input type="text" id="numero" name="numtel_d" required onblur="onBlurNumero()">
+              <div id="numero-error" class="error-message"></div>
+              <label>Numero de Téléphone</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="ville_d" required="">
+              <label>Ville</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="adresse_d" required="">
+              <label>Adresse</label>
+            </div>
+            
+          </div>
+          <div class="part2">
+            <div class="user-box">
+              <input type="text" name="prenom-d" required="">
+              <label>Prénom</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="email_d" id="email" required onblur="validateEmail()">
+              <div id="email-error" class="error-message"></div>
+              <label>Adresse Email</label>
+            </div>
+        
+            <div class="user-box">
+            <input type="text" name="code_postal_cli" required="">
+            <label>Code postal</label>
+          </div>
+            <label>Point de Relais</label><br>
+            <div class="select">
+            <select>
+              <option>First select</option>
+              <option>Option</option>
+              <option>Option</option>
+              <option>Option</option>
+              <option>Option</option>
+              <option>Option</option>
+            </select>
+            </div>
+          </div>
+          </div>
+            <div  class="boutons">
+            <input class="button1" type="submit" name="page2" value="Retourner"/>
+          <input class="button2" type="submit" name="page2" style="margin-top: 45px ;" value="Continuer"/>
+          </div>
+          
+  
+          </form>
+          ';
+          else if ($page == 3)
+          echo '<div class="progression">
+          <ul id="progressbar">
+            <li class="active">Détails de l\'expéditeur</li>
+            <li class="active">Détails du destinataire</li>
+            <li class="active">Détails de colis</li>
+            <li>Option de paiment</li>
+          </ul>
+        </div>
+        <p>le prix de la livraison varie en fonction de caracteristiques de colis.</p>
+        <form class="form1" action="envoi.php" method="POST" onsubmit="return validateForm3()">
+        <div class="section1">
+          <div class="part1">
+          <div class="user-box">
+            <input type="text" name="contenance" required="">
+            <label>Contenance de colis</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="poids"  id="poids" required onblur="validatePoids()">
+            <div id="poids-error" class="error-message"></div>
+            <label>Poids de colis</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="longueur" required="">
+            <label>Longueur de colis </label>
+          </div>
+          <div class="user-box">
+          <input type="text" name="largeur" required="">
+          <label>Largeur de colis</label>
+        </div>
+          </div>
+        <div class="part2">
+          
+          <label id="fragilité">Fragilité</label><br>
+          <div class="checkbox">
+  
+          <input type="checkbox" id="choix1" name="choix" value="choix1">
+          <label for="choix1">fragile &nbsp &nbsp &nbsp</label>
+      
+          <input type="checkbox" id="choix2" name="choix" value="choix2">
+          <label for="choix2">non fragile</label><br>
+      
+          <input type="checkbox" id="choix3" name="choix" value="choix3">
+          <label for="choix3">perimable</label>
+  
+          <input type="checkbox" id="choix4" name="choix" value="choix4">
+          <label for="choix4">non perimable</label><br>
+    </div>
+  
+          
+            <label>Description</label><br>
+            <textarea id="description" name="description" ></textarea>
+            </div>
+            </div>
+            <div  class="boutons">
+            <input class="button1" type="submit" name="page3" value="Retourner"/>
+          <input class="button2" type="submit" name="page3" style="margin-top: 45px ;" value="Continuer"/>
+          </div>
+       
+       
+        </form>';
+        else if ($page == 4)
+        echo '  <div class="progression">
         <ul id="progressbar">
           <li class="active">Détails de l\'expéditeur</li>
           <li class="active">Détails du destinataire</li>
           <li class="active">Détails de colis</li>
-          <li>Option de paiment</li>
+          <li class="active">Option de paiment</li>
         </ul>
       </div>
-      <p>le prix de la livraison varie en fonction de caracteristiques de colis.</p>
-      <form class="form1" action="index.php" method="GET" onsubmit="return validateForm3()">
-        <div class="part1">
-        <div class="user-box">
-          <input type="text" name="contenance" required="">
-          <label>Contenance de colis</label>
-        </div>
-        <div class="user-box">
-          <input type="text" name="poids"  id="poids" required onblur="validatePoids()">
-          <div id="poids-error" class="error-message"></div>
-          <label>Poids de colis</label>
-        </div>
-        <div class="user-box">
-          <input type="text" name="taille" required="">
-          <label>Taille de colis</label>
-         
-        </div>
-        <input class="button1" type="submit" name="page3" value="Retourner"/>
-        </div>
-      <div class="part2">
-        
-        <label id="fragilité">Fragilité</label><br>
-        <div class="checkbox">
-
-        <input type="checkbox" id="choix1" name="choix" value="choix1">
-        <label for="choix1">fragile &nbsp &nbsp &nbsp</label>
-    
-        <input type="checkbox" id="choix2" name="choix" value="choix2">
-        <label for="choix2">non fragile</label><br>
-    
-        <input type="checkbox" id="choix3" name="choix" value="choix3">
-        <label for="choix3">perimable</label>
-
-        <input type="checkbox" id="choix4" name="choix" value="choix4">
-        <label for="choix4">non perimable</label><br>
+      <p>Dernière étape bientôt achevée.</p>
+      <form class="form" action="envoi.php" method="POST">
+  <h4>Montant total à payer</h4>
+  <div class="prix">1366</div>
+  
+  <p>Sélectionnez votre méthode de paiement.</p>
+  <div class="radio-inputs">
+      <label>
+          <input class="radio-input" type="radio" name="payment-method" value="par-carte">
+          <span class="radio-tile">
+              <span class="radio-icon"></span>
+              <span class="radio-label">Par carte</span>
+          </span>
+      </label>
+      <label>
+          <input checked class="radio-input" type="radio" name="payment-method" value="cash">
+          <span class="radio-tile">
+              <span class="radio-icon"></span>
+              <span class="radio-label">Espèces</span>
+          </span>
+      </label>
   </div>
-
-        
-          <label>Description</label><br>
-          <textarea id="description" name="description" ></textarea>
-          
-        <input class="button2" type="submit" name="page3" value="Continuer"/>
-      </div>
-     
+  <div class="div2">
+  <input class="button1" type="submit" name="page4" value="Retourner"/>
+  <input class="button2" type="submit" name="page4" value="Continuer"/></div>
       </form>';
-      else if ($page == 4)
-      echo '  <div class="progression">
-      <ul id="progressbar">
-        <li class="active">Détails de l\'expéditeur</li>
-        <li class="active">Détails du destinataire</li>
-        <li class="active">Détails de colis</li>
-        <li class="active">Option de paiment</li>
-      </ul>
-    </div>
-    <p>Dernière étape bientôt achevée.</p>
-    <form class="form" action="index.php" method="GET">
-<h4>Montant total à payer</h4>
-<div class="prix">1366</div>
-
-<p>Sélectionnez votre méthode de paiement.</p>
-<div class="radio-inputs">
-    <label>
-        <input class="radio-input" type="radio" name="payment-method" value="par-carte">
-        <span class="radio-tile">
-            <span class="radio-icon"></span>
-            <span class="radio-label">Par carte</span>
-        </span>
-    </label>
-    <label>
-        <input checked class="radio-input" type="radio" name="payment-method" value="cash">
-        <span class="radio-tile">
-            <span class="radio-icon"></span>
-            <span class="radio-label">Espèces</span>
-        </span>
-    </label>
-</div>
-<div class="div2">
-<input class="button1" type="submit" name="page4" value="Retourner"/>
-<input class="button2" type="submit" name="page4" value="Continuer"/></div>
-    </form>';
-    else if ($page==5)
-    echo'   <form class="form" action="index.php" method="GET" onsubmit="return validateForm5()">
-     
-    <div class="user-box">
-            <input type="text" name="titulaire" required>
-            <label>Titulaire de la Carte</label>
-        </div>
-        <div class="user-box">
-            <input type="text" name="numero_carte" required>
-            <label>Numero de la carte</label>
-        </div>
+      else if ($page==5)
+      echo'   <form class="form" action="envoi.php" method="POST" onsubmit="return validateForm5()">
+       
+      <div class="user-box">
+              <input type="text" name="titulaire" required>
+              <label>Titulaire de la Carte</label>
+          </div>
+          <div class="user-box">
+              <input type="text" name="numero_carte" required>
+              <label>Numero de la carte</label>
+          </div>
+        
+          <div class="user-box">
+              <input type="password"  id="code" name="code_securite" required onblur="onBlurCode()">
+              <div id="code-error" class="error-message"></div>
+              <label>Code de sécurité</label>
+          </div>
+          <div class="user-box">
+              <input type="text" id="date" name="date_ex" required class="date-input" onclick="showDatePattern()">
+              <label>Date d\'expiration</label>
+          </div>
       
-        <div class="user-box">
-            <input type="password"  id="code" name="code_securite" required onblur="onBlurCode()">
-            <div id="code-error" class="error-message"></div>
-            <label>Code de sécurité</label>
-        </div>
-        <div class="user-box">
-            <input type="text" id="date" name="date_ex" required class="date-input" onclick="showDatePattern()">
-            <label>Date d\'expiration</label>
-        </div>
-    
-<div class="div2">
-<input class="button1" type="submit" name="page5" value="Retourner"/>
-<input class="button2" type="submit" name="page5" value="Terminer"/></div>
-</form>';
-
+  <div class="div2">
+  <input class="button1" type="submit" name="page5" value="Retourner"/>
+  <input class="button2" type="submit" name="page5" value="Terminer"/></div>
+  </form>';
+  
+  
 
 else if ($page==6)
     echo'

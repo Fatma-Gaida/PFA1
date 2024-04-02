@@ -58,15 +58,16 @@ function validateForm() {
 }
 function validatePoids() {
     var poids = document.getElementById("poids").value;
-    var poidsPattern = /^\d{2}$/; // Expression régulière pour valider un poids à deux chiffres
+    var poidsPattern = /^\d{1,2}$/; // Expression régulière pour valider un poids à un ou deux chiffres
     
-    if (!poidsPattern.test(poids)) {
-        document.getElementById("poids-error").innerHTML = "Veuillez saisir un poids valide à deux chiffres.";
+    if (!poidsPattern.test(poids) || parseInt(poids) >= 30) {
+        document.getElementById("poids-error").innerHTML = "Veuillez saisir un poids inférieur à 30.";
         return false;
     }
     document.getElementById("poids-error").innerHTML = ""; // Efface le message d'erreur s'il est valide
     return true;
 }
+
 function validateForm3() {
     return validatePoids();
 }
