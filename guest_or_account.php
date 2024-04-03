@@ -1,9 +1,12 @@
+<?php
+ 
+ echo'
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="envoi.css">
     <link rel="stylesheet" href="nav.css">  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=1.4.2"></script>
 
@@ -15,7 +18,7 @@
     <ul>
       <li><a href="acceuil.php">acceuil</a></li>
       <li><a href="#">suivi de colis </a></li>
-      <li><a href="envoi.php">envoi de colis</a></li>
+      <li><a href="#">envoi de colis</a></li>
       <li><a href="#">Nos points de relais </a></li>
       <li><a href="#">Aide</a></li>
       <li>
@@ -50,70 +53,32 @@
   <script src="nav.js"></script>
     
       <div class="login-box"> 
-        <h4>Devenir notre partenaire </h4>    
-        <form class="form" action="rejoigner_nous.php" method="POST">
-          <div>
-         <div class="section1" style="display: flex;">
-          <div class="part1">
-            <div class="user-box">
-              <input type="text" name="nom_enseigne" required="">
-              <label>Nom de votre commerce ou enseigne</label>
-              </div>
-            <div class="user-box">
-            <input type="text" name="nom_d" required="">
-            <label>Nom</label>
-            </div>
-            <div class="user-box">
-            <input type="text" name="numtel_d" required="">
-            <label>Numéro de Téléphone</label>
-            </div>
-            <div class="user-box">
-            <input type="text" name="ville_d" required="">
-            <label>Ville</label>
-            </div>
-            <div class="user-box">
-              <input type="text" name="jours_dispo" required="">
-              <label>Jours de disponibilté</label>
-              </div>
-              <div class="user-box">
-                <input type="text" name="heure_ouv" required="">
-                <label>Heure d'ouverture</label>
-                </div>
-        </div>
-        <div class="part2">
-          <div class="user-box">
-            <input type="text" name="activité" required="">
-            <label>Activité</label>
-            </div>
-            <div class="user-box">
-            <input type="text" name="prenom-d" required="">
-            <label>Prénom</label>
-            </div>
-            <div class="user-box">
-            <input type="text" name="email_d" required="">
-            <label>Adresse Email</label>
-            </div>
-            <div class="user-box">
-              <input type="text" name="adresse_d" required="">
-              <label>Adresse</label>
-              </div>
-              <div class="user-box">
-                <input type="text" name="pointrelais_d" required="">
-                <label>Capacitif stockage</label>
-                </div>
-               
-              <div class="user-box">
-                <input type="text" name="heure_ferm" required="">
-                <label>Heure de fermeture</label>
-                </div>
-        </div>
-        </div>
-        <div class="div2">
-        <input  style="margin-left:33%;" class="button2" type="submit" name="rejoigner_nous" value="Envoyer"/></div>
-        </form>
-      </div>
+        <h4 style="text-align: center ; margin-left: 0px;font-size: 30px; ">Bienvenue </h4>    
+       <p style="text-align: center ; margin-left: 1Opxpx;font-size: 15px; ">Envoyer votre expédition en toute tranquillité en suivant ces étapes :</p>
+       <p style="text-align: center ; margin-left: 1Opxpx;font-size: 15px; ">Préférez-vous envoyer votre colis en utilisant un compte ou en tant qu\'un visiteur ?</p>
+        <form class="form1" action="envoi.php" method="POST">
+    <div class="radio-inputs"  style="margin-top:15%; margin-bottom:10%;">
+        <label>
+            <input class="radio-input" type="radio" name="payment-method" value="par-carte">
+            <span class="radio-tile" style="height: 150px;width: 200px;">
+                <span class="radio-icon"></span>
+                <span class="radio-label">Visiteur</span>
+            </span>
+        </label>
+        <label>
+            <input  class="radio-input" type="radio" name="payment-method" value="cash">
+            <span class="radio-tile" style="height: 150px;width: 200px;">
+                <span class="radio-icon"></span>
+                <span class="radio-label">Compte</span>
+            </span>
+        </label>
     </div>
-
+    <div class="div2">
+    <input style="margin-left:33%;" class="button2" type="submit" name="page0" value="Continuer"/>
+    </div>
+        </form>
+      </div>';
+      ?>
         <footer>
           <img src="" alt="logo">
           <span>Copyright &copy;.All right reserved</span>
@@ -133,3 +98,4 @@
 
 </body>
 </html>
+

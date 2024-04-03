@@ -165,7 +165,7 @@ try {
           </ul>
         </div>
           <h4>Veuillez remplir les coordonnées de l\'expéditeur</h4>
-          <p>Quelques clics suffisent pour préparer votre envoi.</p>
+
           <form class="form1" action="envoi.php" method="POST" onsubmit="return validateForm()">
           <div class="section1">
           <div class="part1">
@@ -217,8 +217,9 @@ try {
             </div></div>
   
             <div  class="boutons">
-            <input class="button2" type="submit" name="page1" value="Continuer"/>
-         </div>
+            <input class="button1" type="submit" name="page1" value="Retourner"/>
+          <input class="button2" type="submit" name="page1" style="margin-top: 45px ;" value="Continuer"/>
+          </div>
          
           </form>
           ';
@@ -339,9 +340,11 @@ try {
   
           <input type="checkbox" id="choix4" name="choix" value="choix4">
           <label for="choix4">non perimable</label><br>
-    </div>
-  
-          
+            </div>
+
+            <label>Date de depot de colis </label></br>
+            <input type="Date" name="date_depot" id="date" required=""></br>
+
             <label>Description</label><br>
             <textarea id="description" name="description" ></textarea>
             </div>
@@ -362,12 +365,12 @@ try {
           <li class="active">Option de paiment</li>
         </ul>
       </div>
-      <p>Dernière étape bientôt achevée.</p>
+     
       <form class="form" action="envoi.php" method="POST">
-  <h4>Montant total à payer</h4>
+  <h4 style="text-align: center ; margin-left: 0px; ">Montant total à payer</h4>
   <div class="prix">1366</div>
-  
-  <p>Sélectionnez votre méthode de paiement.</p>
+  <p>C\'est le prix effectif de colis cette prix peut diminuer en fonction de delai de livraison et de nombre d\'itération</p>
+  <h4 style="margin-left: 25%;">Sélectionnez votre méthode de paiement</h4>
   <div class="radio-inputs">
       <label>
           <input class="radio-input" type="radio" name="payment-method" value="par-carte">
@@ -405,10 +408,9 @@ try {
               <div id="code-error" class="error-message"></div>
               <label>Code de sécurité</label>
           </div>
-          <div class="user-box">
-              <input type="text" id="date" name="date_ex" required class="date-input" onclick="showDatePattern()">
-              <label>Date d\'expiration</label>
-          </div>
+          <label>Date d\'expiration</label></br>
+          <input type="Date" name="date_expiration" id="date" required=""></br>
+          
       
   <div class="div2">
   <input class="button1" type="submit" name="page5" value="Retourner"/>

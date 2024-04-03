@@ -71,6 +71,6 @@ function validatePoids() {
 function validateForm3() {
     return validatePoids();
 }
-function validateForm5() {
+function validateForm5() {  
     return validateCode();
 }

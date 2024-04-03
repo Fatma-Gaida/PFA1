@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="signup.css">
     <link rel="stylesheet" href="nav.css">  
+    <script src="envoi.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=1.4.2"></script>
 
 
@@ -15,7 +16,7 @@
     <ul>
       <li><a href="acceuil.php">acceuil</a></li>
       <li><a href="#">suivi de colis </a></li>
-      <li><a href="#">envoi de colis</a></li>
+      <li><a href="envoi.php">envoi de colis</a></li>
       <li><a href="#">Nos points de relais </a></li>
       <li><a href="#">Aide</a></li>
       <li>
@@ -47,48 +48,85 @@
     </div></li>
     </ul>
   </nav> 
-  <script src="nav.js"></script>
-    
-      <div class="login-box">     
-        <form class="form1" action="index.php" method="GET">
+  
+  
+      <div class="login-box">  
+        <h4>Devenir un transporteur TUNI COLIS</h4>   
+        <form class="form" action="index.php" method="POST" onsubmit="return validateForm()">
+          <div>
+            <div class="section1" style="display: flex;">
           <div class="part1">
             <div class="user-box">
-            <input type="text" name="nom_d" required="">
+            <input type="text" name="nom_l" required="">
             <label>Nom</label>
             </div>
             <div class="user-box">
-            <input type="text" name="numtel_d" required="">
-            <label>Numero de Téléphone</label>
+            <input type="text" name="numtel_l" required onblur="onBlurNumero()">
+            <label>Numéro de Téléphone</label>
             </div>
+          
             <div class="user-box">
-            <input type="text" name="ville_d" required="">
-            <label>Ville</label>
-            </div>
-            <div class="user-box">
-            <input type="text" name="adresse_d" required="">
+            <input type="text" name="adresse_l" required="">
             <label>Adresse</label>
             </div>
-        </div>
+            <div class="user-box">
+              <input type="text" name="ville_l" required="">
+              <label>Ville</label>
+              </div>
+      
+            <div class="user-box">
+              <input type="text" name="disponibilité" required="">
+              <label>Disponibilité </label>
+              </div>
+            </div>
         <div class="part2">
             <div class="user-box">
             <input type="text" name="prenom-d" required="">
             <label>Prénom</label>
             </div>
+
             <div class="user-box">
-            <input type="text" name="email_d" required="">
+              <input type="text" name="cin" required onblur="onBlurNumero()">
+              <label>Numéro CIN</label>
+              </div>
+  
+            <div class="user-box">
+            <input type="text" name="email_d" required onblur="validateEmail()">
             <label>Adresse Email</label>
             </div>
-      
+    
             <div class="user-box">
-            <input type="text" name="pointrelais_d" required="">
-            <label>Point de Relais</label>
-            </div>
-          
-           <input class="button2" type="submit" name="page2" value="envoyer"/>
-        </div></div>
+              <input type="text" name="tpye_trans" required="">
+              <label>Marque de voiture</label>
+              </div>
+              <div class="user-box">
+                <input type="text" name="zone_d'activité " required="">
+                <label>Zone d'activité géographique </label>
+                </div></div></div>
+                <div class="div2">
+           <input style="margin-left:33%;" class="button2" type="submit" name="devenir_transp" value="envoyer"/>
+          </div></div>
+          </div>
         
 
-        </form>
+        </form></div>
+        <footer>
+          <img src="" alt="logo">
+          <span>Copyright &copy;.All right reserved</span>
+          <span>Mail:<a href="#">relaiscolis2024@gmail.com</a></span> 
+          <span>Phone:+216 50 100 100</span>
+          <div>
+              <p>Follow Us</p>
+              <ul>
+                <li><a href="#"><img src="../images/icons8-facebook-48.png" alt=""></a></li>
+                <li><a href="#"><img src="../images/icons8-instagram-48.png" alt=""></a></li>
+                <li> <a href=""><img src="../images/icons8-linkedin-48.png" alt="instagram"></a></li>
+                <li> <a href="#"><img src="../images/icons8-twitter-48.png" alt="twitter"></a></li>
+                <li><a href="#"><img src="../images/icons8-pinterest-48.png" alt="pinterest"></a></li>
+              </ul>
+          </div>
+  </footer>
+
 
 </body>
 </html>

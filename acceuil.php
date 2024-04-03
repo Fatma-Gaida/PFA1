@@ -80,7 +80,7 @@
         <div class="div3"><img src="images/guy.png" alt="photo"></div>
         <div class="div4">
           <h1>Pratique</h1><span>Plus de ?? points de relais pour envoyer et tirez vos colis dans toute la Tunisie.Dès qu'il est disponible, le client est prévenu par SMS et/ou par mail.</span>
-          <h1>Economique</h2><span>Fini le monopole de l'envoi de colis ! <br>
+          <h1>Economique</h1><span>Fini le monopole de l'envoi de colis ! <br>
             Avec Relais Colis.tn, les consommateurs paient moins cher,et tout est possible : livraison dans des  Point Relais® dans toute la Tunisie.</span>
           <h1>Sur</h1><span>Relais Colis.tn  chouchoute les colis. Avec un tracing rigoureux, le client peut suivre son colis à la trace.
             Il suffit de se connecter sur le site web de Relais Colis.tn pour <a href="">suivre son colis.</a>En un clic, il sait où il se situe.</span>
