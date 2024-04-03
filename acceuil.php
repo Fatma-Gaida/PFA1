@@ -22,23 +22,92 @@
             <span>Connexion</span>
           </div>
           <div style="clear:both"></div>
-          <div id="loginBox">                
-              <form id="loginForm" action="login.php" method="POST">
+          <div id="loginBox"> 
+                 
+              <form id="loginForm" action="acceuil.php" method="POST">
                   <fieldset id="body">
                       <fieldset>
-                          <label for="email">Adresse email</label>
+                          <label id="email" for="email">Adresse email</label>
                           <input type="text" name="email" id="email" />
                       </fieldset>
                       <fieldset>
-                          <label for="pwd">Mot de passe</label>
+                          <label  id="password" for="pwd">Mot de passe</label>
                           <input type="password" name="pwd" id="password" />
+                          <?php
+//  if (isset($_SESSION['id'])){
+//     header('Location:espace_client.php');
+// }
+ 
+// declare(strict_types=1);
+// Database connection details
+$hostname = 'localhost';
+$username = 'root';
+$password = '';
+$dbName = 'app';
+session_start();
+try {
+    // Create a PDO instance for database connection
+    $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Check if the form is submitted
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $email = $_POST['email'] ?? '';
+        $password = $_POST['pwd'] ?? '';
+
+        // Prepare a SQL statement to select the username and password from the database
+        $stmt = $pdo->prepare('SELECT * FROM client WHERE email_cli = :email');
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        // foreach($result as  $val=>$key){
+        //     echo $val;
+        //     echo "<br>";
+        // }
+        
+
+        if ($result) {
+            // Username exists in the database
+            $a = $result['email_cli'];
+            $b = $result['mot_de_passe'];
+            $c=$result['nom_cli'];
+            $d=$result['prenom_cli'];
+            $e=$result['id_client'];
+            $f=$result['num_tel_cli'];
+            $g=$result['adresse_cli'];
+            // Verify the password
+            if ($password==$b) {
+                // Password matches
+                // header("Location: espace_client.php");
+                $_SESSION['id_client'] = $e;
+                header('Location:espace_client.php');
+                exit();
+            } else {
+              // echo"<span style='color:red;'>mot de passe incorrecte<span>"; 
+              // echo"<script>window.alert('mot de passe incorrecte')</script>";
+               echo"<span  style='color:red;'>mot de passe incorrecte</span>";                
+
+            }
+        } else {
+            
+            // echo"<script>window.alert('email incorrecte')</script>";
+            echo"<span  style='color:red;'>email incorrecte</span>";                
+          }
+    }
+} catch (PDOException $e) {
+    die('Database connection failed: ' . $e->getMessage());
+}
+?>
                       </fieldset>
+                      <!-- <div id="error_msg" class="hidden">mot de passe incorrecte.</div> -->
                       <input type="submit" id="login" value="Je me connecte" />
                       <span style="text-align:right; text-decoration: underline;"><a href="#">Mot de passe oublié?</a></span>
                       <input type="button" id="signup" value="Créer un compte" />
 
                       <!-- <a href="signup.html" style="border: 1px solid black; width: 100%; display: block; height: 30px; text-align: center; vertical-align: center;">Créer un compte</a> -->
               </form>
+             
+       
           </div>
       </div>
         </div>
@@ -80,7 +149,7 @@
         <div class="div3"><img src="images/guy.png" alt="photo"></div>
         <div class="div4">
           <h1>Pratique</h1><span>Plus de ?? points de relais pour envoyer et tirez vos colis dans toute la Tunisie.Dès qu'il est disponible, le client est prévenu par SMS et/ou par mail.</span>
-          <h1>Economique</h1><span>Fini le monopole de l'envoi de colis ! <br>
+          <h1>Economique</h2><span>Fini le monopole de l'envoi de colis ! <br>
             Avec Relais Colis.tn, les consommateurs paient moins cher,et tout est possible : livraison dans des  Point Relais® dans toute la Tunisie.</span>
           <h1>Sur</h1><span>Relais Colis.tn  chouchoute les colis. Avec un tracing rigoureux, le client peut suivre son colis à la trace.
             Il suffit de se connecter sur le site web de Relais Colis.tn pour <a href="">suivre son colis.</a>En un clic, il sait où il se situe.</span>
