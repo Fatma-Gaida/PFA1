@@ -507,7 +507,7 @@ else if ($page==6)
      <p>
      Nous vous enverrons un e-mail pour vous informer que votre colis est arrivé au point de relais de destination.<br><br>
      Vous pourrez suivre son cheminement de livraison d\'un point de relais à un autre jusqu\'à sa destination en utilisant la fonctionnalité "Suivi de colis".
-     Il vous suffira d\'entrer l\'identifiant de votre colis</p>
+     Il vous suffira d\'entrer l\'identifiant de votre colis : ' . $id_colis . '</p>
      <h4>Merci pour votre confiance</h4>
       </div>
       </div>';
