@@ -59,14 +59,14 @@
         <form class="form1" action="envoi.php" method="POST">
     <div class="radio-inputs"  style="margin-top:15%; margin-bottom:10%;">
         <label>
-            <input class="radio-input" type="radio" name="payment-method" value="par-carte">
+            <input class="radio-input" type="radio" name="visiteur" value="visiteur">
             <span class="radio-tile" style="height: 150px;width: 200px;">
                 <span class="radio-icon"></span>
                 <span class="radio-label">Visiteur</span>
             </span>
         </label>
         <label>
-            <input  class="radio-input" type="radio" name="payment-method" value="cash">
+            <input  class="radio-input" type="radio" name="compte" value="compte">
             <span class="radio-tile" style="height: 150px;width: 200px;">
                 <span class="radio-icon"></span>
                 <span class="radio-label">Compte</span>
