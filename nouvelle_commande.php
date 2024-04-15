@@ -1,4 +1,24 @@
 <?php
+  session_start();
+  if (isset($_SESSION['id_client'])){
+    $hostname = 'localhost';
+    $username = 'root';
+    $password = '';
+    $dbName = 'app';
+    $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $pdo->prepare('SELECT * FROM client WHERE id_client = :id');
+    $stmt->bindParam(':id', $_SESSION['id_client']);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC); //tableau qui contient tous les donnes du client avec les cles sont les champs du table client
+  }
+  else {
+    header('Location:acceuil.php');
+    exit();
+  }
+  
+  ?>
+  <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -52,106 +72,45 @@ if (isset($_POST['payment-method'])) {
 }
 if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
   $page = 6 ;
-}
+} ?>
+  
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="espace_client.css">
+    <link rel="stylesheet" href="nouvelle_commande.css">
 
-$nom_cli = $_POST['nom_ex'] ?? '';
-$prenom_cli = $_POST['prenom_ex'] ?? '';
-$adresse_cli = $_POST['adresse_ex'] ?? '';
-$email_cli = $_POST['email_ex'] ?? '';
-$num_tel_cli = $_POST['numtel_ex'] ?? '';
-$ville_cli = $_POST['ville_ex'] ?? '';
-$code_postal = $_POST['code_postal'] ?? '';
-$type_cli = 'expediteur';
-
-// Informations de connexion à la base de données
-$host = 'localhost';
-$dbname = 'mysql';
-$username = 'root';
-$password = '';
-
-try {
-    // Connexion à la base de données MySQL
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Préparation de la requête d'insertion
-    $sql = "INSERT INTO client (nom_cli, prenom_cli, adresse_cli, email_cli, num_tel_cli, ville_cli, code_postal_cli, type_cli) 
-            VALUES (:nom_cli, :prenom_cli, :adresse_cli, :email_cli, :num_tel_cli, :ville_cli, :code_postal, :type_cli)";
-    $stmt = $pdo->prepare($sql);
-
-    // Liaison des valeurs aux paramètres de la requête
-    $stmt->bindParam(':nom_cli', $nom_cli);
-    $stmt->bindParam(':prenom_cli', $prenom_cli);
-    $stmt->bindParam(':adresse_cli', $adresse_cli);
-    $stmt->bindParam(':email_cli', $email_cli);
-    $stmt->bindParam(':num_tel_cli', $num_tel_cli);
-    $stmt->bindParam(':ville_cli', $ville_cli);
-    $stmt->bindParam(':code_postal', $code_postal);
-    $stmt->bindParam(':type_cli', $type_cli);
-
-    // Exécution de la requête d'insertion
-    $stmt->execute();
-
-    // Redirection vers une page de confirmation
-    header("Location: envoi.php?message=Votre compte a été créé avec succès");
-    exit();
-} catch (PDOException $e) {
-    // En cas d'erreur, affichage du message d'erreur
-    echo "Erreur lors de l'insertion des données : " . $e->getMessage();
-}
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tuni Relais </title>
-  <link rel="stylesheet" href="envoi.css">
-  <link rel="stylesheet" href="nav.css">
-  <script src="envoi.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=1.4.2"></script>
-
-</head>
-<body>
-<nav>
-      <ul>
-        <li><a href="acceuil.php">acceuil</a></li>
-        <li><a href="#">suivi de colis </a></li>
-        <li><a href="index.php">envoi de colis</a></li>
-        <li><a href="#">Nos points de relais </a></li>
-        <li>
-        <div id="loginContainer" style="padding-top: 2.5px;">
-          <div id="loginButton" style="display: flex; align-items: center; justify-content: center; width: fit-content;">
-            <span>Connexion</span>
+  </head>
+  <body>
+        <nav> 
+              <div class="nav_items">
+              <div ><img src="" alt="logo"></div>
+              <div ><span style="font-weight:bold; font-size:20px; margin-left:18%;">Espace client</span></div>
+                  <span style="display:flex; text-align:center; position:absolute;right:2%;">Bonjour <?php echo $result['prenom_cli']?></span>  
+              </div>   
+        </nav>
+        <div class="container">
+          <div class="second_nav">
+            
+            <ul>
+              <li> <a href="">Nouvelle Commande</a></li>
+              <li> <a href="">Suivi Des Commandes </a></li>
+              <li> <a href="">Reclamation</a></li>
+              <li><a href="">Mon Profil</a></li>
+              <li>
+              <form style="background-color:white; padding:0; width:fit-content; margin:0;" action="logout.php"><input type="submit" id="logout" name="logout" value="Deconnexion"></form> </li></ul>
+              <div style="color:white;">
+              <ul>
+              <li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li></ul>
+              
+              </div>
+           
           </div>
-          <div style="clear:both"></div>
-          <div id="loginBox">                
-              <form id="loginForm">
-                  <fieldset id="body">
-                      <fieldset>
-                          <label for="email">Adresse email</label>
-                          <input type="text" name="email" id="email-log" />
-                      </fieldset>         
-                      <fieldset>
-                          <label for="password">Mot de passe</label>
-                          <input type="password" name="password" id="password" />
-                      </fieldset>
-                      <input type="submit" id="login" value="Je me connecte" />
-                      <span style="text-align:right; text-decoration: underline;"><a href="#">Mot de passe oublié?</a></span>
-                      <input type="button" id="signup" value="Créer un compte" />
-
-                      <!-- <a href="signup.html" style="border: 1px solid black; width: 100%; display: block; height: 30px; text-align: center; vertical-align: center;">Créer un compte</a> -->
-              </form>
-          </div>
-      </div>
-        </div>
-      </div></li>
-      </ul>
-    </nav> 
-    <script src="nav.js"></script>
-  <!--detail de expédireur-->
-      <div class="login-box">
+          <div class="main">
+          <div class="login-box">
         <?php 
           if($page == 1)
           echo '
@@ -430,10 +389,8 @@ else if ($page==6)
      <h4>Merci pour votre confiance</h4>
       </div>
       </div>';
-      ?>
-      
-</div>
-    <footer>
+      ?> 
+        <footer>
           <img src="" alt="logo">
           <span>Copyright &copy;.All right reserved</span>
           <span>Mail:<a href="#">relaiscolis2024@gmail.com</a></span> 
@@ -443,14 +400,13 @@ else if ($page==6)
               <ul>
                 <li><a href="#"><img src="images/icons8-facebook-48.png" alt=""></a></li>
                 <li><a href="#"><img src="images/icons8-instagram-48.png" alt=""></a></li>
-                <li> <a href="#"><img src="images/icons8-linkedin-48.png" alt="instagram"></a></li>
+                <li> <a href=""><img src="images/icons8-linkedin-48.png" alt="instagram"></a></li>
                 <li> <a href="#"><img src="images/icons8-twitter-48.png" alt="twitter"></a></li>
                 <li><a href="#"><img src="images/icons8-pinterest-48.png" alt="pinterest"></a></li>
               </ul>
           </div>
-  </footer>
 
-   
-</body>
-       
-</html>
+      </footer>
+  </body>
+  </html>
+  

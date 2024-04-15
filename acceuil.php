@@ -22,93 +22,75 @@
             <span>Connexion</span>
           </div>
           <div style="clear:both"></div>
-          <div id="loginBox"> 
-                 
-              <form id="loginForm" action="acceuil.php" method="POST">
-                  <fieldset id="body">
-                      <fieldset>
-                          <label id="email" for="email">Adresse email</label>
-                          <input type="text" name="email" id="email" />
-                      </fieldset>
-                      <fieldset>
-                          <label  id="password" for="pwd">Mot de passe</label>
-                          <input type="password" name="pwd" id="password" />
-                          <?php
-//  if (isset($_SESSION['id'])){
-//     header('Location:espace_client.php');
-// }
- 
-// declare(strict_types=1);
-// Database connection details
-$hostname = 'localhost';
-$username = 'root';
-$password = '';
-$dbName = 'app';
-session_start();
-try {
-    // Create a PDO instance for database connection
-    $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          <div id="loginBox">
+          <form id="loginForm" action="acceuil.php" method="POST">
+    <fieldset id="body">
+            <fieldset >
+            <label for="" >Se conecter en tant que:</label>
+            <label>
+              <input type="radio" name="option" style="width:fit-content;" value="option1"  required>
+              livreur
+            </label>
 
-    // Check if the form is submitted
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $email = $_POST['email'] ?? '';
-        $password = $_POST['pwd'] ?? '';
+            <label>
+              <input type="radio" name="option" style="width:fit-content;" value="option2" required >
+              client
+            </label>
+        </fieldset> 
+        <fieldset>
+            <label id="emailLabel" for="email">Adresse email</label>
+            <input type="text" name="email" id="email" />
+        </fieldset>
+        <fieldset>
+            <label id="passwordLabel" for="pwd">Mot de passe</label>
+            <input type="password" name="pwd" id="password" />
+            <span id="error-msg" style="color:red;"></span>
+        </fieldset>
+        <input type="submit" id="login" value="Je me connecte" />
+        <span style="text-align:right; text-decoration: underline;"><a href="#">Mot de passe oublié?</a></span>
+        <input type="button" id="signup" value="Créer un compte" />
+    </fieldset>
+    </form>
 
-        // Prepare a SQL statement to select the username and password from the database
-        $stmt = $pdo->prepare('SELECT * FROM client WHERE email_cli = :email');
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        // foreach($result as  $val=>$key){
-        //     echo $val;
-        //     echo "<br>";
-        // }
-        
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form submission
 
-        if ($result) {
-            // Username exists in the database
-            $a = $result['email_cli'];
-            $b = $result['mot_de_passe'];
-            $c=$result['nom_cli'];
-            $d=$result['prenom_cli'];
-            $e=$result['id_client'];
-            $f=$result['num_tel_cli'];
-            $g=$result['adresse_cli'];
-            // Verify the password
-            if ($password==$b) {
-                // Password matches
-                // header("Location: espace_client.php");
-                $_SESSION['id_client'] = $e;
-                header('Location:espace_client.php');
-                exit();
-            } else {
-              // echo"<span style='color:red;'>mot de passe incorrecte<span>"; 
-              // echo"<script>window.alert('mot de passe incorrecte')</script>";
-               echo"<span  style='color:red;'>mot de passe incorrecte</span>";                
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        // Create an XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
 
+        // Prepare the request
+        xhr.open("POST", "login.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        // Set up the callback function
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var response = xhr.responseText;
+                    console.log(response);
+                    if (response === "") {
+                      console.log("before ");
+                        window.location.href = "espace_client.php";
+                        console.log("after");
+                    } else { 
+                        document.getElementById("error-msg").textContent = response;
+                    }
+                } else {
+                    console.log("Error: " + xhr.status);
+                }
             }
-        } else {
-            
-            // echo"<script>window.alert('email incorrecte')</script>";
-            echo"<span  style='color:red;'>email incorrecte</span>";                
-          }
-    }
-} catch (PDOException $e) {
-    die('Database connection failed: ' . $e->getMessage());
-}
-?>
-                      </fieldset>
-                      <!-- <div id="error_msg" class="hidden">mot de passe incorrecte.</div> -->
-                      <input type="submit" id="login" value="Je me connecte" />
-                      <span style="text-align:right; text-decoration: underline;"><a href="#">Mot de passe oublié?</a></span>
-                      <input type="button" id="signup" value="Créer un compte" />
+        };
 
-                      <!-- <a href="signup.html" style="border: 1px solid black; width: 100%; display: block; height: 30px; text-align: center; vertical-align: center;">Créer un compte</a> -->
-              </form>
+        // Send the request
+        xhr.send("email=" + encodeURIComponent(email) + "&pwd=" + encodeURIComponent(password));
+    });
+   </script>
              
        
-          </div>
+       </div>
       </div>
         </div>
       </div></li>

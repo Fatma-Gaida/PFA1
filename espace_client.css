@@ -1,0 +1,281 @@
+body{
+margin: 0;
+padding: 0;
+height:fit-content;
+}
+nav {z-index:2;
+    width: 100%;
+    min-height:8vh;
+    height: fit-content;
+    background-color: #96154a;
+    display: flex;
+    align-items:center;
+    text-align: center;
+    position:fixed;
+    padding: 0;
+    margin: 0;
+
+}
+nav div {
+    height: fit-content;
+    align-items: center;
+    display:flex;
+    width:33%;
+    padding-left:0;
+
+
+}
+.nav_items{
+    width: 80%; 
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.move_down{
+    width:fit-content;
+    display: flex;
+    position: absolute;
+    right: 0;
+    padding-left: 5px;
+    padding-right: 25px;
+    
+ 
+}
+
+.move_down:hover{
+    background-color:#96145a;
+}
+
+nav h1{
+    font-size: 20px;
+    text-align: center;
+    width: fit-content;
+    color: white;
+}
+nav span{ 
+          color:white;
+          position:relative;
+          align-items: center;
+          min-width: fit-content;
+          text-align: center;
+        
+}
+.container{
+    display: flex;
+    height:fit-content;
+}
+.second_nav {
+    margin-top:8vh;
+    width: 15%;
+    overflow-y:scroll;
+    border-left: solid 2px #96154a;
+}
+.main{
+    width: 80%;
+    height:fit-content;
+    margin-top:5%;
+    display: flex;
+    flex-direction: column;
+    /* background: rgb(239, 238, 238); */
+
+}
+.second_nav a {
+    text-decoration: none;
+    color:#96145a;
+   
+}
+.second_nav ul{
+    height: 80%;
+    scrollbar-width: 10px;
+    list-style: none;
+
+
+}
+.second_nav li {
+    margin-top:20%;
+}
+
+form{
+    border-radius: 10px;
+    margin-top:4%;
+    width:40%;
+    margin-left:5%;
+    margin-right:5% ;
+    height:fit-content;
+    padding-bottom: 20px;
+    color: #96154a;
+    background: rgb(239, 238, 238); 
+    padding-top: 10px;
+}
+input {
+    width:80%;
+    background-color:white;
+    border-top:none;
+    border-left: none;
+    border-right: none;
+    border-bottom:1px #96145a solid;
+    border-radius: 0px;
+    /* border-radius: 5px; */
+    height: 20px;
+    background: rgb(239, 238, 238);
+}
+textarea {
+    background-color:white;
+    border-bottom:1px #96145a solid;
+    border-radius: 10px;
+    background: rgb(239, 238, 238);
+}
+textarea:focus{
+    outline: none;
+    background-color:white;
+    border-bottom:1px #96145a solid;
+    border-radius: 10px;
+    background: rgb(239, 238, 238);
+}
+
+input:focus{
+    background: rgb(239, 238, 238);
+    border-top:none;
+    border-left: none;
+    border-right: none;
+    border-bottom:1px #96145a solid;
+    border-radius: 0px;
+    outline: none;
+
+    
+}
+.compte{
+    display: flex;
+    flex-direction: column;
+}
+.part1{
+    width: 40%;
+    margin-left: 10%;
+}
+
+.part2{
+    width: 40%;
+    margin-left: 10%;
+}
+#button{
+    margin-left:40%;
+    margin-right: 0;
+    background-color: #96154a;
+    width:40%;
+    height: 20px;
+    padding: 0;
+    color: white;
+}
+#button:hover{
+    background-color: white;
+    color: #96154a;
+}
+footer{
+    display: flex;
+    flex-direction: column;
+    margin-top:0;
+    height:fit-content;
+    background-color: #96154a;
+    width: 100%;
+    
+  }
+  footer{
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  footer span {
+    color: white;
+    margin-top:20px;
+    text-align: center;
+    text-decoration: none ;
+  }
+  footer a{
+    color: white;
+    margin-top:20px;
+    text-align: center;
+    text-decoration: none ;
+  }
+  footer p{
+    margin-left:20% ;
+    color: #fff;
+    font-size: 35px;
+    margin-top:0;
+    margin-bottom: 0;
+    width:fit-content;
+  }
+  footer div{
+    margin-left: 10%;
+    width: 80%;
+    margin-top:0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  
+  }
+  footer ul{
+    display: flex;
+    list-style: none;
+    padding-left:35%;
+    width: 10%;
+    margin: 0;
+  }
+  ul img{
+    height: 40px;
+  }
+
+  #logout{
+    background: white;
+    border: none;
+    color:#96145a;
+    width: fit-content;
+    padding: 0;
+    margin: 0;
+  }
+  #buttont{
+    background-color:#96145a;
+    border: solid 1px #96145a;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    height:30px;
+    width: fit-content;
+    display: flex;
+    margin-top: 10%;
+    margin-left:70% ;
+    color: white;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+
+  }
+  #button2{
+    background-color:#96145a;
+    border: solid 1px #96145a;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    height:30px;
+    width: fit-content;
+    display: flex;
+    margin-top: 10%;
+    margin-left:40% ;
+    color: white;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+
+  }
+  #buttont img{
+    width: 20px;
+    height: 20px;
+  }
+  #buttonj{
+    color: white;
+  }
+  .nav-link.active {
+    /* Add your desired decoration or styling here */
+    font-weight: bold;
+    color: red;
+    /* Add more styles as needed */
+  }
+
+
+  
