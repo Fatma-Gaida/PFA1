@@ -58,8 +58,6 @@ nav button{
 nav a:hover, nav button:hover {
   color: #ff5c84;
 }
-
-
 nav button:hover {
   background-color: #ff5c84;
   color: #fff;
@@ -563,13 +561,5 @@ ul img{
   height: 40px;
 }
 
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-th, td {
-  border: 1px solid black;
-  padding: 8px;
-  text-align: center;
-}
+
 

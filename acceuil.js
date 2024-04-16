@@ -19,9 +19,6 @@ $(function() {
       }
   });
 }); 
-
-
-
  var textWrapper = document.querySelector('.ml14 .letters');
   var words = textWrapper.textContent.split(' ');
 

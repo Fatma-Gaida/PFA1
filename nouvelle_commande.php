@@ -1,191 +1,57 @@
 <?php
+  session_start();
+  if (isset($_SESSION['id_client'])){
+    $hostname = 'localhost';
+    $username = 'root';
+    $password = '';
+    $dbName = 'app';
+    $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $pdo->prepare('SELECT * FROM client WHERE id_client = :id');
+    $stmt->bindParam(':id', $_SESSION['id_client']);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC); //tableau qui contient tous les donnes du client avec les cles sont les champs du table client
+  }
+  else {
+    header('Location:acceuil.php');
+    exit();
+  }
+  
+  ?>
+  <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-$page =  1 ; 
-// Fonction pour calculer le prix en fonction du poids du colis
-function calculerPrixColis($poids) {
-  // Tableau des tranches de poids et des prix correspondants
-  $tranches_prix = array(
-    "0.5" => 5.00,
-    "1" => 5.25,
-    "2" => 5.50,
-    "3" => 5.75,
-    "4" => 6.00,
-    "5" => 6.50,
-    "6" => 7.00,
-    "7" => 7.50,
-    "10" => 8.50,
-    "15" => 9.00,
-    "20" => 9.50
-  );
-
-  // Parcours des tranches de poids
-  foreach ($tranches_prix as $tranche => $prix) {
-      // Vérifie si le poids du colis est inférieur ou égal à la tranche actuelle
-      if ($poids <= $tranche) {
-          // Sortie du prix correspondant
-          return $prix;
-      }
-  }
-  // Si aucun prix n'est trouvé, retourner un message d'erreur ou une valeur par défaut
-  return "Poids non pris en charge";
+$page =  1 ;
+if( isset($_POST['page1'])){
+  // traitmenet de verification du contenu de la page 
+  // si c'est vrai alors incrémenter variable page et refresh
+  // si c'est faux rester dans la méme page et afficher les erreurs
+  
+  $page = 2 ;
 }
-
-session_start();
-
-$id_colis = $_SESSION['id_colis'] ?? null;
-$id_client_expediteur = $_SESSION['id_client_expediteur'] ?? null;
-$id_client_destinataire = $_SESSION['id_client_destinataire'] ?? null;
-
-if( $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page1'])){
-  // Traitement de vérification du contenu de la page 
+if (isset($_POST['page2']) && $_POST['page2'] == "Continuer") {
+  // Traitement de vérification du contenu de la page
   // Si c'est vrai alors incrémenter la variable page et refresh
   // Si c'est faux rester dans la même page et afficher les erreurs
-  $nom_cli = $_POST['nom_ex'];
-  $prenom_cli = $_POST['prenom_ex'];
-  $adresse_cli = $_POST['adresse_ex'];
-  $email_cli = $_POST['email_ex'];
-  $num_tel_cli = $_POST['numtel_ex'];
-  $ville_cli = $_POST['ville_ex'];
-  $code_postal_cli_ex = $_POST['code_postal_cli_ex'];
-  $type_cli = 'expediteur';
-  $_SESSION['pr_ex'] = $_POST['pr_ex'];
-
-  echo "Récupération terminée  ";
-
-  // Informations de connexion à la base de données
-  $host = 'localhost';
-  $dbname = 'mysql';
-  $username = 'root';
-  $password = '';
-
-  try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "ouverture de la base de données  ";
-    $sql = "INSERT INTO client (nom_cli,prenom_cli,type_cli,adresse_cli,email_cli,num_tel_cli,ville_cli,code_postal_cli) VALUES ('$nom_cli', '$prenom_cli', '$type_cli' ,'$adresse_cli', '$email_cli', '$num_tel_cli', '$ville_cli', '$code_postal_cli_ex')";
-
-    $pdo->query($sql);
-
-    $id_client_expediteur = $pdo->lastInsertId();
-    $_SESSION['id_client_expediteur'] = $id_client_expediteur;
-    $page = 2 ;
-  } catch (PDOException $e) {
-      echo "Erreur lors de l'insertion des données : " . $e->getMessage();
-  }
-
+  $page = 3; // Mettre à jour pour passer à la page suivante
 }
-
-echo "$id_client_expediteur ";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page2']) && $_POST['page2'] == "Continuer") {
-  $nom_cli = $_POST['nom_d'];
-  $prenom_cli = $_POST['prenom_d'];
-  $adresse_cli = $_POST['adresse_d'];
-  $email_cli = $_POST['email_d'];
-  $num_tel_cli = $_POST['numtel_d'];
-  $ville_cli = $_POST['ville_d'];
-  $code_postal_cli_d = $_POST['code_postal_cli_d'];
-  $type_cli = 'destinataire';
-  $_SESSION['pr_d'] = $_POST['pr_d'];
-  echo "Récupération terminée  ";
-
-  // Informations de connexion à la base de données
-  $host = 'localhost';
-  $dbname = 'mysql';
-  $username = 'root';
-  $password = '';
-
-  try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "ouverture de la base de données  ";
-    $sql = "INSERT INTO client (nom_cli,prenom_cli,type_cli,adresse_cli,email_cli,num_tel_cli,ville_cli,code_postal_cli) VALUES ('$nom_cli', '$prenom_cli', '$type_cli' ,'$adresse_cli', '$email_cli', '$num_tel_cli', '$ville_cli', '$code_postal_cli_d')";
-
-    $pdo->query($sql);
-
-    $id_client_destinataire = $pdo->lastInsertId();
-    $_SESSION['id_client_destinataire'] = $id_client_destinataire;
-    $page = 3 ; // Mettre à jour pour passer à la page suivante
-  } catch (PDOException $e) {
-      echo "Erreur lors de l'insertion des données : " . $e->getMessage();
-  }
-
-}
-
-echo "$id_client_destinataire ";
 
 if( isset($_POST['page2']) && $_POST['page2'] == "Retourner"){
-  
+  // traitmenet de verification du contenu de la page 
+  // si c'est vrai alors incrémenter variable page et refresh
+  // si c'est faux rester dans la méme page et afficher les erreurs
   $page = 1 ;
 }
 if( isset($_POST['page3']) && $_POST['page3'] == "Retourner"){
- 
+  // traitmenet de verification du contenu de la page 
+  // si c'est vrai alors incrémenter variable page et refresh
+  // si c'est faux rester dans la méme page et afficher les erreurs
   $page = 2 ;
 }
-if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page3']) && $_POST['page3'] == "Continuer"){
-  $contenance = $_POST['contenance'];
-  $poids= $_POST['poids'];
-  $largeur = $_POST['largeur'];
-  $longueur = $_POST['longueur'];
-  $description = $_POST['description'];
-  $date_depot = $_POST['date_depot'];
-  $pr_d= $_SESSION['pr_d'];
-  $pr_ex= $_SESSION['pr_ex'];
-  $_SESSION['prix']=calculerPrixColis($poids);
-  echo "Récupération terminée  ";
-
-  // Informations de connexion à la base de données
-  $host = 'localhost';
-  $dbname = 'mysql';
-  $username = 'root';
-  $password = '';
-  echo "$contenance ; $poids ; $largeur ; $longueur ; $description ; $date_depot ; $pr_ex ; $pr_d ";
- 
-  try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "ouverture de la base de données  ";
-    $sql = "INSERT INTO colis (poids_colis,type_colis,date_depot_colis,position_actuelle,point_relais_initiale,point_relais_finale,longeur_colis,largeur_colis,description) VALUES ('$poids', '$contenance', '$date_depot' ,'$pr_ex','$pr_ex','$pr_d', '$longueur', '$largeur', '$description')";
-    $pdo->query($sql);
-
-    $id_colis = $pdo->lastInsertId();
-    $_SESSION['id_colis'] = $id_colis;
-    $page = 4 ; // Mettre à jour pour passer à la page suivante
-  } catch (PDOException $e) {
-      echo "Erreur lors de l'insertion des données : " . $e->getMessage();
-  }
-
+if( isset($_POST['page3']) && $_POST['page3'] == "Continuer"){
+  $page = 4 ;
 }
-
-echo "$id_colis";
-
-if( isset($_POST['page4'])){
-  $host = 'localhost';
-  $dbname = 'mysql';
-  $username = 'root';
-  $password = '';
-
-  echo "$id_colis, $id_client_expediteur";
-
-  try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "ouverture de la base de données  ";
-
-    $sql_insert_deposer_recuperer = "INSERT INTO deposer_recuperer (id_colis, id_client) VALUES ('$id_colis','$id_client_expediteur')";
-    $pdo->query($sql_insert_deposer_recuperer);
-
-    $sql = "INSERT INTO deposer_recuperer (id_colis, id_client) VALUES ('$id_colis','$id_client_destinataire')";
-    $pdo->query($sql);
-
-  } catch (PDOException $e) {
-      echo "Erreur lors de l'insertion des données dans la table deposer_recuperer : " . $e->getMessage();
-  }
-}
-
-
 
 if( isset($_POST['page4']) && $_POST['page4'] == "Retourner"){
   $page =  3;
@@ -206,62 +72,45 @@ if (isset($_POST['payment-method'])) {
 }
 if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
   $page = 6 ;
-}
+} ?>
+  
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="espace_client.css">
+    <link rel="stylesheet" href="nouvelle_commande.css">
 
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tuni Relais </title>
-  <link rel="stylesheet" href="envoi.css">
-  <link rel="stylesheet" href="nav.css">
-  <script src="envoi.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=1.4.2"></script>
-
-</head>
-<body>
-<nav>
-      <ul>
-      <li><img src="images/logo.png"  style="margin-left:0%"  alt="logo"></li>
-        <li><a href="acceuil.php">acceuil</a></li>
-        <li><a href="#">suivi de colis </a></li>
-        <li><a href="envoi.php">envoi de colis</a></li>
-        <li><a href="#">Nos points de relais </a></li>
-        <li>
-        <div id="loginContainer" style="padding-top: 2.5px;">
-          <div id="loginButton" style="display: flex; align-items: center; justify-content: center; width: fit-content;">
-            <span>Connexion</span>
+  </head>
+  <body>
+        <nav> 
+              <div class="nav_items">
+              <div ><img src="" alt="logo"></div>
+              <div ><span style="font-weight:bold; font-size:20px; margin-left:18%;">Espace client</span></div>
+                  <span style="display:flex; text-align:center; position:absolute;right:2%;">Bonjour <?php echo $result['prenom_cli']?></span>  
+              </div>   
+        </nav>
+        <div class="container">
+          <div class="second_nav">
+            
+            <ul>
+              <li> <a href="">Nouvelle Commande</a></li>
+              <li> <a href="">Suivi Des Commandes </a></li>
+              <li> <a href="">Reclamation</a></li>
+              <li><a href="">Mon Profil</a></li>
+              <li>
+              <form style="background-color:white; padding:0; width:fit-content; margin:0;" action="logout.php"><input type="submit" id="logout" name="logout" value="Deconnexion"></form> </li></ul>
+              <div style="color:white;">
+              <ul>
+              <li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li></ul>
+              
+              </div>
+           
           </div>
-          <div style="clear:both"></div>
-          <div id="loginBox">                
-              <form id="loginForm">
-                  <fieldset id="body">
-                      <fieldset>
-                          <label for="email">Adresse email</label>
-                          <input type="text" name="email" id="email-log" />
-                      </fieldset>         
-                      <fieldset>
-                          <label for="password">Mot de passe</label>
-                          <input type="password" name="password" id="password" />
-                      </fieldset>
-                      <input type="submit" id="login" value="Je me connecte" />
-                      <span style="text-align:right; text-decoration: underline;"><a href="#">Mot de passe oublié?</a></span>
-                      <input type="button" id="signup" value="Créer un compte" />
-
-                      <!-- <a href="signup.html" style="border: 1px solid black; width: 100%; display: block; height: 30px; text-align: center; vertical-align: center;">Créer un compte</a> -->
-              </form>
-          </div>
-      </div>
-        </div>
-      </div></li>
-      </ul>
-    </nav> 
-    <script src="nav.js"></script>
-  <!--detail de expédireur-->
-      <div class="login-box">
+          <div class="main">
+          <div class="login-box">
         <?php 
           if($page == 1)
           echo '
@@ -309,18 +158,18 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
             </div>
             
             <div class="user-box">
-            <input type="text" name="code_postal_cli_ex" required="">
+            <input type="text" name="code_postal_cli" required="">
             <label>Code postal</label>
           </div>
             <label>Point de Relais</label><br>
             <div class="select">
-            <select name="pr_ex">
-              <option value="option1">First select</option>
-              <option value="option2">Option</option>
-              <option value="option3">Option</option>
-              <option value="option4">Option</option>
-              <option value="option5">Option</option>
-              <option value="option6">Option</option>
+            <select>
+              <option>First select</option>
+              <option>Option</option>
+              <option>Option</option>
+              <option>Option</option>
+              <option>Option</option>
+              <option>Option</option>
             </select>
             </div>
             </div></div>
@@ -368,7 +217,7 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
           </div>
           <div class="part2">
             <div class="user-box">
-              <input type="text" name="prenom_d" required="">
+              <input type="text" name="prenom-d" required="">
               <label>Prénom</label>
             </div>
             <div class="user-box">
@@ -378,18 +227,18 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
             </div>
         
             <div class="user-box">
-            <input type="text" name="code_postal_cli_d" required="">
+            <input type="text" name="code_postal_cli" required="">
             <label>Code postal</label>
           </div>
             <label>Point de Relais</label><br>
             <div class="select">
-            <select name="pr_d">
-              <option value="option1">First select</option>
-              <option value="option2">Option</option>
-              <option value="option3">Option</option>
-              <option value="option4">Option</option>
-              <option value="option5">Option</option>
-              <option value="option6">Option</option>
+            <select>
+              <option>First select</option>
+              <option>Option</option>
+              <option>Option</option>
+              <option>Option</option>
+              <option>Option</option>
+              <option>Option</option>
             </select>
             </div>
           </div>
@@ -477,7 +326,7 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
      
       <form class="form" action="envoi.php" method="POST">
   <h4 style="text-align: center ; margin-left: 0px; ">Montant total à payer</h4>
-  <div class="prix">'.$_SESSION['prix'].' DT</div>
+  <div class="prix">1366</div>
   <p>C\'est le prix effectif de colis cette prix peut diminuer en fonction de delai de livraison et de nombre d\'itération</p>
   <h4 style="margin-left: 25%;">Sélectionnez votre méthode de paiement</h4>
   <div class="radio-inputs">
@@ -536,15 +385,13 @@ else if ($page==6)
      <p>
      Nous vous enverrons un e-mail pour vous informer que votre colis est arrivé au point de relais de destination.<br><br>
      Vous pourrez suivre son cheminement de livraison d\'un point de relais à un autre jusqu\'à sa destination en utilisant la fonctionnalité "Suivi de colis".
-     Il vous suffira d\'entrer l\'identifiant de votre colis : ' . $id_colis . '</p>
+     Il vous suffira d\'entrer l\'identifiant de votre colis</p>
      <h4>Merci pour votre confiance</h4>
       </div>
       </div>';
-      ?>
-      
-</div>
-    <footer>
-    <img src="images/logo.png"  style="width:10% ;height:30%;margin-bottom:0%"  alt="logo">
+      ?> 
+        <footer>
+          <img src="" alt="logo">
           <span>Copyright &copy;.All right reserved</span>
           <span>Mail:<a href="#">relaiscolis2024@gmail.com</a></span> 
           <span>Phone:+216 50 100 100</span>
@@ -553,14 +400,13 @@ else if ($page==6)
               <ul>
                 <li><a href="#"><img src="images/icons8-facebook-48.png" alt=""></a></li>
                 <li><a href="#"><img src="images/icons8-instagram-48.png" alt=""></a></li>
-                <li> <a href="#"><img src="images/icons8-linkedin-48.png" alt="instagram"></a></li>
+                <li> <a href=""><img src="images/icons8-linkedin-48.png" alt="instagram"></a></li>
                 <li> <a href="#"><img src="images/icons8-twitter-48.png" alt="twitter"></a></li>
                 <li><a href="#"><img src="images/icons8-pinterest-48.png" alt="pinterest"></a></li>
               </ul>
           </div>
-  </footer>
 
-   
-</body>
-       
-</html>
+      </footer>
+  </body>
+  </html>
+  

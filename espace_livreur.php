@@ -1,23 +1,4 @@
-<?php
-  session_start();
-  if (isset($_SESSION['id_client'])){
-    $hostname = 'localhost';
-    $username = 'root';
-    $password = '';
-    $dbName = 'app';
-    $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $pdo->prepare('SELECT * FROM client WHERE id_client = :id');
-    $stmt->bindParam(':id', $_SESSION['id_client']);
-    $stmt->execute();
-    $result = $stmt->fetch(PDO::FETCH_ASSOC); //tableau qui contient tous les donnes du client avec les cles sont les champs du table client4
-  }
-  else {
-    header('Location:acceuil.php');
-    exit();
-  }
-  ?>
-  <!DOCTYPE html>
+<!DOCTYPE html>
   <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -29,31 +10,20 @@
         <nav> 
               <div class="nav_items">
               <div ><img src="" alt="logo"></div>
-              <div ><span style="font-weight:bold; font-size:20px; margin-left:18%;">Espace client</span></div>
-                  <span style="display:flex; text-align:center; position:absolute;right:2%;">Bonjour <?php echo $result['prenom_cli']?></span>  
+              <div ><span style="font-weight:bold; font-size:20px; margin-left:18%;">Espace livreur</span></div>
+                  <span style="display:flex; text-align:center; position:absolute;right:2%;">Bonjour<?php// echo $result['prenom_cli']?></span>  
               </div>   
         </nav>
         <div class="container">
           <div class="second_nav">
             
             <ul>
-              <li> <a href="nouvelle_commande.php" class="nav-link">Nouvelle Commande</a></li>
-              <li> <a href="suivi.php" class="nav-link">Suivi Des Commandes </a></li>
-              <li> <a href="reclamation.php" class="nav-link">Reclamation</a></li>
-              <li><a href="" class="nav-link active">Mon Profil</a></li>
+              <li> <a href="#" class="nav-link">Nouvelle Commande</a></li>
+              <li> <a href="#" class="nav-link">livraisons effectués</a></li>
+              <li> <a href="#" class="nav-link">Reclamation</a></li>
+              <li><a href="#" class="nav-link active">Mon Profil</a></li>
               <li>
-              <form style="background-color:white; padding:0; width:fit-content; margin:0;" action="espace_client.php"><input type="submit" id="logout" name="logout" value="Deconnexion"></form> </li></ul>
-              <?php
-// Check if the logout button was clicked
-if (isset($_POST['logout'])) {
-    session_unset();
-    // Destroy the session
-    session_destroy();
-    // Redirect to the login page or any other desired page
-    header('Location:acceuil.php');
-    exit();
-}
-?>
+              <form style="background-color:white; padding:0; width:fit-content; margin:0;" action="logout.php"><input type="submit" id="logout" name="logout" value="Deconnexion"></form> </li></ul>
               <div style="color:white;">
               <ul>
               <li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li></ul>
@@ -71,23 +41,23 @@ if (isset($_POST['logout'])) {
                     <div class="part1">
                     <br>
                     <label for="" >Prenom:</label>  <br>
-                    <input type="text" value=<?php echo $result['prenom_cli'] ;?> name="prenom"><br> <br>
+                    <input type="text" value=<?php// echo $result['prenom_cli'] ;?> name="prenom"><br> <br>
                     <label  for="">Numero de telephone:</label> <br>
-                    <input type="Number" name="numtel" value=<?php echo $result['num_tel_cli'] ;?>> <br> <br>
+                    <input type="Number" name="numtel" value=<?php //echo $result['num_tel_cli'] ;?>> <br> <br>
                     <label  for="">Ville:</label> <br>
-                    <input type="text" name="ville" value=<?php echo $result['ville_cli'] ;?>> <br> <br>
+                    <input type="text" name="ville" value=<?php //echo $result['ville_cli'] ;?>> <br> <br>
                     <label  for="">Email:</label> <br>
-                    <input type="text" name="email" value=<?php echo $result['email_cli'] ;?>> <br> <br>
+                    <input type="text" name="email" value=<?php //echo $result['email_cli'] ;?>> <br> <br>
 
                     </div>
                     <div class="part2">
                     <br>
                     <label for="">Nom:</label>  <br>
-                    <input type="text" value="<?php echo $result['nom_cli'] ;?>" name="nom"><br> <br>
+                    <input type="text" value="<?php //echo $result['nom_cli'] ;?>" name="nom"><br> <br>
                     <label  for="">Adresse:</label> <br>
-                    <input type="text" name="adresse" value="<?php echo $result['adresse_cli'];?>"> <br> <br>
+                    <input type="text" name="adresse" value="<?php //echo $result['adresse_cli'];?>"> <br> <br>
                     <label  for="">Code Postale:</label> <br>
-                    <input type="text"value=<?php echo $result['code_postale'] ;?> name="code_postale"> <br> <br>
+                    <input type="text"value=<?php //echo $result['code_postale'] ;?> name="code_postale"> <br> <br>
                    <br>
                     <br> <br>
                     <input type="submit" id="button" name="button" value="Valider">
@@ -126,27 +96,27 @@ if (isset($_POST['logout'])) {
                       <label  for="" >Nouveau mot de passe:</label> <br>
                       <input type="password"name="new_password" ><br> <br> <br>
                       <?php
-                    $a = isset($_POST['actual']) ? $_POST['actual'] : "";
-                    $new = isset($_POST['new_password']) ? $_POST['new_password'] : "";
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST' &&(isset($_POST['button2']))) {
-                      if ($a == $result['mot_de_passe']) {
-                        if  ($new =='') {
-                          echo "<span style='color:red'>Le nouveau mot de passe ne doit pas être vide.</span>";
-                        } else {
-                          $b = $result['id_client'];
-                          $sql = "UPDATE client SET mot_de_passe = :new_password WHERE id_client = :id_client";
-                          $stmt = $pdo->prepare($sql);
-                          $stmt->bindParam(':new_password', $new);
-                          $stmt->bindParam(':id_client', $b);
-                          $stmt->execute();
-                          echo "<br>mot de passe a été bien changé ";
-                        }
-                      } else {
-                        echo "<span style='color:red'>mot de passe actuel incorrecte</span>";
+                    // $a = isset($_POST['actual']) ? $_POST['actual'] : "";
+                    // $new = isset($_POST['new_password']) ? $_POST['new_password'] : "";
+                    // if ($_SERVER['REQUEST_METHOD'] === 'POST' &&(isset($_POST['button2']))) {
+                    //   if ($a == $result['mot_de_passe']) {
+                    //     if  ($new =='') {
+                    //       echo "<span style='color:red'>Le nouveau mot de passe ne doit pas être vide.</span>";
+                    //     } else {
+                    //       $b = $result['id_client'];
+                    //       $sql = "UPDATE client SET mot_de_passe = :new_password WHERE id_client = :id_client";
+                    //       $stmt = $pdo->prepare($sql);
+                    //       $stmt->bindParam(':new_password', $new);
+                    //       $stmt->bindParam(':id_client', $b);
+                    //       $stmt->execute();
+                    //       echo "<br>mot de passe a été bien changé ";
+                    //     }
+                    //   } else {
+                    //     echo "<span style='color:red'>mot de passe actuel incorrecte</span>";
                         
-                      }
-                    }
-                    ?>
+                    //   }
+                    // }
+                    // ?>
                       <input type="submit" id="button2" name="button2" value=" Mettre à jour ">
                      
                     

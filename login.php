@@ -1,7 +1,7 @@
 <?php
-//  if (isset($_SESSION['id'])){
-//     header('Location:espace_client.php');
-// }
+ if (isset($_SESSION['id'])){
+    header('Location:espace_client.php');
+}
  
 // declare(strict_types=1);
 // Database connection details
@@ -45,21 +45,23 @@ try {
                 // Password matches
                 // header("Location: espace_client.php");
                 $_SESSION['id_client'] = $e;
-                header('Location:espace_client.php');
+                // header('Location:espace_client.php');
                 exit();
             } else {
-                $errorMsg = 'Mot de passk ghalett!!.';
+                $errorMsg = 'Mot de passe invalide.';
                 
             }
         } else {
             // Username does not exist
-            echo 'eamil ghalet';
-        }
+            echo 'eamil incorrecte';
+        }   
         if (!empty($errorMsg)) {
-            echo '<p>' . $errorMsg . '</p>';
+            echo  $errorMsg;
         }
+        
     }
 } catch (PDOException $e) {
     die('Database connection failed: ' . $e->getMessage());
 }
+
 ?>
