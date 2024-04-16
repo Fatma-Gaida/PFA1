@@ -12,6 +12,7 @@
 <body> 
     <nav>
       <ul>
+      <li><img src="images/logo.png"  style="width:30% ;height:30%;margin-left:0%"  alt="logo"></li>
         <li><a href="#">acceuil</a></li>
         <li><a href="#">suivi de colis </a></li>
         <li><a href="envoi.php">envoi de colis</a></li>
@@ -141,9 +142,47 @@
           
 
       </div>
+      <div style="background-color:#FFCDD2; margin-bottom:50px;margin-top:50px;">
+      <h1 style="text-align: center; color:#96144a; font-size:30px; ">Nos tarifs</h1>
+      <table>
+  <tr>
+  <th>Poids</th>
+    <th>< 0,500 kg</th>
+    <th><1 kg</th>
+    <th><2 kg</th>
+    <th><3 kg</th>
+    <th><4 kg</th>
+    <th><5 kg</th>
+    <th><6 kg</th>
+    <th><7 kg</th>
+    <th><10 kg</th>
+    <th><15 kg</th>
+    <th><20 kg</th>
+    </tr>
+
+  <tr>
+    <th>Prix</th>
+    <td>5.000 DT</td>
+    <td>5.250 DT</td>
+    <td>5.500 DT</td>
+    <td>5.750 DT</td>
+    <td>6.000 DT</td>
+    <td>6.500 DT</td>
+    <td>7.000 DT</td>
+    <td>7.500 DT</td>
+    <td>8.500 DT</td>
+    <td>9.000 DT</td>
+    <td>9.500 DT</td>
+    
+  </tr>
+ 
+</table>
+<p style="text-align: center;">Le prix de livraison peut varier en fonction de durée de livraison , la distance parcourue et le nombre de colis livré par livraison </p>
+    
+    </div>
 
       <footer>
-          <img src="" alt="logo">
+          <img src="images/logo.png"  style="width:10% ;height:30%;margin-bottom:0%"  alt="logo">
           <span>Copyright &copy;.All right reserved</span>
           <span>Mail:<a href="#">relaiscolis2024@gmail.com</a></span> 
           <span>Phone:+216 50 100 100</span>

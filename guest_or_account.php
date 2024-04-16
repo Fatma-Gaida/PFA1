@@ -77,7 +77,42 @@
     <input style="margin-left:33%;" class="button2" type="submit" name="page0" value="Continuer"/>
     </div>
         </form>
-      </div>';
+      </div>
+      <table>
+  <tr>
+  <th>Poids</th>
+    <th>< 0,500 kg</th>
+    <th><1 kg</th>
+    <th><2 kg</th>
+    <th><3 kg</th>
+    <th><4 kg</th>
+    <th><5 kg</th>
+    <th><6 kg</th>
+    <th><7 kg</th>
+    <th><10 kg</th>
+    <th><15 kg</th>
+    <th><20 kg</th>
+    </tr>
+
+  <tr>
+    <th>Prix</th>
+    <td>5.000 DT</td>
+    <td>5.250 DT</td>
+    <td>5.500 DT</td>
+    <td>5.750 DT</td>
+    <td>6.000 DT</td>
+    <td>6.500 DT</td>
+    <td>7.000 DT</td>
+    <td>7.500 DT</td>
+    <td>8.500 DT</td>
+    <td>9.000 DT</td>
+    <td>9.500 DT</td>
+    
+  </tr>
+ 
+</table>
+
+      ';
       ?>
         <footer>
           <img src="" alt="logo">
