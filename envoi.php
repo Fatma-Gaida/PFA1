@@ -326,8 +326,8 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
             </div></div>
   
             <div  class="boutons">
-            <input class="button1" type="submit" name="page1" value="Retourner"/>
-          <input class="button2" type="submit" name="page1" style="margin-top: 45px ;" value="Continuer"/>
+            
+          <input class="button2" type="submit" name="page1" style="margin-top: 45px ;margin-left:33%;" value="Continuer"/>
           </div>
          
           </form>

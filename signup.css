@@ -23,7 +23,9 @@ body{
   .login-box .user-box {
     position: relative;
   }
-  .form1{display: flex; margin-top:5%}
+  .form1{ 
+    margin-top:5%;
+   }
   .part1{
     margin-left: 70px;
     margin-right: 20px;
@@ -125,7 +127,8 @@ margin-right: 9%; }
   -webkit-transition: 500ms;
   transition: 500ms;
   width:35%; 
-  height:40px;}
+  height:40px;
+margin-left: 30%;}
 
     .button2:hover {
       -webkit-box-shadow: 1px 1px 13px #a81753, -1px -1px 13px #545b78;

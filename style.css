@@ -560,6 +560,15 @@ footer ul{
 ul img{
   height: 40px;
 }
-
+table {
+  border-collapse: collapse;
+  width: 83%;
+  margin-left: 10%;
+}
+th, td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: center;
+}
 
 
