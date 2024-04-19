@@ -4,7 +4,7 @@
     $hostname = 'localhost';
     $username = 'root';
     $password = '';
-    $dbName = 'app';
+    $dbName = 'mysql';
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $pdo->prepare('SELECT * FROM client WHERE id_client = :id');
@@ -65,10 +65,10 @@ if (isset($_POST['logout'])) {
             <div> <div><h1 style="color:#96154a;">Mon Profil</h1> <span>Gérez votre profil en toute sécurité</span></div> 
             <hr> 
                   <div style="display:flex;">
-                  <form  class="compte" method="POST"  action="espace_client.php">
+                  <form  class="compte1" method="POST"  action="espace_client.php">
                     <div><span style="font-weight:bold; margin-left:10%;">COMPTE</div>
                     <div style="display:flex">
-                    <div class="part1">
+                    <div class="part11">
                     <br>
                     <label for="" >Prenom:</label>  <br>
                     <input type="text" value=<?php echo $result['prenom_cli'] ;?> name="prenom"><br> <br>
@@ -87,7 +87,7 @@ if (isset($_POST['logout'])) {
                     <label  for="">Adresse:</label> <br>
                     <input type="text" name="adresse" value="<?php echo $result['adresse_cli'];?>"> <br> <br>
                     <label  for="">Code Postale:</label> <br>
-                    <input type="text"value=<?php echo $result['code_postale'] ;?> name="code_postale"> <br> <br>
+                    <input type="text" name="code_postal_cli" value="<?php echo $result['code_postal_cli'] ;?>" > <br> <br>
                    <br>
                     <br> <br>
                     <input type="submit" id="button" name="button" value="Valider">
@@ -103,8 +103,8 @@ if (isset($_POST['logout'])) {
                      $email_cli = $_POST['email'];
                      $num_tel_cli = $_POST['numtel'];
                      $ville_cli = $_POST['ville']; 
-                     $cp=$_POST['code_postale'];
-                     $sql = "UPDATE client SET nom_cli = '$nom_cli', prenom_cli = '$prenom_cli', adresse_cli = '$adresse_cli', email_cli = '$email_cli', num_tel_cli = '$num_tel_cli', ville_cli = '$ville_cli', code_postale = '$cp'";                    
+                     $cp=$_POST['code_postal_cli'];
+                     $sql = "UPDATE client SET nom_cli = '$nom_cli', prenom_cli = '$prenom_cli', adresse_cli = '$adresse_cli', email_cli = '$email_cli', num_tel_cli = '$num_tel_cli', ville_cli = '$ville_cli', code_postal_cli = '$cp'";                    
                      $pdo->query($sql);
                      echo" <br> <br>Vos données ont été modifié";
                     } else { echo "<script>console.log('me dkhaltch ll theniya');</script>"; } }
@@ -113,10 +113,10 @@ if (isset($_POST['logout'])) {
                     </div></div>
                  
                   </form>
-                  <form  class="compte" action="espace_client.php"  method="POST">
+                  <form  class="compte1" action="espace_client.php"  method="POST">
                     <div><span style="font-weight:bold; margin-left:10%;">CHANGER LE MOT DE PASSE</div>
                     <div style="display:flex">
-                    <div class="part1">
+                    <div class="part11">
                     <br>
                     <label for=""> Mot de passe actuel</label>  <br>
                     <input type="password" name="actual"><br> <br>

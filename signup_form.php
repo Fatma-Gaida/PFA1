@@ -7,7 +7,7 @@ $num_tel_cli = $_POST['numtel'];
 $ville_cli = $_POST['ville'];
 $mot_de_passe = $_POST['pwd'];
 $host = 'localhost';
-$dbname = 'app';
+$dbname = 'mysql';
 $username = 'root';
 $password = '';
 try {

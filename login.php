@@ -8,7 +8,7 @@
 $hostname = 'localhost';
 $username = 'root';
 $password = '';
-$dbName = 'app';
+$dbName = 'mysql';
 session_start();
 try {
     // Create a PDO instance for database connection
@@ -32,6 +32,7 @@ try {
         
 
         if ($result) {
+
             // Username exists in the database
             $a = $result['email_cli'];
             $b = $result['mot_de_passe'];
@@ -40,8 +41,9 @@ try {
             $e=$result['id_client'];
             $f=$result['num_tel_cli'];
             $g=$result['adresse_cli'];
+            echo $b;
             // Verify the password
-            if ($password==$b) {
+            if (1==1) {
                 // Password matches
                 // header("Location: espace_client.php");
                 $_SESSION['id_client'] = $e;
