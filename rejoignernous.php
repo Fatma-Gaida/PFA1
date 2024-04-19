@@ -12,10 +12,8 @@
     $heures_fermeture=$_POST["heure_ferm"];
     $jours_disponible=$_POST["jours_dispo"];
     $capacitif_stockage=$_POST["stockage_d"];
-
-    
     $host = 'localhost';
-    $dbname = 'tunirelais';
+    $dbname = 'app';
     $username = 'root';
     $password = '';
     try {

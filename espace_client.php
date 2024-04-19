@@ -42,18 +42,21 @@
               <li> <a href="reclamation.php" class="nav-link">Reclamation</a></li>
               <li><a href="" class="nav-link active">Mon Profil</a></li>
               <li>
-              <form style="background-color:white; padding:0; width:fit-content; margin:0;" action="espace_client.php"><input type="submit" id="logout" name="logout" value="Deconnexion"></form> </li></ul>
+              <form action="?logout=true" method="get" style="background-color:white; padding:0; width:fit-content; margin:0;"><input type="submit" id="logout" name="logout" value="Deconnexion"></form> </li></ul>
               <?php
-// Check if the logout button was clicked
-if (isset($_POST['logout'])) {
-    session_unset();
-    // Destroy the session
-    session_destroy();
-    // Redirect to the login page or any other desired page
-    header('Location:acceuil.php');
-    exit();
-}
-?>
+              // Vérifier si le formulaire de déconnexion a été soumis
+              if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['logout'])) {
+                  // Détruire toutes les variables de session
+                  session_unset();
+                  
+                  // Détruire la session
+                  session_destroy();
+
+                  // Rediriger l'utilisateur vers la page de connexion
+                  header("Location: acceuil.php");
+                  exit;
+              }
+              ?>
               <div style="color:white;">
               <ul>
               <li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li></ul>

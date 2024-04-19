@@ -27,7 +27,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page1'])){
 
   // Informations de connexion à la base de données
   $host = 'localhost';
-  $dbname = 'mysql';
+  $dbname = 'app';
   $username = 'root';
   $password = '';
 
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page2']) && $_POST['pa
 
   // Informations de connexion à la base de données
   $host = 'localhost';
-  $dbname = 'mysql';
+  $dbname = 'app';
   $username = 'root';
   $password = '';
 
@@ -109,7 +109,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page3']) && $_POST['pag
 
   // Informations de connexion à la base de données
   $host = 'localhost';
-  $dbname = 'mysql';
+  $dbname = 'app';
   $username = 'root';
   $password = '';
   echo "$contenance ; $poids ; $largeur ; $longueur ; $description ; $date_depot ; $pr_ex ; $pr_d ";
@@ -131,10 +131,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page3']) && $_POST['pag
 }
 
 echo "$id_colis";
-
 if( isset($_POST['page4'])){
   $host = 'localhost';
-  $dbname = 'mysql';
+  $dbname = 'app';
   $username = 'root';
   $password = '';
 

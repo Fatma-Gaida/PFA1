@@ -19,7 +19,8 @@ try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['email'] ?? '';
         $password = $_POST['pwd'] ?? '';
-
+        $option=$_POST['option'] ?? '';
+        if ($option=='client'){
         // Prepare a SQL statement to select the username and password from the database
         $stmt = $pdo->prepare('SELECT * FROM client WHERE email_cli = :email');
         $stmt->bindParam(':email', $email);
@@ -29,8 +30,6 @@ try {
         //     echo $val;
         //     echo "<br>";
         // }
-        
-
         if ($result) {
             // Username exists in the database
             $a = $result['email_cli'];
@@ -59,7 +58,41 @@ try {
             echo  $errorMsg;
         }
         
+    } else if ($option=='livreur'){
+        $stmt = $pdo->prepare('SELECT * FROM livreur WHERE email_livreur = :email');
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            // Username exists in the database
+            $a = $result['email_cli'];
+            $b = $result['mot_de_passe'];
+            $c=$result['nom_cli'];
+            $d=$result['prenom_cli'];
+            $e=$result['id_client'];
+            $f=$result['num_tel_cli'];
+            $g=$result['adresse_cli'];
+            // Verify the password
+            if ($password==$b) {
+                // Password matches
+                // header("Location: espace_client.php");
+                $_SESSION['id_client'] = $e;
+                // header('Location:espace_client.php');
+                exit();
+            } else {
+                $errorMsg = 'Mot de passe invalide.';
+                
+            }
+        } else {
+            // Username does not exist
+            echo 'eamil incorrecte';
+        }   
+        if (!empty($errorMsg)) {
+            echo  $errorMsg;
+        }
+
     }
+}
 } catch (PDOException $e) {
     die('Database connection failed: ' . $e->getMessage());
 }

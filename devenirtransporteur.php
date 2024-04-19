@@ -2,21 +2,18 @@
 <?php
     $cin_livreur =$_POST["cin"];
     $nom_liv =$_POST["nom_l"];
-    $prenom_liv =$_POST["prenom_l"];
+    $prenom_liv =$_POST["prenom"];
     $disponibilite =$_POST["disponibilité"];
     $email_liv=$_POST["email_l"];
     $num_tel_liv=$_POST["numtel_l"];
     $adresse_liv=$_POST["adresse_l"];
     $ville_liv=$_POST["ville_l"];
     $moyen_transport=$_POST["tpye_trans"];
-    $zone_act_géo=$_POST["zone_d'activité"];
-    
-
-    
+    $zone_act_géo=$_POST["zone"];
     $host = 'localhost';
-    $dbname = 'tunirelais';
+    $dbname = 'app';
     $username = 'root';
-    $password = '';
+    $password = '';  
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

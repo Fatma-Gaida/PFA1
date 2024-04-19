@@ -1,3 +1,22 @@
+<?php
+  session_start();
+  if (isset($_SESSION['id_client'])){
+    $hostname = 'localhost';
+    $username = 'root';
+    $password = '';
+    $dbName = 'app';
+    $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $pdo->prepare('SELECT * FROM client WHERE id_client = :id');
+    $stmt->bindParam(':id', $_SESSION['id_client']);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC); //tableau qui contient tous les donnes du client avec les cles sont les champs du table client4
+  }
+  else {
+    header('Location:acceuil.php');
+    exit();
+  }
+  ?>
 <!DOCTYPE html>
   <html lang="en">
   <head>
@@ -11,12 +30,11 @@
               <div class="nav_items">
               <div ><img src="" alt="logo"></div>
               <div ><span style="font-weight:bold; font-size:20px; margin-left:18%;">Espace livreur</span></div>
-                  <span style="display:flex; text-align:center; position:absolute;right:2%;">Bonjour<?php// echo $result['prenom_cli']?></span>  
+                  <span style="display:flex; text-align:center; position:absolute;right:2%;">Bonjour<?php echo $result['prenom_cli']?></span>  
               </div>   
         </nav>
         <div class="container">
           <div class="second_nav">
-            
             <ul>
               <li> <a href="#" class="nav-link">Nouvelle Commande</a></li>
               <li> <a href="#" class="nav-link">livraisons effectués</a></li>

@@ -26,7 +26,7 @@
         </div>
         <div style="clear:both"></div>
         <div id="loginBox">                
-            <form id="loginForm">
+            <form id="loginForm"  >
                 <fieldset id="body">
                     <fieldset>
                         <label for="email">Adresse email</label>
@@ -52,7 +52,7 @@
   
       <div class="login-box">  
         <h4>Devenir un transporteur TUNI COLIS</h4>   
-        <form class="form" action="index.php" method="POST" onsubmit="return validateForm()">
+        <form class="form" action="devenirtransporteur.php" method="POST" onsubmit="return validateForm()">
           <div>
             <div class="section1" style="display: flex;">
           <div class="part1">
@@ -81,7 +81,7 @@
             </div>
         <div class="part2">
             <div class="user-box">
-            <input type="text" name="prenom-d" required="">
+            <input type="text" name="prenom" required="">
             <label>Prénom</label>
             </div>
 
@@ -91,16 +91,15 @@
               </div>
   
             <div class="user-box">
-            <input type="text" name="email_d" required onblur="validateEmail()">
+            <input type="text" name="email_l" required onblur="validateEmail()">
             <label>Adresse Email</label>
             </div>
-    
             <div class="user-box">
               <input type="text" name="tpye_trans" required="">
               <label>Marque de voiture</label>
               </div>
               <div class="user-box">
-                <input type="text" name="zone_d'activité " required="">
+                <input type="text" name="zone" required="">
                 <label>Zone d'activité géographique </label>
                 </div></div></div>
                 <div class="div2">
