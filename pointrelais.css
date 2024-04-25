@@ -1,0 +1,379 @@
+/* Reset styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Responsive layout */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font: 15px Arial, Helvetica, sans-serif;
+}
+
+nav {
+
+  font: bold 15px;
+  display: flex;
+  background-color: #96154a;
+  height: max-content;
+  justify-content: center;
+  position:fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+nav ul {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  height: 50px;
+  display: flex;
+  justify-content:center ;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  margin-left: 0%;
+}
+
+nav li {
+  margin: 0 8px;
+}
+
+nav a, nav button {
+  color: white;
+  text-decoration: none;
+  background-color: transparent;
+ 
+}
+nav button{
+  border: 1px solid white;
+  border-radius:5px;
+}
+
+nav a:hover, nav button:hover {
+  color: #ff5c84;
+}
+nav button:hover {
+  background-color: #ff5c84;
+  color: #fff;
+}
+
+nav button img {
+  height: 20px;
+  width: 20px;
+}
+
+
+
+
+
+/*-------LOGIN STARTS HERE -------*/
+
+/* Login Container (default to float:right) */
+#loginContainer {
+  position:relative;
+  float:right;
+  font-size:12px;
+}
+/* Login Button */
+#loginButton { 
+  display:inline-block;
+  /* float:right; */ 
+  border-radius:4px;
+  -moz-border-radius:3px;
+  position:relative;
+  z-index:30;
+  cursor:pointer;
+}
+#loginButton:hover{
+background-color:#ff5c84;
+}
+#loginButton.active{
+  background-color:#ff5c84;
+  }
+/* Login Button Text */
+#loginButton span {
+  color:white; 
+  font-size:14px; 
+  padding:7px 29px 9px 10px;
+  display:block
+}
+/* Login Box */
+#loginBox {
+  position:absolute;
+  top:34px;
+  right:0;
+  display:none;
+  z-index:29;
+}
+/* If the Login Button has been clicked */    
+#loginButton.active {
+  border-radius:3px 3px 0 0;
+}
+
+#loginButton.active span {
+  background-position:53px -76px;
+}
+
+/* A Line added to overlap the border */
+#loginButton.active em {
+  position:absolute;
+  width:100%;
+  height:1px;
+  background:#d2e0ea;
+  bottom:-1px;
+}
+
+/* Login Form */
+#loginForm {
+  width:248px; 
+  margin-top:-1px;
+  border-radius: 10px;
+  background:#ff5c84;
+  padding:6px;
+}
+
+#loginForm fieldset {
+  margin:0 0 12px 0;
+  display:block;
+  border:0;
+  padding:0;
+}
+
+fieldset#body {
+  background:#fff;
+  border-radius:3px;
+  -moz-border-radius:3px;
+  padding:10px 13px;
+  margin:0;
+}
+
+#body label {
+  color:#3a454d;
+  margin:9px 0 0 0;
+  display:block;
+  float:left;
+}
+
+#loginForm #body fieldset label {
+  display:block;
+  float:none;
+  margin:0 0 6px 0;
+}
+/* Default Input */
+#loginForm input {
+  width:92%;
+  border:1px solid #899caa;
+  border-radius:3px;
+  -moz-border-radius:3px;
+  color:#3a454d;
+  padding:8px 8px;
+  box-shadow:inset 0px 1px 3px #bbb;
+  -webkit-box-shadow:inset 0px 1px 3px #bbb;
+  -moz-box-shadow:inset 0px 1px 3px #bbb;
+  font-size:12px;
+}
+#loginForm #login:hover{
+
+background-color:white;
+border: #96154a 1px solid;
+}
+#loginForm #login:hover{
+color: #96154a;
+}
+
+/* Sign In Button */
+#loginForm #login {
+  width:100%;
+  /* float:left; */
+  color:white;
+  background-color: #96154a;
+  padding:7px 10px 8px 10px;
+  margin:0 12px 0 0;
+  cursor:pointer;
+  padding:7px 2px 8px 2px; /* IE7 Fix */
+}
+#loginForm #signup {
+  
+  width:100%;
+  /* float:left; */
+  color:white;
+  background-color: #96154a;
+  padding:7px 10px 8px 10px;
+  margin:0 12px 0 0;
+  cursor:pointer;
+  padding:7px 2px 8px 2px; /* IE7 Fix */
+
+}
+#loginForm #signup{
+  border: #96154a 1px solid;
+  }
+  #loginForm #signup:hover{
+  color: #96154a;
+  background-color: white;
+  }
+
+
+
+
+/* Forgot your password */
+#loginForm span {
+  text-align:center;
+  display:block;
+  padding:7px 0 4px 0;
+}
+
+#loginForm span a {
+  color:#3a454d;
+  font-size:12px;
+}
+
+input:focus {
+  outline:none;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  nav li {
+    margin: 5px 0;
+  }
+}
+#gif{
+    padding:100px 100px 50px 600px;
+    width:100%;
+    
+  }
+#image{
+    width:20%;
+ 
+  }
+ 
+  #titre{
+    text-align: center;
+    font-size: xx-large;
+   
+  }
+  .input-box {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    padding-left: 150px;
+  }
+  
+  .input-box input {
+    width: 50%; /* Ajustez la largeur selon vos besoins */
+    padding: 15px;
+    outline: none;
+    box-shadow: 0 0 5px #96154a;
+    border-radius: 5px;
+    
+  }
+ 
+
+
+
+#villes {
+    padding: 15px;
+    font-size: 1em;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 0 0 5px #96154a;
+    width: 50%;
+}
+  .btn{
+    margin: 20px;
+    background-color: #96154a; 
+    border-radius: 50px;
+    -webkit-box-shadow: -1px -5px 15px #96154a, 5px 5px 15px #d2d2d2,
+    inset 5px 5px 10px #96154a, inset -5px -5px 10px #d2d2d2;
+    box-shadow: -1px -5px 15px #d2d2d2, 5px 5px 15px #41465b,
+    inset 5px 5px 10px #a31c54, inset -5px -5px 10px #96154a;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-family: Consolas, Courier New, monospace;
+    border: solid #404c5d 1px;
+    font-size: 16px;
+    color: white;
+    -webkit-transition: 500ms;
+    transition: 500ms;
+    width: 20%; 
+    height: 20px;
+  }
+  footer{
+    display: flex;
+    flex-direction: column;
+    margin-top:8%;
+    background-color: #96154a;
+    width: 100%;
+    min-height:300px;
+  }
+  footer{
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  footer span {
+    color: white;
+    margin-top:20px;
+    text-align: center;
+    text-decoration: none ;
+  }
+  footer a{
+    color: white;
+    margin-top:20px;
+    text-align: center;
+    text-decoration: none ;
+  }
+  footer p{
+    margin-left:10% ;
+    color: #fff;
+    font-size: 35px;
+    margin-top:0;
+    margin-bottom: 0;
+    width:fit-content;
+  }
+  footer div{
+    margin-left: 6%;
+    width: 80%;
+    margin-top:60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  
+  }
+  footer ul{
+    display: flex;
+    list-style: none;
+    padding-left:50%;
+    width: 10%;
+    margin: 0;
+  }
+  ul img{
+    height: 40px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 83%;
+    margin-left: 10%;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  
+  
