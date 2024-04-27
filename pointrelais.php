@@ -110,8 +110,8 @@
         </div>
         <form class="form" action="pointrelais.php" method="get">
         <div class="input-box">
-            <input type="text" placeholder="code postal">
-            <select id="villes">
+            <input type="text" name="code_postal" placeholder="code postal"required >
+            <select name="ville" id="villes" required >
                 <option value="Tunis">Tunis</option>
                 <option value="Sfax">Sfax</option>
                 <option value="Sousse">Sousse</option>
@@ -129,67 +129,83 @@
                 <option value="Tataouine">Tataouine</option>
             </select>
             <button type="submit" class="btn">Trouver</button></div></form>
-<?php
-
-
+            <?php
     $hostname = 'localhost';
     $username = 'root';
-    $password = '05042002';
+    $password = '';
     $dbName = 'tunirelais';
+
+    // Create a PDO connection
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
+
     if (isset($_GET['code_postal']) && isset($_GET['ville'])) {
-      // Récupération des coordonnées du point de relais depuis le formulaire
-      $codePostal = $_GET['code_postal'];
-      $ville = $_GET['ville'];
+        // Récupération des coordonnées du point de relais depuis le formulaire
+        $codePostal = $_GET['code_postal'];
+        $ville = $_GET['ville'];
 
-      // Requête pour sélectionner les détails du point de relais à partir de la base de données
-      $query = "SELECT * FROM point_relais WHERE code_postal = :code_postal AND ville = :ville";
-      $stmt = $conn->prepare($query);
-      $stmt->bindParam(':code_postal', $codePostal);
-      $stmt->bindParam(':ville', $ville);
-      $stmt->execute();
+        // Requête pour sélectionner les détails du point de relais à partir de la base de données
+        $query = "SELECT * FROM point_relais WHERE code_postal = :code_postal AND ville = :ville";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':code_postal', $codePostal);
+        $stmt->bindParam(':ville', $ville);
+        $stmt->execute();
 
-      // Récupération des résultats de la requête
-      $pointRelais = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Récupération des résultats de la requête
+        $pointRelais = $stmt->fetch(PDO::FETCH_ASSOC);
 
-      if ($pointRelais) {
-          echo '<h2>Détails du point de relais :</h2>';
-          echo '<table>';
-          echo '<tr>';
-          echo '<th>ID_PR</th>';
-          echo '<th>HEURE_OUVERTURE</th>';
-          echo '<th>HEURE_FERMETURE</th>';
-          echo '<th>NOM_PR</th>';
-          // Ajoutez les autres colonnes ici
-          echo '</tr>';
-          echo '<tr>';
-          echo '<td>' . $pointRelais['ID_PR'] . '</td>';
-          echo '<td>' . $pointRelais['HEURE_OUVERTURE'] . '</td>';
-          echo '<td>' . $pointRelais['HEURE_FERMETURE'] . '</td>';
-          echo '<td>' . $pointRelais['NOM_PR'] . '</td>';
-          // Ajoutez les autres colonnes ici
-          echo '</tr>';
-          echo '</table>';
-      } else {
-          echo 'Aucun point de relais correspondant trouvé.';
-      }
-  }
-  ?>
+        if ($pointRelais) {
+          
+          echo '<link rel="stylesheet" type="text/css" href="pointrelais.css">';
+            echo '<h1 style=" text-align: center;
+            font-size: xx-large;" >Détails du point de relais :</h1>';
+            echo '<table style="border-collapse: collapse;
+            width: 80%;
+            margin: 0 auto; /* Center the table */
+            border-radius: 10px;
+            overflow: hidden; /* Hide overflow from rounded corners */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add a soft shadow */" >';
+            echo '<tr>';
+            echo '<th>Nom du Point Relais</th>';
+            echo '<th>Heure d\'ouverture</th>';
+            echo '<th>Heure de fermeture</th>';
+            echo '<th>Jours de disponibilité</th>';
+            echo '<th>Capacité de stockage</th>';
+            echo '<th>Activité</th>';
+            // Add more columns if needed
+            echo '</tr>';
+            echo '<tr>';
+            
+            echo '<td>' . $pointRelais['NOM_PR'] . '</td>';
+            echo '<td>' . $pointRelais['HEURE_OUVERTURE'] . '</td>';
+            echo '<td>' . $pointRelais['HEURE_FERMETURE'] . '</td>';
+            echo '<td>' . $pointRelais['JOURS_DISPONIBILITE'] . '</td>';
+            echo '<td>' . $pointRelais['CAPACITE_STOCKAGE'] . '</td>';
+            echo '<td>' . $pointRelais['ACTIVITE'] . '</td>';
+            // Add more cells if needed
+            echo '</tr>';
+            echo '</table>';
+        } else {
+            echo 'Aucun point de relais correspondant trouvé.';
+        }
+    }
+?>
+
   
         
         <footer>
-            <img src="" alt="logo">
+          
+            <img src="images/logo.png"  style="width:15% ;height:20%;margin-left:0%" alt="logo">
             <span>Copyright &copy;.All right reserved</span>
             <span>Mail:<a href="#">relaiscolis2024@gmail.com</a></span> 
             <span>Phone:+216 50 100 100</span>
             <div>
                 <p>Follow Us</p>
                 <ul>
-                  <li><a href="#"><img src="icon_facebook.png" alt="facebook"></a></li>
-                  <li><a href="#"><img src="icon_instagram.png" alt="instagram"></a></li>
-                  <li> <a href=""><img src="icon_linkedin.png" alt="linkedin"></a></li>
-                  <li> <a href="#"><img src="icon_twiter.png" alt="twitter"></a></li>
-                  <li><a href="#"><img src="icon_pinterest.png" alt="pinterest"></a></li>
+                <li><a href="#"><img src="images/icons8-facebook-48.png" alt="facebook"></a></li>
+                  <li><a href="#"><img src="images/icons8-instagram-48.png" alt="instagram"></a></li>
+                  <li> <a href=""><img src="images/icons8-linkedin-48.png" alt="linkedin"></a></li>
+                  <li> <a href="#"><img src="images/icons8-twitter-48.png" alt="twitter"></a></li>
+                  <li><a href="#"><img src="images/icons8-pinterest-48.png" alt="pinterest"></a></li>
                 </ul>
             </div>
         

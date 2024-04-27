@@ -1,0 +1,274 @@
+/*==============================================================*/
+/* Nom de SGBD :  Sybase SQL Anywhere 11                        */
+/* Date de cr ation :  24/04/2024 4:51:58 PM                    */
+/*==============================================================*/
+
+
+if exists(select 1 from sys.sysforeignkey where role='FK_COLIS_DEPOSER_CLIENT') then
+    alter table COLIS
+       delete foreign key FK_COLIS_DEPOSER_CLIENT
+end if;
+
+if exists(select 1 from sys.sysforeignkey where role='FK_COLIS_DEPOSER_I_POINT_RE') then
+    alter table COLIS
+       delete foreign key FK_COLIS_DEPOSER_I_POINT_RE
+end if;
+
+if exists(select 1 from sys.sysforeignkey where role='FK_COLIS_RECUPERER_CLIENT') then
+    alter table COLIS
+       delete foreign key FK_COLIS_RECUPERER_CLIENT
+end if;
+
+if exists(select 1 from sys.sysforeignkey where role='FK_COLIS_RECUPERER_POINT_RE') then
+    alter table COLIS
+       delete foreign key FK_COLIS_RECUPERER_POINT_RE
+end if;
+
+if exists(select 1 from sys.sysforeignkey where role='FK_LIVRAISO_ASSURE_LIVREUR') then
+    alter table LIVRAISON
+       delete foreign key FK_LIVRAISO_ASSURE_LIVREUR
+end if;
+
+if exists(select 1 from sys.sysforeignkey where role='FK_LIVRAISO_DEPOSER_D_POINT_RE') then
+    alter table LIVRAISON
+       delete foreign key FK_LIVRAISO_DEPOSER_D_POINT_RE
+end if;
+
+if exists(select 1 from sys.sysforeignkey where role='FK_LIVRAISO_RECUPERER_POINT_RE') then
+    alter table LIVRAISON
+       delete foreign key FK_LIVRAISO_RECUPERER_POINT_RE
+end if;
+
+if exists(select 1 from sys.sysforeignkey where role='FK_LIVRE_LIVRE_COLIS') then
+    alter table LIVRE
+       delete foreign key FK_LIVRE_LIVRE_COLIS
+end if;
+
+if exists(select 1 from sys.sysforeignkey where role='FK_LIVRE_LIVRE2_LIVRAISO') then
+    alter table LIVRE
+       delete foreign key FK_LIVRE_LIVRE2_LIVRAISO
+end if;
+
+if exists(
+   select 1 from sys.systable 
+   where table_name='CLIENT'
+     and table_type in ('BASE', 'GBL TEMP')
+) then
+    drop table CLIENT
+end if;
+
+if exists(
+   select 1 from sys.systable 
+   where table_name='COLIS'
+     and table_type in ('BASE', 'GBL TEMP')
+) then
+    drop table COLIS
+end if;
+
+if exists(
+   select 1 from sys.systable 
+   where table_name='LIVRAISON'
+     and table_type in ('BASE', 'GBL TEMP')
+) then
+    drop table LIVRAISON
+end if;
+
+if exists(
+   select 1 from sys.systable 
+   where table_name='LIVRE'
+     and table_type in ('BASE', 'GBL TEMP')
+) then
+    drop table LIVRE
+end if;
+
+if exists(
+   select 1 from sys.systable 
+   where table_name='LIVREUR'
+     and table_type in ('BASE', 'GBL TEMP')
+) then
+    drop table LIVREUR
+end if;
+
+if exists(
+   select 1 from sys.systable 
+   where table_name='POINT_RELAIS'
+     and table_type in ('BASE', 'GBL TEMP')
+) then
+    drop table POINT_RELAIS
+end if;
+
+/*==============================================================*/
+/* Table : CLIENT                                               */
+/*==============================================================*/
+create table CLIENT 
+(
+   ID_CLIENT            numeric                        not null,
+   NOM_CLI              long varchar                   null,
+   PRENOM_CLI           long varchar                   null,
+   TYPE_CLI             long varchar                   null,
+   ADRESSE_CLI          long varchar                   not null,
+   EMAIL_CLI            long varchar                   not null,
+   NUM_TEL_CLI          numeric(8)                     not null,
+   VILLE_CLI            long varchar                   not null,
+   MOTDEPASSE_CLIENT    long varchar                   not null,
+   VILLE                long varchar                   not null,
+   constraint PK_CLIENT primary key (ID_CLIENT)
+);
+
+/*==============================================================*/
+/* Table : COLIS                                                */
+/*==============================================================*/
+create table COLIS 
+(
+   ID_COLIS             numeric                        not null,
+   ID_CLIENT_EXPEDITEUR numeric                        not null,
+   ID_CLIENT_DESTINATAIRE numeric                        not null,
+   ID_PR_INITIAL        numeric                        not null,
+   ID_PR_FINALE         numeric                        not null,
+   POIDS_COLIS          numeric(8,2)                   not null,
+   TYPE_COLIS           long varchar                   not null,
+   DATE_DEPART_COLIS    timestamp                      not null,
+   COUT_COLIS_ESTIME    numeric(8,2)                   null,
+   COUT_EFFECTIF        numeric(8,2)                   not null,
+   LONGEUR_COLIS        numeric(8,2)                   null,
+   LARGEUR_COLIS        numeric(8,2)                   not null,
+   LONGUEUR_COLIS       numeric(8,2)                   not null,
+   constraint PK_COLIS primary key (ID_COLIS)
+);
+
+/*==============================================================*/
+/* Table : LIVRAISON                                            */
+/*==============================================================*/
+create table LIVRAISON 
+(
+   ID_LIVRAISON         numeric                        not null,
+   CIN_LIVREUR          numeric                        not null,
+   ID_PR_INI            numeric                        not null,
+   ID_PR_FIN            numeric                        not null,
+   DATE_LIVRAISON       date                           not null,
+   COUT_LIVRAISON       numeric(8,2)                   not null,
+   constraint PK_LIVRAISON primary key (ID_LIVRAISON)
+);
+
+/*==============================================================*/
+/* Table : LIVRE                                                */
+/*==============================================================*/
+create table LIVRE 
+(
+   ID_LIVRAISON         numeric                        not null,
+   ID_COLIS             numeric                        not null,
+   constraint PK_LIVRE primary key (ID_LIVRAISON, ID_COLIS)
+);
+
+/*==============================================================*/
+/* Table : LIVREUR                                              */
+/*==============================================================*/
+create table LIVREUR 
+(
+   CIN_LIVREUR          numeric                        not null,
+   NOM_LIV              long varchar                   null,
+   PRENOM_LIV           long varchar                   null,
+   JOURS_DISPONIBILITE  long varchar                   not null,
+   EMAIL_LIV            long varchar                   not null,
+   NUM_TEL_LIV          numeric(8)                     not null,
+   TYPE_TRANSPORT       long varchar                   not null,
+   MOTDEPASSE_LIV       long varchar                   not null,
+   constraint PK_LIVREUR primary key (CIN_LIVREUR)
+);
+
+/*==============================================================*/
+/* Table : POINT_RELAIS                                         */
+/*==============================================================*/
+create table POINT_RELAIS 
+(
+   ID_PR                numeric                        not null,
+   HEURE_OUVERTURE      time                           not null,
+   HEURE_FERMETURE      time                           not null,
+   NOM_PR               long varchar                   not null,
+   JOURS_DISPONIBILITE  long varchar                   not null,
+   VILLE                long varchar                   not null,
+   CAPACITE_STOCKAGE    long varchar                   not null,
+   CODE_POSTAL          numeric(4)                     not null,
+   NOM_PRIORITAIRE      long varchar                   not null,
+   PRENOM_PRIORITAIRE   long varchar                   not null,
+   NUM_TEL_PRIORITAIRE  numeric(8)                     not null,
+   EMAIL_PRIORITAIRE    long varchar                   not null,
+   ACTIVITE             long varchar                   not null,
+   constraint PK_POINT_RELAIS primary key (ID_PR)
+);
+
+alter table COLIS
+   add constraint FK_COLIS_DEPOSER_CLIENT foreign key (ID_CLIENT_EXPEDITEUR)
+      references CLIENT (ID_CLIENT)
+      on update restrict
+      on delete restrict;
+
+alter table COLIS
+   add constraint FK_COLIS_DEPOSER_I_POINT_RE foreign key (ID_PR_INITIAL)
+      references POINT_RELAIS (ID_PR)
+      on update restrict
+      on delete restrict;
+
+alter table COLIS
+   add constraint FK_COLIS_RECUPERER_CLIENT foreign key (ID_CLIENT_DESTINATAIRE)
+      references CLIENT (ID_CLIENT)
+      on update restrict
+      on delete restrict;
+
+alter table COLIS
+   add constraint FK_COLIS_RECUPERER_POINT_RE foreign key (ID_PR_FINALE)
+      references POINT_RELAIS (ID_PR)
+      on update restrict
+      on delete restrict;
+
+alter table LIVRAISON
+   add constraint FK_LIVRAISO_ASSURE_LIVREUR foreign key (CIN_LIVREUR)
+      references LIVREUR (CIN_LIVREUR)
+      on update restrict
+      on delete restrict;
+
+alter table LIVRAISON
+   add constraint FK_LIVRAISO_DEPOSER_D_POINT_RE foreign key (ID_PR_INI)
+      references POINT_RELAIS (ID_PR)
+      on update restrict
+      on delete restrict;
+
+alter table LIVRAISON
+   add constraint FK_LIVRAISO_RECUPERER_POINT_RE foreign key (ID_PR_FIN)
+      references POINT_RELAIS (ID_PR)
+      on update restrict
+      on delete restrict;
+
+alter table LIVRE
+   add constraint FK_LIVRE_LIVRE_COLIS foreign key (ID_COLIS)
+      references COLIS (ID_COLIS)
+      on update restrict
+      on delete restrict;
+
+alter table LIVRE
+   add constraint FK_LIVRE_LIVRE2_LIVRAISO foreign key (ID_LIVRAISON)
+      references LIVRAISON (ID_LIVRAISON)
+      on update restrict
+      on delete restrict;
+
+
+
+
+/*==============================================================*/
+/*                   POINT_RELAIS                               */
+/*==============================================================*/
+INSERT INTO point_relais (ID_PR, HEURE_OUVERTURE, HEURE_FERMETURE, NOM_PR, JOURS_DISPONIBILITE, VILLE, CAPACITE_STOCKAGE, CODE_POSTAL, NOM_PRIORITAIRE, PRENOM_PRIORITAIRE, NUM_TEL_PRIORITAIRE, EMAIL_PRIORITAIRE, ACTIVITE)
+VALUES
+  (1, '08:00:00', '18:00:00', 'omek houria', 'lun-dim', 'tunis', '100m²', 6072, 'boufaied', 'rahma', 12345678, 'rahma.boufaied@gmail.com', 'Restaurant'),
+   (2, '09:00:00', '17:00:00', 'chez nous', 'lun-dim', 'monastir', '50m²',  3214, 'raies', 'nasreddine', 98765432, 'nsayarh@example.com', 'Café'),
+    (3, '10:00:00', '16:00:00', 'drugstore', 'lun-sam', 'gabes', '75m²', 1023, 'zahra', 'fatma', 56789012, 'zahrafatma@example.com', 'drugstore'),
+      (4, '07:00:00', '19:00:00', 'para', 'lun-dim', 'sousse', '30m²', 7512, 'benahmed', 'ahmed', 13579246, 'ahmed@gmail.com', 'para pharmacie');
+
+
+
+
+
+
+
+
+
