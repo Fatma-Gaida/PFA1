@@ -12,9 +12,9 @@
 <body> 
     <nav>
       <ul>
-      <li><img src="images/logo.png"  style="width:30% ;height:30%;margin-left:0%"  alt="logo"></li>
+      <li><img src="images/logo.png"  style="width:30% ;height:30%;margin-left:0%;"  alt="logo"></li>
         <li><a href="#">acceuil</a></li>
-        <li><a href="#">suivi de colis </a></li>
+        <li><a href="suivi.php">suivi de colis </a></li>
         <li><a href="envoi.php">envoi de colis</a></li>
         <li><a href="#">Nos points de relais </a></li>
         <li>
@@ -113,7 +113,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
       </div> 
       <div class="div2">
-        <img src="images/429629069_784760153576710_8493998208963735973_n-removebg-preview.png" alt="images">
+        <img id="monImage" src="images/429629069_784760153576710_8493998208963735973_n-removebg-preview.png" alt="images">
       </div>
       </div>
       <div class="container0">
@@ -140,16 +140,24 @@
       </div>
       <h1 style="text-align: center; color:#96154a; font-size:30px; ">Rejoindre l’équipe Realis Colis.tn !</h1>
       <div class="container3">
-        <div class="div5">
-          <img src="images/2_trouver_relais@2x-300x180.png" alt="maison">
-          <h1>devenez un point de relais</h1><span style="color: black;">Proposez l'envoi et le retrait de colis dans votre boutique en donnant le sourire autour de vous, rejoignez-nous !</span>
-          <br><a href="rejoigner_nous.html">Rejoindre notre reseau</a>
-        </div>
-        <div class="div6">
-              <img src="images/tronspoter.png" style="width: 50%;height:140px; margin-left: 35%;" alt="">
-              <h1>devenez un tronsporteur</h1><span>Avec votre personnalité, tout roule en toutes circonstances ? Pour transporter le smile, rejoignez-nous !</span><br><a href="devenir_tronsport.html">Devenir transporteur</a>
-        </div>
-      </div>
+    <div class="div5 animated-left">
+    <div style="margin:10%;">
+        <img src="images/2_trouver_relais@2x-300x180.png" alt="maison">
+        <h1>Devenez un point de relais</h1>
+        <p  style="color:black;">Proposez l'envoi et le retrait de colis dans votre boutique en donnant le sourire autour de vous, rejoignez-nous !</p>
+        <br>
+        <a href="rejoigner_nous.html">Rejoindre notre réseau</a>
+    </div></div>
+    <div class="div6 animated-right">
+      <div style="margin:10%;">
+        <img src="images/tronspoter.png" style="width: 50%;height:140px; margin-left: 20%;" alt="">
+        <h1>Devenez un transporteur</h1>
+        <p>Avec votre personnalité, tout roule en toutes circonstances ? Pour transporter le sourire, rejoignez-nous !</p>
+        <br>
+        <a href="devenir_tronsport.html">Devenir transporteur</a>
+    </div>
+</div></div>
+
       <!-- <div style="background-color:#ffb9cd;"> -->
       <!-- <div style="background-color:#d7b8bd;"> -->
       <div style="background-color:#FFCDD2; margin-bottom:50px;">
@@ -231,9 +239,8 @@
 <p style="text-align: center;">Le prix de livraison peut varier en fonction de durée de livraison , la distance parcourue et le nombre de colis livré par livraison </p>
     
     </div>
-
-      <footer>
-          <img src="images/logo.png"  style="width:10% ;height:30%;margin-bottom:0%"  alt="logo">
+    <footer>
+        <img src="images/logo.png"  style="margin-right:100%;width: 20%;height:20%;"  alt="logo">
           <span>Copyright &copy;.All right reserved</span>
           <span>Mail:<a href="#">relaiscolis2024@gmail.com</a></span> 
           <span>Phone:+216 50 100 100</span>

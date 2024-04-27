@@ -27,9 +27,9 @@
   </head>
   <body>
         <nav> 
-              <div class="nav_items">
-              <div ><img src="" alt="logo"></div>
-              <div ><span style="font-weight:bold; font-size:20px; margin-left:18%;">Espace client</span></div>
+              <div style="margin-left: 0%;" class="nav_items">
+             
+              <div > <img src="images/logo.png"  style="margin-right:100%;width: 30%;height:30%;"  alt="logo"><span style="font-weight:bold; font-size:20px; margin-left:60%;">Espace client</span></div>
                   <span style="display:flex; text-align:center; position:absolute;right:2%;">Bonjour <?php echo $result['prenom_cli']?></span>  
               </div>   
         </nav>
@@ -42,7 +42,7 @@
               <li> <a href="reclamation.php" class="nav-link">Reclamation</a></li>
               <li><a href="" class="nav-link active">Mon Profil</a></li>
               <li>
-              <form style="background-color:white; padding:0; width:fit-content; margin:0;" action="espace_client.php"><input type="submit" id="logout" name="logout" value="Deconnexion"></form> </li></ul>
+              <form style="background-color:white; padding:0; font-size: 20px;width:fit-content; margin:0;" action="espace_client.php"><input type="submit" id="logout" name="logout" value="Deconnexion"></form> </li></ul>
               <?php
 // Check if the logout button was clicked
 if (isset($_POST['logout'])) {
@@ -66,7 +66,8 @@ if (isset($_POST['logout'])) {
             <hr> 
                   <div style="display:flex;">
                   <form  class="compte1" method="POST"  action="espace_client.php">
-                    <div><span style="font-weight:bold; margin-left:10%;">COMPTE</div>
+                    <div>
+                    <div><span style="font-weight:bold;  margin-left:40%;">COMPTE</div>
                     <div style="display:flex">
                     <div class="part11">
                     <br>
@@ -89,8 +90,9 @@ if (isset($_POST['logout'])) {
                     <label  for="">Code Postale:</label> <br>
                     <input type="text" name="code_postal_cli" value="<?php echo $result['code_postal_cli'] ;?>" > <br> <br>
                    <br>
-                    <br> <br>
-                    <input type="submit" id="button" name="button" value="Valider">
+                    <br> <br></div></div>
+                    <div>
+                    <input type="submit" id="button" name="button" value="Valider"></div>
                     <?php 
                     
                     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -110,15 +112,15 @@ if (isset($_POST['logout'])) {
                     } else { echo "<script>console.log('me dkhaltch ll theniya');</script>"; } }
                     
                     ?>
-                    </div></div>
+                    </div>
                  
                   </form>
                   <form  class="compte1" action="espace_client.php"  method="POST">
-                    <div><span style="font-weight:bold; margin-left:10%;">CHANGER LE MOT DE PASSE</div>
+                    <div><span style="font-weight:bold; margin-left:20%;text-align:center;">CHANGER LE MOT DE PASSE</div>
                     <div style="display:flex">
-                    <div class="part11">
+                    <div class="part11" >
                     <br>
-                    <label for=""> Mot de passe actuel</label>  <br>
+                    <label for=""> Mot de passe actuel :</label>  <br>
                     <input type="password" name="actual"><br> <br>
                     </div>
                     <div class="part2">
@@ -147,7 +149,9 @@ if (isset($_POST['logout'])) {
                       }
                     }
                     ?>
-                      <input type="submit" id="button2" name="button2" value=" Mettre à jour ">
+                    </div></div>
+                    <div><input type="submit" id="button2" name="button2" value=" Mettre à jour "></div>
+                      
                      
                     
                     </div></div>
@@ -160,7 +164,7 @@ if (isset($_POST['logout'])) {
           </div>
         </div>
         <footer>
-          <img src="" alt="logo">
+        <img src="images/logo.png"  style="margin-right:100%;width: 20%;height:20%;"  alt="logo">
           <span>Copyright &copy;.All right reserved</span>
           <span>Mail:<a href="#">relaiscolis2024@gmail.com</a></span> 
           <span>Phone:+216 50 100 100</span>

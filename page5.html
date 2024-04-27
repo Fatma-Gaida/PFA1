@@ -1,0 +1,24 @@
+<form class="form" action="envoi.php" method="POST" onsubmit="return validateForm5()">
+       
+    <div class="user-box">
+            <input type="text" name="titulaire" required>
+            <label>Titulaire de la Carte</label>
+        </div>
+        <div class="user-box">
+            <input type="text" name="numero_carte" required>
+            <label>Numero de la carte</label>
+        </div>
+      
+        <div class="user-box">
+            <input type="password"  id="code" name="code_securite" required onblur="onBlurCode()">
+            <div id="code-error" class="error-message"></div>
+            <label>Code de sécurité</label>
+        </div>
+        <label>Date d\'expiration</label></br>
+        <input type="Date" name="date_expiration" id="date" required=""></br>
+        
+    
+<div class="div2">
+<input class="button1" type="submit" name="page5" value="Retourner"/>
+<input class="button2" type="submit" name="page5" value="Terminer"/></div>
+</form>

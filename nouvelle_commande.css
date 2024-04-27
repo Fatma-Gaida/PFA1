@@ -18,10 +18,11 @@
       box-sizing: border-box;
       box-shadow: 0 15px 25px rgba(0,0,0,.6);
       border-radius: 10px;
-      margin-top: 4%;
+      margin-top: 2%;
     }
     .login-box .user-box {
       position: relative;
+      height: 20%;
     }
     .form1{margin-top:3%;
         width:100%;}
@@ -31,8 +32,9 @@
       margin-right: 20px;
       width: 50%;
     }
-    .part2{
+    .part2{margin-top: 0%;
       width: 50%;
+      margin-left: 0%;
       }
     .login-box .user-box input {
       width: 70%;
@@ -109,6 +111,7 @@
     .boutons {
         cursor: pointer;
         height: 10%;
+        margin-top: 2%;
       }
    
    .button1{
@@ -119,8 +122,41 @@
       width:35%; 
       height:40px;
    }
+   nav {z-index:2;
+    width: 100%;
+    min-height:8vh;
+    height: fit-content;
+    background-color: #96154a;
+    display: flex;
+    align-items:center;
+    text-align: center;
+    position:fixed;
+    padding: 0;
+    margin: 0;
+
+}
+nav div {
+    height: fit-content;
+    align-items: center;
+    display:flex;
+    width:33%;
+    padding-left:0;
+
+
+}
+.nav_items{
+    width: 80%; 
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.nav-link.active {
+  /* Add your desired decoration or styling here */
+  font-weight: bold;
+  color: #ff5c84;
+  /* Add more styles as needed */
+}
    .button2{
-      margin: 20px;
+      
       background-color: #96154a; 
       border-radius: 100px;
       -webkit-box-shadow: -1px -5px 15px #96154a, 5px 5px 15px #d2d2d2,
@@ -141,7 +177,8 @@
       -webkit-transition: 500ms;
       transition: 500ms;
       width:35%; 
-      height:40px;}
+      height:40px;
+    }
    
         .button2:hover {
           -webkit-box-shadow: 1px 1px 13px #a81753, -1px -1px 13px #545b78;
