@@ -220,10 +220,10 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
 <body>
 <nav>
       <ul>
-      <li><img src="images/logo.png"  style="margin-left:0%;"  alt="logo"></li>
+      <li><img src="images/logo.png"  style="width:30% ;height:30%;margin-left:0%;"  alt="logo"></li>
         <li><a href="acceuil.php">acceuil</a></li>
         <li><a href="suivi.php">suivi de colis </a></li>
-        <li><a href="">envoi de colis</a></li>
+        <li><a href="envoi.php">envoi de colis</a></li>
         <li><a href="#">Nos points de relais </a></li>
         <li>
         <div id="loginContainer" style="padding-top: 2.5px;">
