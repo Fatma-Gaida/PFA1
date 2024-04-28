@@ -151,7 +151,7 @@
             echo '<h1 style="text-align: center; font-size: xx-large; color: #96154a ;">Détails de votre colis :</h1>';
             echo '<table style="border-collapse: collapse; width: 80%; margin: 0 auto; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);">';
             echo '<tr>';
-            echo '<th>ID colis</th>';
+            
             echo '<th>ID client expéditeur</th>';
             echo '<th>ID client destinataire</th>';
             echo '<th>ID point relais initial</th>';
@@ -167,7 +167,7 @@
             echo '</tr>';
             echo '<tr>';
 
-            echo '<td>' . $colis['ID_COLIS'] . '</td>';
+           
             echo '<td>' . $colis['ID_CLIENT_EXPEDITEUR'] . '</td>';
             echo '<td>' . $colis['ID_CLIENT_DESTINATAIRE'] . '</td>';
             echo '<td>' . $colis['ID_PR_INITIAL'] . '</td>';
