@@ -1,0 +1,67 @@
+<div class="progression">
+    <ul id="progressbar">
+      <li class="active">Détails de l'expéditeur</li>
+      <li class="active">Détails du destinataire</li>
+      <li>Détails de colis</li>
+      <li>Option de paiment</li>
+    </ul>
+  </div>
+  <h4>Veuillez remplir les coordonnées de le destinataire</h4>
+  
+    <form class="form1" action="envoi.php" method="POST" onsubmit="return validateForm()">
+    <div class="section1">
+      <div class="part1">
+      <div class="user-box">
+        <input type="text" name="nom_d" required="">
+        <label>Nom</label>
+      </div>
+      <div class="user-box">
+        <input type="text" id="numero" name="numtel_d" required onblur="onBlurNumero()">
+        <div id="numero-error" class="error-message"></div>
+        <label>Numero de Téléphone</label>
+      </div>
+      <div class="user-box">
+        <input type="text" name="ville_d" required="">
+        <label>Ville</label>
+      </div>
+      <div class="user-box">
+        <input type="text" name="adresse_d" required="">
+        <label>Adresse</label>
+      </div>
+      
+    </div>
+    <div class="part2">
+      <div class="user-box">
+        <input type="text" name="prenom_d" required="">
+        <label>Prénom</label>
+      </div>
+      <div class="user-box">
+        <input type="text" name="email_d" id="email" required onblur="validateEmail()">
+        <div id="email-error" class="error-message"></div>
+        <label>Adresse Email</label>
+      </div>
+  
+      <div class="user-box">
+      <input type="text" name="code_postal_cli_d" required="">
+      <label>Code postal</label>
+    </div>
+      <label>Point de Relais</label><br>
+      <div class="select">
+      <select name="pr_d">
+        <option value="option1">First select</option>
+        <option value="option2">Option</option>
+        <option value="option3">Option</option>
+        <option value="option4">Option</option>
+        <option value="option5">Option</option>
+        <option value="option6">Option</option>
+      </select>
+      </div>
+    </div>
+    </div>
+      <div  class="boutons">
+      <input class="button1" type="submit" name="page2" value="Retourner"/>
+    <input class="button2" type="submit" name="page2" style="margin-top: 45px ;" value="Continuer"/>
+    </div>
+    
+
+    </form>

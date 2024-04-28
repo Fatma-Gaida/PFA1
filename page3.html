@@ -1,0 +1,62 @@
+<div class="progression">
+    <ul id="progressbar">
+      <li class="active">Détails de l'expéditeur</li>
+      <li class="active">Détails du destinataire</li>
+      <li class="active">Détails de colis</li>
+      <li>Option de paiment</li>
+    </ul>
+  </div>
+  <p>le prix de la livraison varie en fonction de caracteristiques de colis.</p>
+  <form class="form1" action="envoi.php" method="POST" onsubmit="return validateForm3()">
+  <div class="section1">
+    <div class="part1">
+    <div class="user-box">
+      <input type="text" name="contenance" required="">
+      <label>Contenance de colis</label>
+    </div>
+    <div class="user-box">
+      <input type="text" name="poids"  id="poids" required onblur="validatePoids()">
+      <div id="poids-error" class="error-message"></div>
+      <label>Poids de colis</label>
+    </div>
+    <div class="user-box">
+      <input type="text" name="longueur" required="">
+      <label>Longueur de colis </label>
+    </div>
+    <div class="user-box">
+    <input type="text" name="largeur" required="">
+    <label>Largeur de colis</label>
+  </div>
+    </div>
+  <div class="part2">
+    
+    <label id="fragilité">Fragilité</label><br>
+    <div class="checkbox">
+
+    <input type="checkbox" id="choix1" name="choix" value="choix1">
+    <label for="choix1">fragile &nbsp &nbsp &nbsp</label>
+
+    <input type="checkbox" id="choix2" name="choix" value="choix2">
+    <label for="choix2">non fragile</label><br>
+
+    <input type="checkbox" id="choix3" name="choix" value="choix3">
+    <label for="choix3">perimable</label>
+
+    <input type="checkbox" id="choix4" name="choix" value="choix4">
+    <label for="choix4">non perimable</label><br>
+      </div>
+
+      <label>Date de depot de colis </label></br>
+      <input type="Date" name="date_depot" id="date" required=""></br>
+
+      <label>Description</label><br>
+      <textarea id="description" name="description" ></textarea>
+      </div>
+      </div>
+      <div  class="boutons">
+      <input class="button1" type="submit" name="page3" value="Retourner"/>
+    <input class="button2" type="submit" name="page3" style="margin-top: 45px ;" value="Continuer"/>
+    </div>
+ 
+ 
+  </form>

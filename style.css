@@ -1,4 +1,7 @@
 /* Reset styles */
+*{
+  font-family:Arial, Helvetica, sans-serif;
+}
 html, body {
   height: 100%;
   margin: 0;
@@ -322,17 +325,59 @@ h1 {
   justify-content: center;
   font-weight:bold;
 } 
-.div5,.div6{
+.container3 {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
+.div5, .div6 {
   flex-direction: column;
   text-align: center;
   align-items: center;
-  /* background-color: #dcd7cf; */
-  border-radius:10px;
-  position: relative;
-  /* border: solid 1px black; */
-  margin-right: 5%;
+  background-color: #dcd7cf;
+  border-radius: 10px;
   width: 40%;
+  background: rgb(239, 238, 238);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+  opacity: 0; /* Divs hidden initially */
 }
+
+.animated-left {
+  animation: slideInLeft 1s forwards;
+}
+
+.animated-right {
+  animation: slideInRight 1s forwards;
+}
+
+/* Animation for sliding in from left */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Animation for sliding in from right */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
 a{
   color: #96154a;
 }
@@ -565,13 +610,36 @@ ul img{
 }
 table {
   border-collapse: collapse;
-  width: 83%;
-  margin-left: 10%;
+  width: 80%;
+  margin: 0 auto; /* Center the table */
+  border-radius: 10px;
+  overflow: hidden; /* Hide overflow from rounded corners */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add a soft shadow */
 }
+
 th, td {
-  border: 1px solid black;
-  padding: 8px;
+  border: 1px solid #ddd; /* Add a light gray border */
+  padding: 12px;
   text-align: center;
 }
+
+th {
+  background-color: #f2f2f2; /* Light gray background for table header */
+}
+
+td {
+  background-color: #fff; /* White background for table cells */
+}
+
+/* Alternate row background color */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Hover effect */
+tr:hover {
+  background-color: #f2f2f2;
+}
+
 
 
