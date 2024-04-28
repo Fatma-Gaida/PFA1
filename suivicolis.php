@@ -14,7 +14,7 @@
       <ul>
       <li><img src="images/logo.png"  style="width:30% ;height:30%;margin-left:0%"  alt="logo"></li>
         <li><a href="acceuil.php">acceuil</a></li>
-        <li><a href="#">suivi de colis </a></li>
+        <li><a href="suivicolis.php">suivi de colis </a></li>
         <li><a href="envoi.php">envoi de colis</a></li>
         <li><a href="pointrelais.php">Nos points de relais </a></li>
         <li>
