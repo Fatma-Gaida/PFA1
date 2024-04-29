@@ -26,10 +26,9 @@
     <link rel="stylesheet" href="espace_client.css">
   </head>
   <body>
-        <nav> 
-              <div class="nav_items">
-              <div ><img src="" alt="logo"></div>
-              <div ><span style="font-weight:bold; font-size:20px; margin-left:18%;">Espace client</span></div>
+        <nav>
+              <div style="margin-left: 0%;" class="nav_items">
+              <div ><img src="images/logo.png"  style="margin-right:100%;width: 30%;height:30%;"  alt="logo"><span style="font-weight:bold; font-size:20px; margin-left:60%;">Espace client</span></div>
                   <span style="display:flex; text-align:center; position:absolute;right:2%;">Bonjour <?php echo $result['prenom_cli']?></span>  
               </div>   
         </nav>

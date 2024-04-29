@@ -239,9 +239,8 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
   </head>
   <body>
         <nav> 
-              <div class="nav_items">
-              <div ><img src="" alt="logo"></div>
-              <div ><span style="font-weight:bold; font-size:20px; margin-left:18%;">Espace client</span></div>
+              <div style="margin-left: 0%;" class="nav_items">
+              <div > <img src="images/logo.png"  style="margin-right:100%;width: 30%;height:30%;"  alt="logo"><span style="font-weight:bold; font-size:20px; margin-left:60%;">Espace client</span></div>
                   <span style="display:flex; text-align:center; position:absolute;right:2%;">Bonjour <?php echo"foulen"?></span>  
               </div>   
         </nav>
@@ -249,7 +248,7 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
           <div class="second_nav">
             
             <ul>
-              <li> <a href="">Nouvelle Commande</a></li>
+              <li> <a href=""class="nav-link active">Nouvelle Commande</a></li>
               <li> <a href="">Suivi Des Commandes </a></li>
               <li> <a href="reclamation.php">Reclamation</a></li>
               <li><a href="espace_client.php">Mon Profil</a></li>
@@ -330,7 +329,7 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
    
              <div  class="boutons">
              
-           <input class="button2" type="submit" name="page1" style="margin-top: 45px ;margin-left:33%;" value="Continuer"/>
+           <input class="button2" type="submit" name="page1" style="margin-top: 0px ;margin-left:30%;" value="Continuer"/>
            </div>
           
            </form>
@@ -546,22 +545,23 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
        ?>
        
  </div></div></div></div>
-     <footer>
-     <img src="images/logo.png"  style="width:10% ;height:30%;margin-bottom:0%"  alt="logo">
-           <span>Copyright &copy;.All right reserved</span>
-           <span>Mail:<a href="#">relaiscolis2024@gmail.com</a></span> 
-           <span>Phone:+216 50 100 100</span>
-           <div>
-               <p>Follow Us</p>
-               <ul>
-                 <li><a href="#"><img src="images/icons8-facebook-48.png" alt=""></a></li>
-                 <li><a href="#"><img src="images/icons8-instagram-48.png" alt=""></a></li>
-                 <li> <a href="#"><img src="images/icons8-linkedin-48.png" alt="instagram"></a></li>
-                 <li> <a href="#"><img src="images/icons8-twitter-48.png" alt="twitter"></a></li>
-                 <li><a href="#"><img src="images/icons8-pinterest-48.png" alt="pinterest"></a></li>
-               </ul>
-           </div>
-   </footer>
+ <footer>
+        <img src="images/logo.png"  style="margin-right:100%;width: 20%;height:20%;"  alt="logo">
+          <span>Copyright &copy;.All right reserved</span>
+          <span>Mail:<a href="#">relaiscolis2024@gmail.com</a></span> 
+          <span>Phone:+216 50 100 100</span>
+          <div>
+              <p>Follow Us</p>
+              <ul>
+                <li><a href="#"><img src="images/icons8-facebook-48.png" alt=""></a></li>
+                <li><a href="#"><img src="images/icons8-instagram-48.png" alt=""></a></li>
+                <li> <a href=""><img src="images/icons8-linkedin-48.png" alt="instagram"></a></li>
+                <li> <a href="#"><img src="images/icons8-twitter-48.png" alt="twitter"></a></li>
+                <li><a href="#"><img src="images/icons8-pinterest-48.png" alt="pinterest"></a></li>
+              </ul>
+          </div>
+
+      </footer>
  
     
  </body>

@@ -1,3 +1,6 @@
+*{
+  font-family:Arial, Helvetica, sans-serif;
+}
 body{
 margin: 0;
 padding: 0;
@@ -66,8 +69,9 @@ nav span{
 .second_nav {
     margin-top:8vh;
     width: 15%;
+    font-size: 20px;
     overflow-y:scroll;
-    border-left: solid 2px #96154a;
+    /*border-right: solid 2px #96154a;*/
 }
 .main{
     width: 80%;
@@ -150,6 +154,11 @@ input:focus{
     margin-bottom: 3%;
     width: 50%;
     margin-left: 26%;
+    transform: translate(-0%, -0%);
+    background: rgb(239, 238, 238);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
 }
 .compte1{
   display: flex;
@@ -159,6 +168,11 @@ input:focus{
   width: 100%;
   margin-left: 10%;
   margin-right:0% ;
+  transform: translate(-0%, -0%);
+    background: rgb(239, 238, 238);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
 }
 .part1{
     width: 40%;
@@ -167,21 +181,33 @@ input:focus{
 .part11{
   width: 40%;
   margin-left: 10%;
+  margin-top: 10%;
 }
 .part2{
     width: 40%;
     margin-left: 10%;
+    margin-top: 10%;
 }
 #button{
-    margin-left:0%;
-    margin-right: 0;
-    background-color: #96154a;
-    width:60%;
-    height: 20px;
-    padding: 0;
-    color: white; border-radius: 100px;
-    height: 10%;
-    
+  background-color:#96145a;
+  border: solid 1px #96145a;
+  text-align: center;
+ 
+  height:30px;
+  width: 28%;
+
+  margin-top: 10%;
+  margin-left:35% ;
+  color: white;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  color: white; border-radius: 100px;
+  
+  -webkit-box-shadow: -1px -5px 15px #96154a, 5px 5px 15px #d2d2d2,
+  inset 5px 5px 10px #96154a, inset -5px -5px 10px #d2d2d2;
+  box-shadow: -1px -5px 15px #d2d2d2, 5px 5px 15px #41465b,
+  inset 5px 5px 10px #a31c54, inset -5px -5px 10px #96154a;
 }
 
 footer{
@@ -277,7 +303,7 @@ footer{
     width: fit-content;
     display: flex;
     margin-top: 10%;
-    margin-left:0% ;
+    margin-left:40% ;
     color: white;
     background-repeat: no-repeat;
     background-position: center center;
@@ -301,7 +327,7 @@ footer{
   .nav-link.active {
     /* Add your desired decoration or styling here */
     font-weight: bold;
-    color: red;
+    color: #ff5c84;
     /* Add more styles as needed */
   }
   select {
@@ -321,6 +347,7 @@ footer{
     transform: scale(1.05);
     transition: transform 0.3s ease-in-out;
   }
+ 
 
 
   table {

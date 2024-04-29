@@ -70,7 +70,8 @@
             <hr> 
                   <div style="display:flex;">
                   <form  class="compte1" method="POST"  action="espace_client.php">
-                    <div><span style="font-weight:bold; margin-left:10%;">COMPTE</div>
+                    <div>
+                    <div><span style="font-weight:bold;  margin-left:40%;">COMPTE</div>
                     <div style="display:flex">
                     <div class="part11">
                     <br>
@@ -93,8 +94,9 @@
                     <label  for="">Code Postale:</label> <br>
                     <input type="text" name="code_postal_cli" value="<?php echo $result['code_postale'] ;?>" > <br> <br>
                    <br>
-                    <br> <br>
-                    <input type="submit" id="button" name="button" value="Valider">
+                    <br> <br></div></div>
+                    <div>
+                    <input type="submit" id="button" name="button" value="Valider"></div>
                     <?php 
                     
                     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -114,15 +116,15 @@
                     } else { echo "<script>console.log('me dkhaltch ll theniya');</script>"; } }
                     
                     ?>
-                    </div></div>
+                    </div>
                  
                   </form>
                   <form  class="compte1" action="espace_client.php"  method="POST">
-                    <div><span style="font-weight:bold; margin-left:10%;">CHANGER LE MOT DE PASSE</div>
+                    <div><span style="font-weight:bold; margin-left:20%;text-align:center;">CHANGER LE MOT DE PASSE</div>
                     <div style="display:flex">
-                    <div class="part11">
+                    <div class="part11" >
                     <br>
-                    <label for=""> Mot de passe actuel</label>  <br>
+                    <label for=""> Mot de passe actuel :</label>  <br>
                     <input type="password" name="actual"><br> <br>
                     </div>
                     <div class="part2">
@@ -162,7 +164,7 @@
           </div>
         </div>
         <footer>
-          <img src="" alt="logo">
+        <img src="images/logo.png"  style="margin-right:100%;width: 20%;height:20%;"  alt="logo">
           <span>Copyright &copy;.All right reserved</span>
           <span>Mail:<a href="#">relaiscolis2024@gmail.com</a></span> 
           <span>Phone:+216 50 100 100</span>
