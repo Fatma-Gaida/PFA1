@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="envoi.css">
+    <link rel="stylesheet" href="signup.css">
     <link rel="stylesheet" href="nav.css">  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=1.4.2"></script>
     <title>Document</title>
@@ -11,6 +11,7 @@
 <body>
   <nav>
     <ul>
+      <li><img src="images/logo.png"  style="width:30% ;height:30%;margin-left:0%"  alt="logo"></li>
       <li><a href="acceuil.php">acceuil</a></li>
       <li><a href="#">suivi de colis </a></li>
       <li><a href="envoi.php">envoi de colis</a></li>
@@ -47,7 +48,9 @@
   // <!-- <h2 style="text-align: center; color:#96154a ;  margin-top:8%; font-family: Arial, Helvetica, sans-serif; text-align: center;">Je m'identifie</h2> -->
   <div class="login-box">  
     <h2 style="text-align: center; color:#96154a;">Vous n'avez pas de compte ?</h2>  
+    
     <form class="form1" action="signup_form.php" method="POST">
+      <div style="display: flex;">
       <div class="part1">
         <div class="user-box">
           <input type="text" name="nom" required="">
@@ -83,14 +86,15 @@
           <input type="password"  required="">
           <label>Confirmer le mot de passe </label>
         </div>
-        <input class="button2" type="submit" name="page2" value="Je crée mon compte"/>
+        </div>
       </div>
+      <div><input class="button2" type="submit" name="page2" value="Je crée mon compte"/></div>
     </form>
   </div>
 </body>
 
 <footer>
-  <img src="" alt="logo">
+  <img src="images/logo.png"  style="width:10% ;height:30%;margin-bottom:0%"  alt="logo">
   <span>Copyright &copy;.All right reserved</span>
   <span>Mail:<a href="#">relaiscolis2024@gmail.com</a></span> 
   <span>Phone:+216 50 100 100</span>

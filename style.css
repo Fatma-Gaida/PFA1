@@ -37,6 +37,7 @@ nav ul {
   margin: 0;
   padding: 0;
   width: 100%;
+  margin-left: 0%;
 }
 
 nav li {
@@ -533,7 +534,7 @@ footer a{
   text-decoration: none ;
 }
 footer p{
-  margin-left:20% ;
+  margin-left:10% ;
   color: #fff;
   font-size: 35px;
   margin-top:0;
@@ -552,11 +553,22 @@ footer div{
 footer ul{
   display: flex;
   list-style: none;
-  padding-left:35%;
+  padding-left:50%;
   width: 10%;
   margin: 0;
 }
 ul img{
   height: 40px;
 }
+table {
+  border-collapse: collapse;
+  width: 83%;
+  margin-left: 10%;
+}
+th, td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: center;
+}
+
 

@@ -3,6 +3,35 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 $page =  1 ; 
+// Fonction pour calculer le prix en fonction du poids du colis
+function calculerPrixColis($poids) {
+  // Tableau des tranches de poids et des prix correspondants
+  $tranches_prix = array(
+    "0.5" => 5.00,
+    "1" => 5.25,
+    "2" => 5.50,
+    "3" => 5.75,
+    "4" => 6.00,
+    "5" => 6.50,
+    "6" => 7.00,
+    "7" => 7.50,
+    "10" => 8.50,
+    "15" => 9.00,
+    "20" => 9.50
+  );
+
+  // Parcours des tranches de poids
+  foreach ($tranches_prix as $tranche => $prix) {
+      // Vérifie si le poids du colis est inférieur ou égal à la tranche actuelle
+      if ($poids <= $tranche) {
+          // Sortie du prix correspondant
+          return $prix;
+      }
+  }
+  // Si aucun prix n'est trouvé, retourner un message d'erreur ou une valeur par défaut
+  return "Poids non pris en charge";
+}
+
 session_start();
 
 $id_colis = $_SESSION['id_colis'] ?? null;
@@ -97,14 +126,14 @@ if( isset($_POST['page3']) && $_POST['page3'] == "Retourner"){
 }
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page3']) && $_POST['page3'] == "Continuer"){
   $contenance = $_POST['contenance'];
-  $poids = $_POST['poids'];
+  $poids= $_POST['poids'];
   $largeur = $_POST['largeur'];
   $longueur = $_POST['longueur'];
   $description = $_POST['description'];
   $date_depot = $_POST['date_depot'];
   $pr_d= $_SESSION['pr_d'];
   $pr_ex= $_SESSION['pr_ex'];
-
+  $_SESSION['prix']=calculerPrixColis($poids);
   echo "Récupération terminée  ";
 
   // Informations de connexion à la base de données
@@ -195,6 +224,7 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
 <body>
 <nav>
       <ul>
+      <li><img src="images/logo.png"  style="margin-left:0%"  alt="logo"></li>
         <li><a href="acceuil.php">acceuil</a></li>
         <li><a href="#">suivi de colis </a></li>
         <li><a href="envoi.php">envoi de colis</a></li>
@@ -295,8 +325,8 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
             </div></div>
   
             <div  class="boutons">
-            <input class="button1" type="submit" name="page1" value="Retourner"/>
-          <input class="button2" type="submit" name="page1" style="margin-top: 45px ;" value="Continuer"/>
+            
+          <input class="button2" type="submit" name="page1" style="margin-top: 45px ;margin-left:33%;" value="Continuer"/>
           </div>
          
           </form>
@@ -446,7 +476,7 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
      
       <form class="form" action="envoi.php" method="POST">
   <h4 style="text-align: center ; margin-left: 0px; ">Montant total à payer</h4>
-  <div class="prix">1366</div>
+  <div class="prix">'.$_SESSION['prix'].' DT</div>
   <p>C\'est le prix effectif de colis cette prix peut diminuer en fonction de delai de livraison et de nombre d\'itération</p>
   <h4 style="margin-left: 25%;">Sélectionnez votre méthode de paiement</h4>
   <div class="radio-inputs">
@@ -513,7 +543,7 @@ else if ($page==6)
       
 </div>
     <footer>
-          <img src="" alt="logo">
+    <img src="images/logo.png"  style="width:10% ;height:30%;margin-bottom:0%"  alt="logo">
           <span>Copyright &copy;.All right reserved</span>
           <span>Mail:<a href="#">relaiscolis2024@gmail.com</a></span> 
           <span>Phone:+216 50 100 100</span>

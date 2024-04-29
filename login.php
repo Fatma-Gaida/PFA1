@@ -22,7 +22,7 @@ try {
         $option=$_POST['option'] ?? '';
         if ($option=='client'){
         // Prepare a SQL statement to select the username and password from the database
-        $stmt = $pdo->prepare('SELECT * FROM client WHERE email_cli = :email');
+        $stmt = $pdo->prepare('SELECT * FROM client WHERE EMAIL_CLI = :email');
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -31,19 +31,20 @@ try {
         //     echo "<br>";
         // }
         if ($result) {
+
             // Username exists in the database
-            $a = $result['email_cli'];
-            $b = $result['mot_de_passe'];
-            $c=$result['nom_cli'];
-            $d=$result['prenom_cli'];
-            $e=$result['id_client'];
-            $f=$result['num_tel_cli'];
-            $g=$result['adresse_cli'];
+            $a = $result['EMAIL_CLI'];
+            $b = $result['MOTDEPASSE_CLIENT'];
+            $c=$result['NOM_CLI'];
+            $d=$result['PRENOM_CLI'];
+            $e=$result['ID_CLIENT'];
+            $f=$result['NUM_TEL_CLI'];
+            $g=$result['ADRESSE_CLI'];
             // Verify the password
-            if ($password==$b) {
+            if ($b=$password) {
                 // Password matches
                 // header("Location: espace_client.php");
-                $_SESSION['id_client'] = $e;
+                $_SESSION['ID_CLIENT'] = $e;
                 // header('Location:espace_client.php');
                 exit();
             } else {
@@ -59,24 +60,23 @@ try {
         }
         
     } else if ($option=='livreur'){
-        $stmt = $pdo->prepare('SELECT * FROM livreur WHERE email_livreur = :email');
+        $stmt = $pdo->prepare('SELECT * FROM livreur WHERE  EMAIL_LIV= :email');
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($result) {
             // Username exists in the database
-            $a = $result['email_cli'];
-            $b = $result['mot_de_passe'];
-            $c=$result['nom_cli'];
-            $d=$result['prenom_cli'];
-            $e=$result['id_client'];
-            $f=$result['num_tel_cli'];
-            $g=$result['adresse_cli'];
+            $a = $result['EMAIL_LIV'];
+            $b = $result['MOTDEPASSE_LIV'];
+            $c=$result['NOM_LIV'];
+            $d=$result['PRENOM_LIV'];
+            $e=$result['CIN_LIVREUR'];
+            $f=$result['NUM_TEL_LIV'];
             // Verify the password
             if ($password==$b) {
                 // Password matches
                 // header("Location: espace_client.php");
-                $_SESSION['id_client'] = $e;
+                $_SESSION['CIN_LIVREUR'] = $e;
                 // header('Location:espace_client.php');
                 exit();
             } else {

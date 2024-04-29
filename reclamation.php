@@ -4,7 +4,7 @@
     $hostname = 'localhost';
     $username = 'root';
     $password = '';
-    $dbName = 'app';
+    $dbName = 'mysql';
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $pdo->prepare('SELECT * FROM client WHERE id_client = :id');
@@ -54,7 +54,7 @@
             <div> <div><h1 style="color:#96154a;">Ajouter une reclamation</h1></div> 
             <hr> 
                   <div style="display:flex;">
-                  <form  class="compte" action="">
+                  <form  class="compte" style="margin-left=40%;"action="">
                     <div style="display:flex">
                     <div class="part1">
                     <br>
@@ -67,11 +67,11 @@
                        <option value="">Colis perdu</option>
                     </select> <br><br>   
                     <label for="" >Message:</label>
-                    <textarea name="" id="" cols="30" rows="10"></textarea>                   
+                    <textarea name="" style="background-color:white;" id="" cols="30" rows="10"></textarea>                   
                     </div>
                     </div>
                     <div id="buttont">
-                    <input type="submit" id="buttonj" style="background-color:#96145a " value="envoyer">
+                    <input type="submit" id="buttonj" style="background-color:transparent"; value="envoyer">
                     <img src="images/paperlane (3).png" alt="">
                     </div>
 
