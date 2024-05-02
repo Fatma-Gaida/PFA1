@@ -1,14 +1,14 @@
 <?php
   session_start();
-  if (isset($_SESSION['id_client'])){
+  if (isset($_SESSION['ID_CLIENT'])){
     $hostname = 'localhost';
     $username = 'root';
     $password = '';
-    $dbName = 'mysql';
+    $dbName = 'app';
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $pdo->prepare('SELECT * FROM client WHERE id_client = :id');
-    $stmt->bindParam(':id', $_SESSION['id_client']);
+    $stmt = $pdo->prepare('SELECT * FROM client WHERE ID_CLIENT = :id');
+    $stmt->bindParam(':id', $_SESSION['ID_CLIENT']);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC); //tableau qui contient tous les donnes du client avec les cles sont les champs du table client
   }
@@ -29,7 +29,7 @@
         <nav>
               <div style="margin-left: 0%;" class="nav_items">
               <div ><img src="images/logo.png"  style="margin-right:100%;width: 30%;height:30%;"  alt="logo"><span style="font-weight:bold; font-size:20px; margin-left:60%;">Espace client</span></div>
-                  <span style="display:flex; text-align:center; position:absolute;right:2%;">Bonjour <?php echo $result['prenom_cli']?></span>  
+                  <span style="display:flex; text-align:center; position:absolute;right:2%;">Bonjour <?php echo $result['PRENOM_CLI']?></span>  
               </div>   
         </nav>
         <div class="container">

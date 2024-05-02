@@ -18,6 +18,50 @@
   }
   ?>
   <?php
+$villes=[
+    1=>"tunis",
+    2=>"bizerte",
+    3=>"nabeul",
+    4=>"sousse",
+    5=>"monastir",
+    6=>"mahdia",
+    7=>"sfax",
+    8=>"beja",
+    9=>"jendouba",
+];
+function verifier($d,$a,$aux){
+  $handle = fopen('road.txt', 'r');
+  $listeEntiers = [];
+  if ($handle) {
+      while (($line = fgets($handle)) !== false) {
+          $int= explode(' ', $line);
+          if (($int[0]==$d && $int[1]==$a)||($int[0]==$a && $int[1]==$d)){
+              $ls=[];
+              for ( $i=2;$i<11;$i++){
+                  array_push($ls,$int[$i]);
+                  if (in_array($aux, $ls)){
+                      return 1;
+                  }
+              }
+              }
+          }
+          return 0;
+          fclose($handle);
+      }
+   else {
+      echo 'Impossible d\'ouvrir le fichier.';
+  }
+}
+function get_ville($ch,$villes){
+  for ($i=1;$i<10;$i++){
+      if (strpos($ch, $villes[$i])){
+          return $i;
+      }
+  }
+
+}
+?>
+  <?php
 function position_actuelle($id){
     $hostname = 'localhost';
     $username = 'root';
@@ -50,7 +94,6 @@ function position_actuelle($id){
         $result3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
         $pos=$result3[count($result3)-1]["ACTIVITE"]." ".$result3[count($result3)-1]["NOM_PR"]." ".$result3[count($result3)-1]["VILLE"]." ".$result3[count($result3)-1]["CODE_POSTAL"];
         return $pos;
-
     }
 }
 
@@ -122,40 +165,94 @@ function position_actuelle($id){
           <div class="main">
             <div> <div><h1 style="color:#96154a;">Nouvelle Commande</h1> <span>Consultez l'historique de vos livraisons </span></div> 
             <hr>
-              <?php 
-               $stmt=$pdo->prepare('SELECT ID_COLIS from colis ');
-               $stmt->execute();
-               $colis=$stmt->fetchALL(PDO::FETCH_ASSOC);
-               foreach ($colis  as $coli){
-                if (position_actuelle($coli['ID_COLIS'])!=destination($coli['ID_COLIS'])){
-                  echo" colis n°:".$coli['ID_COLIS']." position actuelle:".position_actuelle($coli['ID_COLIS'])." destination du colis:".destination($coli['ID_COLIS'])."<br>";
-                  
-                }
-              }
+            <?php
+              $stmt = $pdo->prepare('SELECT ID_COLIS FROM colis');
+              $stmt->execute();
+              $colis = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $st = $pdo->prepare('SELECT * FROM point_relais');
+                $st->execute();
+                $pr= $st->fetchAll(PDO::FETCH_ASSOC);
+                
               ?>
-            echo"
+            <form action="nvl.php" method="POST" class="nsayer">
             <table>
+            <thead>
               <tr>
-                <th>ID_COLIS</th>
-                <th>position_actuelle</th>
-                <th>destination</th>
+                <th>Colis n°</th>
+                <th>Position actuelle</th>
+                <th>Destination</th>
+                <th>Sélectionner</th>
+                <th>Point relais a remettre</th>
               </tr>
-              <tr> 
-              <td><label for="">option1</label> </td>
-              <td>valeur2</td>
-              <td>valeur3</td>
-              <td><input type="checkbox"></td>
-              </tr>
-            </table>
-             
-            <?php 
-            $stmt=$pdo->prepare('SELECT ID_LIVRAISON FROM livre WHERE ID_COLIS==100');
-            $stmt = $pdo->prepare('SELECT  p1.NOM_PR AS PR_INITIAL_NAME, p2.NOM_PR AS PR_FINALE_NAME,DATE_LIVRAISON,COUT_LIVRAISON,c.ID_COLIS,p1.VILLE AS src,p2.VILLE AS dest,p1.CODE_POSTAL AS cs, p2.CODE_POSTAL AS cd  FROM livraison AS l JOIN livre AS li ON l.ID_LIVRAISON = li.ID_LIVRAISON JOIN colis AS c ON li.ID_COLIS = c.ID_COLIS JOIN point_relais AS p1 ON c.ID_PR_INITIAL = p1.ID_PR JOIN point_relais AS p2 ON c.ID_PR_FINALE = p2.ID_PR WHERE l.CIN_LIVREUR =:id GROUP BY c.ID_COLIS;');
-            $stmt->bindParam(':id', $_SESSION['CIN_LIVREUR']);
-            $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            ?>    
-            </div>
+            </thead>
+            <tbody>
+              
+
+            <?php foreach ($colis as $coli) : ?>
+              <?php
+              $positionActuelle = position_actuelle($coli['ID_COLIS']);
+              $destinationColis = destination($coli['ID_COLIS']);
+              ?>
+              <?php if ($positionActuelle != $destinationColis) : ?>
+                <tr>
+                  <td><?php echo $coli['ID_COLIS']; ?></td>
+                  <td><?php echo $positionActuelle; ?></td>
+                  <td><?php echo $destinationColis; ?></td>
+                  <td>
+                  <input type="checkbox" name="choix[]" value="<?php echo $coli['ID_COLIS']; ?>">
+                  </td>
+                  <td>
+                    <?php 
+                      echo'<select name="point_relais[' .$coli['ID_COLIS'].']">';
+                      // echo'<option>selectionner un point de relais</option>';
+                      foreach ($pr as $p){
+                        echo'<option>'.$p['ACTIVITE']." ".$p['NOM_PR']." ".$p['VILLE']." ".$p['CODE_POSTAL'].'</option>';
+                      }
+                      echo'</select>';
+      
+                     ?>
+                      
+                  </td>
+                </tr>
+              <?php endif; ?>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+        <input type="submit" class="raies" value="envoyer un demande" name="submit">
+        </form>
+        <?php
+
+        if(isset($_POST['submit'])) {
+        // Vérifiez si des colis ont été sélectionnés
+        if(isset($_POST['choix'])) {
+            $colisSelectionnes = $_POST['choix']; // Tableau contenant les ID des colis sélectionnés
+            // echo$colisSelectionnes[1];
+            // Parcourez les colis sélectionnés
+            foreach($colisSelectionnes as $colisID) {
+              
+                echo "<br>";
+                // Vérifiez si un point relais a été choisi pour ce colis
+                if(isset($_POST['point_relais'][$colisID])) {
+                    // echo count($_POST['point_relais']);
+                    $pointRelais = $_POST['point_relais'][$colisID];
+                    $d =get_ville($destinationColis,$villes);
+                    $a=get_ville($positionActuelle,$villes);
+                    $aux=get_ville($pointRelais,$villes);
+                    if (verifier($d,$a,$aux)){
+                    echo "<span  style='color: green;'>livraison pour le colis numero:".$colisID." accepté</span>";
+                    echo "<br>";}
+                    else{
+                      echo "<span  style='color: red;'>livraison pour le colis numero:".$colisID." refusée</span>";
+                      echo "<br>";
+                    }
+                }
+            }
+        }}
+        
+        ?>
+        
+            
+          </div>
           </div>
         </div>
         <footer>
@@ -177,6 +274,17 @@ function position_actuelle($id){
       </footer>
   </body>
   </html>
+  <?php 
+        if (isset($_POST['choix'])&&(isset($_POST['aux']))) {
+          $choix = $_POST['choix'];
+          echo "L'utilisateur a choisi les options suivantes : ";
+          foreach ($choix as $option) {
+              echo $option . ", ";
+          }
+      } else {
+          echo "Aucune option n'a été sélectionnée.";
+      }
+        ?>
   
 
 

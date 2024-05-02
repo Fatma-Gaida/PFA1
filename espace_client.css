@@ -6,6 +6,7 @@ margin: 0;
 padding: 0;
 height:fit-content;
 }
+
 nav {z-index:2;
     width: 100%;
     min-height:8vh;
@@ -363,3 +364,17 @@ footer{
   th {
     background-color: #f2f2f2;
   }
+  .nsayer{
+    width: 90%;
+    margin-left: 5%;
+
+  }
+  .raies{
+    width:20%;
+    margin-left:40%;
+    border: #96145a 1px solid;
+  }
+  .yes{
+    color: green;
+  }
+ 
