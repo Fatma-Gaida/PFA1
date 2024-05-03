@@ -53,7 +53,7 @@
   
       <div class="login-box">  
         <h4>Devenir un transporteur TUNI COLIS</h4>   
-        <form class="form" action="index.php" method="POST" onsubmit="return validateForm()">
+        <form class="form" action="devenirtransporteur.php" method="POST" onsubmit="return validateForm()">
           <div>
             <div class="section1" style="display: flex;">
           <div class="part1">
@@ -66,23 +66,18 @@
             <label>Numéro de Téléphone</label>
             </div>
           
-            <div class="user-box">
-            <input type="text" name="adresse_l" required="">
-            <label>Adresse</label>
-            </div>
-            <div class="user-box">
-              <input type="text" name="ville_l" required="">
-              <label>Ville</label>
-              </div>
+            
+            
       
             <div class="user-box">
-              <input type="text" name="disponibilité" required="">
+              <input type="text" name="disponibilite" required>
+
               <label>Disponibilité </label>
               </div>
             </div>
         <div class="part2">
             <div class="user-box">
-            <input type="text" name="prenom-d" required="">
+              <input type="text" name="prenom_l" required="">
             <label>Prénom</label>
             </div>
 
@@ -92,18 +87,23 @@
               </div>
   
             <div class="user-box">
-            <input type="text" name="email_d" required onblur="validateEmail()">
+              <input type="email" name="email_l" required onblur="validateEmail()">
             <label>Adresse Email</label>
             </div>
-    
             <div class="user-box">
-              <input type="text" name="tpye_trans" required="">
-              <label>Marque de voiture</label>
+              <input type="password" name="mdp_liv" required >
+              <label>Mot de passe </label>
               </div>
               <div class="user-box">
-                <input type="text" name="zone_d'activité " required="">
-                <label>Zone d'activité géographique </label>
-                </div></div></div>
+                <input type="password" name="Confirmation" required >
+                <label> Confirmation de Mot de passe </label>
+                </div>
+    
+            <div class="user-box">
+              <input type="text" name="tpye_trans" required>
+              <label>Marque de voiture</label>
+              </div>
+              </div></div>
                 <div class="div2">
            <input style="margin-left:33%;" class="button2" type="submit" name="devenir_transp" value="envoyer"/>
           </div></div>
