@@ -220,7 +220,7 @@ margin-right: 9%; }
         align-items: center;
         background-color: #96154a;
         height:max-content;
-        justify-content: space-between;
+        justify-content:left;
         position: sticky;
         top: 0; /* Add this line to make the nav sticky to the top */
         z-index:2;
@@ -229,8 +229,8 @@ margin-right: 9%; }
       nav ul {
         height:50px;
         display: flex;
-        justify-content:right;
-        align-items:center;
+        justify-content:left;
+        /* align-items:center; */
         list-style: none;
         margin: 0;
         padding: 0;

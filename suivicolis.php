@@ -317,8 +317,8 @@
             echo '<td>' . $colis['LONGUEUR_COLIS'] . '</td>';
             echo '<td>' . $colis['DATE_DEPART_COLIS'] . '</td>';
             echo '<td>' . $colis['TYPE_COLIS'] . '</td>';
-            echo '<td>' . $colis['COUT_COLIS_ESTIME'] . '</td>';
-            echo '<td>' . $colis['COUT_EFFECTIF'] . '</td>';
+            echo '<td>' . $colis['COUT_COLIS_ESTIME'] .'dt'. '</td>';
+            echo '<td>' . $colis['COUT_EFFECTIF'] .'dt'. '</td>';
             // Add more cells if needed
             echo '</tr>';
             echo '</table>';
@@ -370,7 +370,7 @@ try {
     // Requête pour récupérer la date de livraison et vérifier si une diminution de prix s'applique
     $sql2 = "SELECT l.date_livraison,
     CASE
-        WHEN l.date_livraison > DATE_ADD(c.DATE_DEPART_COLIS, INTERVAL 4 DAY) THEN 'Diminution de prix'
+        WHEN l.date_livraison > DATE_ADD(c.DATE_DEPART_COLIS, INTERVAL 7 DAY) THEN 'Diminution de prix'
         ELSE 'Pas de diminution de prix'
     END AS reduction_prix
 FROM livraison l
@@ -419,14 +419,13 @@ WHERE l.id_livraison = (SELECT id_livraison FROM livre WHERE id_colis = :idColis
             $delai = date_diff(date_create($dateLivraison), date_create())->days;
 
             $prixEffectif = $prixEstime;
-            if ($delai > 4) {
+            if ($delai > 7) { 
                 $prixEffectif -= $reductionPointRelaisInitial;
             }
             // Supposons que $pointRelaisIntermediaire est récupéré de la base de données
-            $pointRelaisIntermediaire = false;
-            if ($pointRelaisIntermediaire) {
-                $prixEffectif -= $reductionPointRelaisIntermediaire;
-            }
+          
+                $prixEffectif -= ($nombreItineraires-1) * $reductionPointRelaisIntermediaire;
+        
 
             // Affichage des informations
             
@@ -438,7 +437,7 @@ WHERE l.id_livraison = (SELECT id_livraison FROM livre WHERE id_colis = :idColis
             echo '<td colspan="12">'; // Spanning across all columns
             echo "<br>Nombre d'itinéraires pour le colis : $nombreItineraires<br>";
             echo "Date de livraison : $dateLivraison<br>";
-            echo "Réduction de prix : $reductionPrix<br>";
+            echo "Réduction de prix a cause de retard : $reductionPrix<br>";
             echo "Prix estimé du colis : $prixEstime DT<br>";
             echo "Prix effectif du colis : $prixEffectif DT";
             echo '</td>';
@@ -447,12 +446,12 @@ WHERE l.id_livraison = (SELECT id_livraison FROM livre WHERE id_colis = :idColis
             echo '</table>';
 
 
-            // // Mise à jour du champ COUT_COLIS_EFFECTIF dans la base de données
-            // $sqlUpdate = "UPDATE colis SET COUT_EFFECTIF = :prixEffectif WHERE id_colis = :idColis";
-            // $stmtUpdate = $pdo->prepare($sqlUpdate);
-            // $stmtUpdate->bindParam(':prixEffectif', $prixEffectif, PDO::PARAM_STR);
-            // $stmtUpdate->bindParam(':idColis', $idColis, PDO::PARAM_INT);
-            // $stmtUpdate->execute();
+            // Mise à jour du champ COUT_COLIS_EFFECTIF dans la base de données
+            $sqlUpdate = "UPDATE colis SET COUT_EFFECTIF = :prixEffectif WHERE id_colis = :idColis";
+            $stmtUpdate = $pdo->prepare($sqlUpdate);
+            $stmtUpdate->bindParam(':prixEffectif', $prixEffectif, PDO::PARAM_STR);
+            $stmtUpdate->bindParam(':idColis', $idColis, PDO::PARAM_INT);
+            $stmtUpdate->execute();
         }
     }
 } catch (PDOException $e) {

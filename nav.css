@@ -19,7 +19,7 @@ nav {
   display: flex;
   background-color: #96154a;
   height: max-content;
-  justify-content: center;
+  justify-content: left;
   position:fixed;
   top: 0;
   width: 100%;
@@ -31,7 +31,7 @@ nav ul {
   font-weight: bold;
   height: 50px;
   display: flex;
-  justify-content:center ;
+  justify-content:left;
   align-items: center;
   list-style: none;
   margin: 0;
