@@ -12,13 +12,11 @@
 <body> 
     <nav>
       <ul>
-
-      
       <li><img src="images/logo.png"  style="width:30% ;height:30%;margin-left:0%"  alt="logo"></li>
         <li><a href="#">acceuil</a></li>
-        <li><a href="suivi.html">suivi de colis </a></li>
+        <li><a href="suivicolis.php">suivi de colis </a></li>
         <li><a href="envoi.php">envoi de colis</a></li>
-        <li><a href="pr.html">Nos points de relais </a></li>
+        <li><a href="pointrelais.php">Nos points de relais </a></li>
         <li>
         <div id="loginContainer" style="padding-top: 2.5px;">
           <div id="loginButton" style="display: flex; align-items: center; justify-content: center; width: fit-content;">

@@ -79,8 +79,8 @@ function position_actuelle($id){
          ID_PR_INITIAL from colis where ID_COLIS= :id);');
         $stmt2->bindParam(':id', $id);
         $stmt2->execute();
-        $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-        $pos=$result2["ACTIVITE"]." ".$result2["NOM_PR"]." ".$result2["VILLE"]." ".$result2["CODE_POSTAL"];
+        $res = $stmt2->fetch(PDO::FETCH_ASSOC);
+        $pos=$res["ACTIVITE"]." ".$res["NOM_PR"]." ".$res["VILLE"]." ".$res["CODE_POSTAL"];
         return $pos;
     }
     else {
@@ -125,7 +125,7 @@ function position_actuelle($id){
   <body>
         <nav> 
               <div class="nav_items">
-              <div ><img src="" alt="logo"></div>
+              <div ><img src="images/logo.png" style="width:30% ;height:30%;margin-left:0%" alt="logo"></div>
               <div ><span style="font-weight:bold; font-size:20px; margin-left:18%;">Espace livreur</span></div>
                   <span style="display:flex; text-align:center; position:absolute;right:2%;">Bonjour <?php echo $result1['PRENOM_LIV']?></span>  
               </div>   
@@ -135,11 +135,11 @@ function position_actuelle($id){
             <ul>
             <li><a href="espace_livreur.php" class="nav-link ">Mon Profil</a></li>
               <li> <a href="nvl.php" class="nav-link active">Nouvelle Commande</a></li>
-              <li> <a href="#" class="nav-link ">livraisons effectués</a></li>
+              <li> <a href="livraison_effectués.php" class="nav-link ">livraisons effectués</a></li>
               <!-- <li> <a href="#" class="nav-link">Reclamation</a></li> -->
              
               <li>
-              <form  style="background-color:white; padding:0; width:fit-content; margin:0;" action="?logout=true" method="get"><input type="submit" id="logout" name="logout" value="Deconnexion"></form> </li></ul>
+              <form  style="background-color:white; padding:0; width:fit-content; margin:0; " action="?logout=true" method="get"><input type="submit" id="logout" name="logout" value="Deconnexion" style="font-weight:bold;font-size:20px;" ;></form> </li></ul>
               <div style="color:white;">
               <ul>
                                 <?php
@@ -156,7 +156,6 @@ function position_actuelle($id){
                                     exit;
                                 }
                                 ?>
-              <li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li>
               </ul>
               
               </div>
@@ -218,7 +217,7 @@ function position_actuelle($id){
             <?php endforeach; ?>
           </tbody>
         </table>
-        <input type="submit" class="raies" value="envoyer un demande" name="submit">
+        <input type="submit" class="raies"  value="envoyer une demande" name="submit">
         </form>
         <?php
 
@@ -256,15 +255,15 @@ function position_actuelle($id){
           </div>
         </div>
         <footer>
-          <img src="" alt="logo">
+          <img src="images/logo.png" style="width:10% ;height:10%;margin-left:0%" alt="logo">
           <span>Copyright &copy;.All right reserved</span>
           <span>Mail:<a href="#">relaiscolis2024@gmail.com</a></span> 
           <span>Phone:+216 50 100 100</span>
           <div>
               <p>Follow Us</p>
               <ul>
-                <li><a href="#"><img src="images/icons8-facebook-48.png" alt=""></a></li>
-                <li><a href="#"><img src="images/icons8-instagram-48.png" alt=""></a></li>
+                <li><a href="#"><img src="images/icons8-facebook-48.png" alt="facebook"></a></li>
+                <li><a href="#"><img src="images/icons8-instagram-48.png" alt="instagram"></a></li>
                 <li> <a href=""><img src="images/icons8-linkedin-48.png" alt="instagram"></a></li>
                 <li> <a href="#"><img src="images/icons8-twitter-48.png" alt="twitter"></a></li>
                 <li><a href="#"><img src="images/icons8-pinterest-48.png" alt="pinterest"></a></li>
@@ -274,17 +273,6 @@ function position_actuelle($id){
       </footer>
   </body>
   </html>
-  <?php 
-        if (isset($_POST['choix'])&&(isset($_POST['aux']))) {
-          $choix = $_POST['choix'];
-          echo "L'utilisateur a choisi les options suivantes : ";
-          foreach ($choix as $option) {
-              echo $option . ", ";
-          }
-      } else {
-          echo "Aucune option n'a été sélectionnée.";
-      }
-        ?>
   
 
 

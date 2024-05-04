@@ -119,7 +119,7 @@
     $hostname = 'localhost';
     $username = 'root';
     $password = '';
-    $dbName = 'tunirelais';
+    $dbName = 'app';
 
     try {
         // Create a PDO connection
@@ -189,7 +189,7 @@
                     $hostname = 'localhost';
                     $username = 'root';
                     $password = '';
-                    $dbName = 'tunirelais';
+                    $dbName = 'app';
                     $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
                     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
 
@@ -246,7 +246,7 @@
 $hostname = 'localhost';
 $username = 'root';
 $password = '';
-$dbName = 'tunirelais';
+$dbName = 'app';
 
 try {
     // Create a PDO connection
