@@ -36,9 +36,8 @@ session_start();
 $id_colis = $_SESSION['id_colis'] ?? null;
 $id_client_expediteur = $_SESSION['id_client_expediteur'] ?? null;
 $id_client_destinataire = $_SESSION['id_client_destinataire'] ?? null;
-$id_pr_ex = $_SESSION['id_pr_ex'] ?? null;
-$id_pr_d = $_SESSION['id_pr_d'] ?? null;
-
+$pr_ex = $_SESSION['id_pr_ex'] ?? null;
+$pr_d = $_SESSION['id_pr_d'] ?? null;
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page1'])) {
     // Traitement de vérification du contenu de la page 
     // Si c'est vrai alors incrémenter la variable page et refresh
@@ -49,11 +48,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page1'])) {
     $email_cli = $_POST['email_ex'];
     $num_tel_cli = $_POST['numtel_ex'];
     $ville_cli = $_POST['ville_ex'];
+    $pr_ex = $_POST['pr_ex'];
     $code_postal_cli_ex = $_POST['code_postal_cli_ex'];
     $type_cli = 'expediteur';
-    $_SESSION['pr_ex'] = $_POST['pr_ex'];
-
-    echo "Récupération terminée  ";
 
     // Informations de connexion à la base de données
     $host = 'localhost';
@@ -64,31 +61,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page1'])) {
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "ouverture de la base de données  ";
+
+        // Insérer le client dans la base de données
         $sql = "INSERT INTO client (NOM_CLI, PRENOM_CLI, TYPE_CLI, ADRESSE_CLI, EMAIL_CLI, NUM_TEL_CLI, VILLE_CLI, code_postal_cli) 
                 VALUES ('$nom_cli', '$prenom_cli', '$type_cli' ,'$adresse_cli', '$email_cli', '$num_tel_cli', '$ville_cli', '$code_postal_cli_ex')";
-
         $pdo->query($sql);
 
+        // Récupérer l'ID du client expéditeur
         $id_client_expediteur = $pdo->lastInsertId();
         $_SESSION['id_client_expediteur'] = $id_client_expediteur;
-
-        // Récupération de l'ID_PR du point relais expéditeur
-        $pr_ex = $_SESSION['pr_ex'];
-        $sql = "SELECT ID_PR FROM point_relais WHERE NOM_PR = :pr_ex";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(['pr_ex' => $pr_ex]);
-        $id_pr_ex = $stmt->fetchColumn();
-        $_SESSION['id_pr_ex'] = $id_pr_ex;
-
-        $page = 2;
-    } catch (PDOException $e) {
+        $_SESSION['id_pr_ex'] = $pr_ex;
+        $page = 2; // Si tout va bien, passez à la page suivante
+    }catch (PDOException $e) {
         echo "Erreur lors de l'insertion des données : " . $e->getMessage();
     }
 }
-
-echo "$id_pr_ex";
-
+echo"$pr_ex;";
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page2']) && $_POST['page2'] == "Continuer") {
     $nom_cli = $_POST['nom_d'];
     $prenom_cli = $_POST['prenom_d'];
@@ -98,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page2']) && $_POST['pa
     $ville_cli = $_POST['ville_d'];
     $code_postal_cli_d = $_POST['code_postal_cli_d'];
     $type_cli = 'destinataire';
-    $_SESSION['pr_d'] = $_POST['pr_d'];
+     $pr_d = $_POST['pr_d'];
     echo "Récupération terminée  ";
 
     // Informations de connexion à la base de données
@@ -119,13 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page2']) && $_POST['pa
         $id_client_destinataire = $pdo->lastInsertId();
         $_SESSION['id_client_destinataire'] = $id_client_destinataire;
 
-        // Récupération de l'ID_PR du point relais destinataire
-        $pr_d = $_SESSION['pr_d'];
-        $sql = "SELECT ID_PR FROM point_relais WHERE NOM_PR = :pr_d";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(['pr_d' => $pr_d]);
-        $id_pr_d = $stmt->fetchColumn();
-        $_SESSION['id_pr_d'] = $id_pr_d;
+        $_SESSION['id_pr_d'] = $pr_d;
 
 
         
@@ -136,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page2']) && $_POST['pa
     }
 }
 
-echo "$id_client_destinataire ";
+echo "$id_client_destinataire;$pr_d ";
 
 if (isset($_POST['page2']) && $_POST['page2'] == "Retourner") {
     $page = 1;
@@ -161,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page3']) && $_POST['pa
     $dbname = 'mysql';
     $username = 'root';
     $password = '';
-    echo "$contenance ; $poids ; $largeur ; $longueur ; $description ; $date_depot ;$id_pr_ex,$id_pr_d";
+    echo "$contenance ; $poids ; $largeur ; $longueur ; $description ; $date_depot ;$pr_ex,$pr_d";
 
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
@@ -169,7 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page3']) && $_POST['pa
         echo "ouverture de la base de données  ";
 
         $sql = "INSERT INTO colis (ID_CLIENT_EXPEDITEUR,ID_CLIENT_DESTINATAIRE,POIDS_COLIS,TYPE_COLIS,DATE_DEPART_COLIS,ID_PR_INITIAL,ID_PR_FINALE,LONGUEUR_COLIS,LARGEUR_COLIS,COUT_COLIS_ESTIME,COUT_EFFECTIF,DESCRIPTION) 
-                VALUES ('$id_client_expediteur','$id_client_destinataire','$poids', '$contenance', '$date_depot' ,'$id_pr_ex','$id_pr_d', '$longueur', '$largeur','{$_SESSION['prix']}','{$_SESSION['prix']}', '$description')";
+                VALUES ('$id_client_expediteur','$id_client_destinataire','$poids', '$contenance', '$date_depot' ,'$pr_ex','$pr_d', '$longueur', '$largeur','{$_SESSION['prix']}','{$_SESSION['prix']}', '$description')";
         $pdo->query($sql);
 
         $id_colis = $pdo->lastInsertId();
@@ -220,11 +202,11 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
 <body>
 <nav>
       <ul>
-      <li><img src="images/logo.png"  style="width:30% ;height:30%;margin-left:0%;"  alt="logo"></li>
+      <li><img src="images/logo.png"  style="width:100% ;height:100%;margin-left:0%"  alt="logo"></li>
         <li><a href="acceuil.php">acceuil</a></li>
-        <li><a href="suivi.php">suivi de colis </a></li>
+        <li><a href="suivi.html">suivi de colis </a></li>
         <li><a href="envoi.php">envoi de colis</a></li>
-        <li><a href="#">Nos points de relais </a></li>
+        <li><a href="pr.html">Nos points de relais </a></li>
         <li>
         <div id="loginContainer" style="padding-top: 2.5px;">
           <div id="loginButton" style="display: flex; align-items: center; justify-content: center; width: fit-content;">
@@ -311,9 +293,9 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
       <div class="login-box">
         <?php 
           if($page == 1)
-            include 'page1.html';
+            include 'page1.php';
           else if ($page == 2)
-            include 'page2.html';
+            include 'page2.php';
           else if ($page == 3)
             include 'page3.html';
           else if ($page == 4)
@@ -354,7 +336,7 @@ else if ($page==6)
      <p>
      Nous vous enverrons un e-mail pour vous informer que votre colis est arrivé au point de relais de destination.<br><br>
      Vous pourrez suivre son cheminement de livraison d\'un point de relais à un autre jusqu\'à sa destination en utilisant la fonctionnalité "Suivi de colis".
-     Il vous suffira d\'entrer l\'identifiant de votre colis : ' . $id_colis . '</p>
+     Il vous suffira d\'entrer l\'identifiant de votre colis :<span style="color: #96154a;"> ' . $id_colis . '</span></p>
      <h4>Merci pour votre confiance</h4>
       </div>
       </div>';

@@ -12,15 +12,9 @@
 <body> 
     <nav>
       <ul>
-<<<<<<< HEAD
-      <li><img src="images/logo.png"  style="width:30% ;height:30%;margin-left:0%;"  alt="logo"></li>
-        <li><a href="#">acceuil</a></li>
-        <li><a href="suivi.php">suivi de colis </a></li>
-=======
       <li><img src="images/logo.png"  style="width:30% ;height:30%;margin-left:0%"  alt="logo"></li>
         <li><a href="acceuil.php">acceuil</a></li>
         <li><a href="suivi.html">suivi de colis </a></li>
->>>>>>> b6fdc9671b468eeccb8839d9bbfc03e6113a0d95
         <li><a href="envoi.php">envoi de colis</a></li>
         <li><a href="pr.html">Nos points de relais </a></li>
         <li>
@@ -191,7 +185,7 @@
       <h1>Comment pouvons-nous vous aider?</h1>
         <p>
         <h2>Comment suivre l’acheminement de mon colis ?</h2>
-            "Où est mon colis ?" : Vous pouvez suivre votre colis avec le numero de suivi sur notre page de <a href="#">suivi de colis.</a>
+            "Où est mon colis ?" : Vous pouvez suivre votre colis a travers notre page <a href="#">suivi de colis</a>
              .Vous trouverez votre numéro de suivi dans votre mail de confirmation de commande.
         </p>
         <p>
@@ -201,7 +195,7 @@
         </p>
         <p>
           <h2>Quel est le délai de garde d'un colis en point relais ?</h2>
-          Si un colis n'a pas été retiré dans un délai de garde de 8 jours, il sera réexpédié au Point dd Relais où vous l'aviez déposé.
+          Si un colis n'a pas été retiré dans un délai de garde de 7 jours, il sera réexpédié au Point de Relais où vous l'aviez déposé.
         Nous prenons en charge le coût de cette réexpédition. Attention : le calcul des 8 jours se fait sur les jours calendaires et non sur les jours d'ouvertures.
         </p>
           
