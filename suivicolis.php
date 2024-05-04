@@ -120,19 +120,28 @@
     $username = 'root';
     $password = '';
     $dbName = 'tunirelais';
+    $port = 3306;
 
     try {
         // Create a PDO connection
-        $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
+        $pdo = new PDO("mysql:host=$hostname;port=$port;dbname=$dbName", $username, $password);
         
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Requête pour récupérer les détails du colis
-        $sql = "SELECT ID_COLIS, ID_CLIENT_EXPEDITEUR, ID_CLIENT_DESTINATAIRE, ID_PR_INITIAL, ID_PR_FINALE,
-                        POIDS_COLIS, TYPE_COLIS, DATE_DEPART_COLIS, COUT_COLIS_ESTIME, COUT_EFFECTIF,
-                        LARGEUR_COLIS, LONGUEUR_COLIS
-                FROM colis
-                WHERE ID_COLIS = :idColis";
+        $sql = "SELECT c1.NOM_CLI AS NOM_EXPEDITEUR, c1.PRENOM_CLI AS PRENOM_EXPEDITEUR,
+        c2.NOM_CLI AS NOM_DESTINATAIRE, c2.PRENOM_CLI AS PRENOM_DESTINATAIRE,
+        pr1.NOM_PR AS NOM_PR_INITIAL, pr2.NOM_PR AS NOM_PR_FINALE,
+        colis.ID_COLIS, colis.POIDS_COLIS, colis.TYPE_COLIS,
+        colis.DATE_DEPART_COLIS, colis.COUT_COLIS_ESTIME, colis.COUT_EFFECTIF,
+        colis.LARGEUR_COLIS, colis.LONGUEUR_COLIS
+ FROM colis
+ JOIN client c1 ON colis.ID_CLIENT_EXPEDITEUR = c1.ID_CLIENT
+ JOIN client c2 ON colis.ID_CLIENT_DESTINATAIRE = c2.ID_CLIENT
+ JOIN point_relais pr1 ON colis.ID_PR_INITIAL = pr1.ID_PR
+ JOIN point_relais pr2 ON colis.ID_PR_FINALE = pr2.ID_PR
+ WHERE colis.ID_COLIS = :idColis;
+ ";
 
         // Récupération de l'identifiant de colis depuis le formulaire
         if(isset($_GET['idColis'])) {
@@ -168,10 +177,10 @@
             echo '<tr>';
 
            
-            echo '<td>' . $colis['ID_CLIENT_EXPEDITEUR'] . '</td>';
-            echo '<td>' . $colis['ID_CLIENT_DESTINATAIRE'] . '</td>';
-            echo '<td>' . $colis['ID_PR_INITIAL'] . '</td>';
-            echo '<td>' . $colis['ID_PR_FINALE'] . '</td>';
+            echo '<td>' . $colis['NOM_EXPEDITEUR'] . ' ' . $colis['PRENOM_EXPEDITEUR'] . '</td>';
+            echo '<td>' . $colis['NOM_DESTINATAIRE'] . ' ' . $colis['PRENOM_DESTINATAIRE'] . '</td>';
+            echo '<td>' . $colis['NOM_PR_INITIAL'] . '</td>';
+            echo '<td>' . $colis['NOM_PR_FINALE'] . '</td>';
             echo '<td>' . $colis['POIDS_COLIS'] . '</td>';
             echo '<td>' . $colis['LARGEUR_COLIS'] . '</td>';
             echo '<td>' . $colis['LONGUEUR_COLIS'] . '</td>';
@@ -190,7 +199,8 @@
                     $username = 'root';
                     $password = '';
                     $dbName = 'tunirelais';
-                    $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
+                    $port = 3306;
+                    $pdo = new PDO("mysql:host=$hostname;port=$port;dbname=$dbName", $username, $password);
                     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
 
                     $stmt = $pdo->prepare('SELECT ID_LIVRAISON FROM livre WHERE ID_COLIS = :id');
@@ -247,10 +257,11 @@ $hostname = 'localhost';
 $username = 'root';
 $password = '';
 $dbName = 'tunirelais';
+$port = 3306;
 
 try {
     // Create a PDO connection
-    $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
+    $pdo = new PDO("mysql:host=$hostname;port=$port;dbname=$dbName", $username, $password);
     
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
