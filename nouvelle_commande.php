@@ -1,10 +1,10 @@
 <?php
   session_start();
-  if (isset($_SESSION['id_client'])){
+  if (isset($_SESSION['ID_CLIENT'])){
     $hostname = 'localhost';
     $username = 'root';
     $password = '';
-    $dbName = 'mysql';
+    $dbName = 'app';
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $pdo->prepare('SELECT * FROM client WHERE id_client = :id');

@@ -12,15 +12,11 @@
 <body> 
     <nav>
       <ul>
-<<<<<<< HEAD
-      <li><img src="images/logo.png"  style="width:30% ;height:30%;margin-left:0%;"  alt="logo"></li>
-        <li><a href="#">acceuil</a></li>
-        <li><a href="suivi.php">suivi de colis </a></li>
-=======
+
+      
       <li><img src="images/logo.png"  style="width:30% ;height:30%;margin-left:0%"  alt="logo"></li>
-        <li><a href="acceuil.php">acceuil</a></li>
+        <li><a href="#">acceuil</a></li>
         <li><a href="suivi.html">suivi de colis </a></li>
->>>>>>> b6fdc9671b468eeccb8839d9bbfc03e6113a0d95
         <li><a href="envoi.php">envoi de colis</a></li>
         <li><a href="pr.html">Nos points de relais </a></li>
         <li>
@@ -35,12 +31,11 @@
             <fieldset >
             <label for="" >Se conecter en tant que:</label>
             <label>
-              <input type="radio" name="option" style="width:fit-content;" value="option1"  required>
+              <input type="radio" name="option" style="width:fit-content;" value="livreur"  required>
               livreur
             </label>
-
             <label>
-              <input type="radio" name="option" style="width:fit-content;" value="option2" required >
+              <input type="radio" name="option" style="width:fit-content;" value="client" required >
               client
             </label>
         </fieldset> 
@@ -58,16 +53,16 @@
         <input type="button" id="signup" value="Créer un compte" />
     </fieldset>
     </form>
-
-<script>
+    <script>
     document.getElementById("loginForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent form submission
+        event.preventDefault(); // Empêche le comportement par défaut de la soumission du formulaire
 
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
+        var option = document.querySelector('input[name="option"]:checked').value;
+
         // Create an XMLHttpRequest object
         var xhr = new XMLHttpRequest();
-
         // Prepare the request
         xhr.open("POST", "login.php", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -79,10 +74,16 @@
                     var response = xhr.responseText;
                     console.log(response);
                     if (response === "") {
-                      console.log("before ");
-                        window.location.href = "espace_client.php";
-                        console.log("after");
-                    } else { 
+                         console.log('1');
+                        if (option === 'livreur') {
+                          console.log('2');
+                            window.location.href = "espace_livreur.php";
+                        } else if (option === 'client') {
+                          console.log('3');
+                            window.location.href = "espace_client.php";
+                        }
+                    } else {
+                      console.log('5');
                         document.getElementById("error-msg").textContent = response;
                     }
                 } else {
@@ -92,9 +93,9 @@
         };
 
         // Send the request
-        xhr.send("email=" + encodeURIComponent(email) + "&pwd=" + encodeURIComponent(password));
+        xhr.send("email=" + encodeURIComponent(email) + "&pwd=" + encodeURIComponent(password) + "&option=" + encodeURIComponent(option));
     });
-   </script>
+</script>
              
        
        </div>
