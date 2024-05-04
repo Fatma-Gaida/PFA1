@@ -27,7 +27,7 @@ $villes=[
     6=>"mahdia",
     7=>"sfax",
     8=>"beja",
-    9=>"jendouba",
+    9=>"jandouba",
 ];
 function verifier($d,$a,$aux){
   $handle = fopen('road.txt', 'r');
@@ -62,6 +62,7 @@ function get_ville($ch,$villes){
 }
 ?>
   <?php
+  
 function position_actuelle($id){
     $hostname = 'localhost';
     $username = 'root';
@@ -221,36 +222,35 @@ function position_actuelle($id){
         </form>
         <?php
 
-        if(isset($_POST['submit'])) {
-        // Vérifiez si des colis ont été sélectionnés
-        if(isset($_POST['choix'])) {
-            $colisSelectionnes = $_POST['choix']; // Tableau contenant les ID des colis sélectionnés
-            // echo$colisSelectionnes[1];
-            // Parcourez les colis sélectionnés
-            foreach($colisSelectionnes as $colisID) {
+if(isset($_POST['submit'])) {
+// Vérifiez si des colis ont été sélectionnés
+if(isset($_POST['choix'])) {
+    $colisSelectionnes = $_POST['choix']; // Tableau contenant les ID des colis sélectionnés
+    // echo$colisSelectionnes[1];
+    // Parcourez les colis sélectionnés
+    foreach($colisSelectionnes as $colisID) {
+      
+        echo "<br>";
+        // Vérifiez si un point relais a été choisi pour ce colis
+        if(isset($_POST['point_relais'][$colisID])) {
+            // echo count($_POST['point_relais']);
+            $pointRelais = $_POST['point_relais'][$colisID];
+            $d =get_ville($destinationColis,$villes);
+            $a=get_ville($positionActuelle,$villes);
+            $aux=get_ville($pointRelais,$villes);
+            if (verifier($d,$a,$aux)){
+            echo "<span  style='color: green; margin-left: 5%;'>livraison pour le colis numero:".$colisID." accepté</span>";
+            echo "<br>";}
+            else{
+              echo "<span  style='color: red; margin-left: 5%; padding-bottom:5%'>livraison pour le colis numero:".$colisID." refusée</span>";
               
-                echo "<br>";
-                // Vérifiez si un point relais a été choisi pour ce colis
-                if(isset($_POST['point_relais'][$colisID])) {
-                    // echo count($_POST['point_relais']);
-                    $pointRelais = $_POST['point_relais'][$colisID];
-                    $d =get_ville($destinationColis,$villes);
-                    $a=get_ville($positionActuelle,$villes);
-                    $aux=get_ville($pointRelais,$villes);
-                    if (verifier($d,$a,$aux)){
-                    echo "<span  style='color: green;'>livraison pour le colis numero:".$colisID." accepté</span>";
-                    echo "<br>";}
-                    else{
-                      echo "<span  style='color: red;'>livraison pour le colis numero:".$colisID." refusée</span>";
-                      echo "<br>";
-                    }
-                }
             }
-        }}
-        
-        ?>
-        
-            
+            echo "<br>";echo "<br>";
+        }
+    }
+}}
+
+?>
           </div>
           </div>
         </div>
