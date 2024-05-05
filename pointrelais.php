@@ -12,7 +12,7 @@
 </head>
 <body> 
     <nav>
-      <ul>
+      <ul style="justify-content:left;">
       <li><img src="images/logo.png"  style="width:30% ;height:30%;margin-left:0%"  alt="logo"></li>
         <li><a href="#">acceuil</a></li>
         <li><a href="suivi.html">suivi de colis </a></li>

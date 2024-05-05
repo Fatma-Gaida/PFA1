@@ -35,13 +35,13 @@
         <div class="container">
           <div class="second_nav">
             
-            <ul>
+            <ul> <li><a href="espace_client.php">Mon Profil</a></li>
               <li> <a href="nouvelle_commande.php">Nouvelle Commande</a></li>
               <li> <a href="suivi.php" class="nav-link">Suivi Des Commandes </a></li>
               <li> <a href="#" class="nav-link active">Reclamation</a></li>
-              <li><a href="espace_client.php">Mon Profil</a></li>
+             
               <li>
-              <form style="background-color:white; padding:0; width:fit-content; margin:0;" action="logout.php"><input type="submit" id="logout" name="logout" value="Deconnexion"></form> </li></ul>
+              <form action="?logout=true" method="get" style="background-color:white; padding:0; width:fit-content; margin:0;"><input type="submit" id="logout" name="logout" value="Deconnexion" style="font-weight:bold;font-size:20px;"></form> </li></ul>
               <div style="color:white;">
               <ul>
               <li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li><li>nsayer</li></ul>
@@ -80,7 +80,7 @@
           </div>
         </div>
         <footer>
-          <img src="" alt="logo">
+        <img src="images/logo.png"style="width:10% ;height:10%;margin-left:0%" alt="logo">
           <span>Copyright &copy;.All right reserved</span>
           <span>Mail:<a href="#">relaiscolis2024@gmail.com</a></span> 
           <span>Phone:+216 50 100 100</span>
