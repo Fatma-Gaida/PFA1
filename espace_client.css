@@ -6,6 +6,7 @@ margin: 0;
 padding: 0;
 height:fit-content;
 }
+
 nav {z-index:2;
     width: 100%;
     min-height:8vh;
@@ -316,6 +317,7 @@ footer{
     inset 5px 5px 10px #a31c54, inset -5px -5px 10px #96154a;
 
   }
+  
   #buttont img{
     width: 20px;
     height: 20px;
@@ -350,4 +352,55 @@ footer{
  
 
 
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
   
+  th {
+    background-color: #f2f2f2;
+  }
+  .nsayer{
+    width: 90%;
+    margin-left: 5%;
+
+  }
+  .raies{
+    background-color:#96145a;
+    border: solid 1px #96145a;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    height:30px;
+    width: fit-content;
+    display: flex;
+    margin-top: 10%;
+    margin-left:40% ;
+    color: white;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    color: white; border-radius: 100px;
+    
+    -webkit-box-shadow: -1px -5px 15px #96154a, 5px 5px 15px #d2d2d2,
+    inset 5px 5px 10px #96154a, inset -5px -5px 10px #d2d2d2;
+    box-shadow: -1px -5px 15px #d2d2d2, 5px 5px 15px #41465b,
+    inset 5px 5px 10px #a31c54, inset -5px -5px 10px #96154a;
+
+  }
+  .yes{
+    color: green;
+  }
+ #image{
+  width: 20%;
+  margin-left: 40%; 
+ }
+ #titre{
+  text-align: center;
+ }
+ 

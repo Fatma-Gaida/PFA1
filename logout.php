@@ -9,3 +9,4 @@ if (isset($_POST['logout'])) {
     exit();
 }
 ?>
+              <form   action="?logout=true" method="get"><input type="submit" id="logout" name="logout" value="Deconnexion"></form> </li></ul>

@@ -142,7 +142,6 @@
         // Récupération des coordonnées du point de relais depuis le formulaire
         $codePostal = $_GET['code_postal'];
         $ville = $_GET['ville'];
-
         // Requête pour sélectionner les détails du point de relais à partir de la base de données
         $query = "SELECT * FROM point_relais WHERE code_postal = :code_postal AND ville = :ville";
         $stmt = $pdo->prepare($query);

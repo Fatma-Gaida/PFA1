@@ -52,11 +52,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page1'])) {
     $code_postal_cli_ex = $_POST['code_postal_cli_ex'];
     $type_cli = 'expediteur';
 
-    // Informations de connexion à la base de données
-    $host = 'localhost';
-    $dbname = 'mysql';
-    $username = 'root';
-    $password = '';
+  // Informations de connexion à la base de données
+  $host = 'localhost';
+  $dbname = 'app';
+  $username = 'root';
+  $password = '';
 
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
@@ -89,11 +89,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page2']) && $_POST['pa
      $pr_d = $_POST['pr_d'];
     echo "Récupération terminée  ";
 
-    // Informations de connexion à la base de données
-    $host = 'localhost';
-    $dbname = 'mysql';
-    $username = 'root';
-    $password = '';
+  // Informations de connexion à la base de données
+  $host = 'localhost';
+  $dbname = 'app';
+  $username = 'root';
+  $password = '';
 
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
@@ -163,6 +163,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page3']) && $_POST['pa
 }
 
 echo "$id_colis";
+if( isset($_POST['page4'])){
+  $host = 'localhost';
+  $dbname = 'app';
+  $username = 'root';
+  $password = '';
+
+  echo "$id_colis, $id_client_expediteur";
+
+  try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "ouverture de la base de données  ";
+
+    $sql_insert_deposer_recuperer = "INSERT INTO deposer_recuperer (id_colis, id_client) VALUES ('$id_colis','$id_client_expediteur')";
+    $pdo->query($sql_insert_deposer_recuperer);
+
+    $sql = "INSERT INTO deposer_recuperer (id_colis, id_client) VALUES ('$id_colis','$id_client_destinataire')";
+    $pdo->query($sql);
+
+  } catch (PDOException $e) {
+      echo "Erreur lors de l'insertion des données dans la table deposer_recuperer : " . $e->getMessage();
+  }
+}
+
+
 
 if( isset($_POST['page4']) && $_POST['page4'] == "Retourner"){
   $page =  3;

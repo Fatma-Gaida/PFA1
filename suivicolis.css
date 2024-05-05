@@ -307,6 +307,40 @@ input:focus {
   width: 35%; 
  
 }
+table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: 0 auto; /* Center the table */
+  border-radius: 10px;
+  overflow: hidden; /* Hide overflow from rounded corners */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add a soft shadow */
+}
+
+th, td {
+  border: 1px solid #ddd; /* Add a light gray border */
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2; /* Light gray background for table header */
+}
+
+td {
+  background-color: #fff; /* White background for table cells */
+}
+
+/* Alternate row background color */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Hover effect */
+tr:hover {
+  background-color: #f2f2f2;
+}
+
+
 footer{
   display: flex;
   flex-direction: column;
@@ -357,6 +391,10 @@ footer ul{
 ul img{
   height: 40px;
 }
-
+.hist{
+  width: 80%;
+  margin-left: 10%;
+  
+}
 
 

@@ -16,9 +16,9 @@
     <ul>
       <li><img src="images/logo.png"  style="width:30% ;height:30%;margin-left:0%"  alt="logo"></li>
       <li><a href="acceuil.php">acceuil</a></li>
-      <li><a href="#">suivi de colis </a></li>
+      <li><a href="suivicolis.php">suivi de colis </a></li>
       <li><a href="envoi.php">envoi de colis</a></li>
-      <li><a href="#">Nos points de relais </a></li>
+      <li><a href="pointrelais.php">Nos points de relais </a></li>
       <li><a href="#">Aide</a></li>
       <li>
       <div id="loginContainer" style="padding-top: 2.5px;">
@@ -27,7 +27,7 @@
         </div>
         <div style="clear:both"></div>
         <div id="loginBox">                
-            <form id="loginForm">
+            <form id="loginForm"  >
                 <fieldset id="body">
                     <fieldset>
                         <label for="email">Adresse email</label>
@@ -53,57 +53,62 @@
   
       <div class="login-box">  
         <h4>Devenir un transporteur TUNI COLIS</h4>   
-        <form class="form" action="index.php" method="POST" onsubmit="return validateForm()">
+        <form class="form" action="devenirtransporteur.php" method="POST" onsubmit="return validateForm()">
+        
           <div>
             <div class="section1" style="display: flex;">
           <div class="part1">
+            <div class="user-box">
+              <input type="text" name="cin" required onblur="onBlurNumero()">
+              <label>Numéro CIN</label>
+              </div>
             <div class="user-box">
             <input type="text" name="nom_l" required="">
             <label>Nom</label>
             </div>
             <div class="user-box">
+              <input type="text" name="prenom_l" required="">
+            <label>Prénom</label>
+            </div>
+
+
+            <div class="user-box">
             <input type="text" name="numtel_l" required onblur="onBlurNumero()">
             <label>Numéro de Téléphone</label>
             </div>
-          
             <div class="user-box">
-            <input type="text" name="adresse_l" required="">
-            <label>Adresse</label>
-            </div>
-            <div class="user-box">
-              <input type="text" name="ville_l" required="">
-              <label>Ville</label>
+              <input type="text" name="tpye_trans" required>
+              <label>Marque de voiture</label>
               </div>
+            
+            
       
             <div class="user-box">
-              <input type="text" name="disponibilité" required="">
+              <input type="text" name="disponibilite" required>
+
               <label>Disponibilité </label>
               </div>
             </div>
         <div class="part2">
-            <div class="user-box">
-            <input type="text" name="prenom-d" required="">
-            <label>Prénom</label>
-            </div>
+            
 
-            <div class="user-box">
-              <input type="text" name="cin" required onblur="onBlurNumero()">
-              <label>Numéro CIN</label>
-              </div>
+           
   
             <div class="user-box">
-            <input type="text" name="email_d" required onblur="validateEmail()">
+              <input type="email" name="email_l" required onblur="validateEmail()">
             <label>Adresse Email</label>
             </div>
-    
             <div class="user-box">
-              <input type="text" name="tpye_trans" required="">
-              <label>Marque de voiture</label>
+              <input type="password" name="mdp_liv" required >
+              <label>Mot de passe </label>
               </div>
               <div class="user-box">
-                <input type="text" name="zone_d'activité " required="">
-                <label>Zone d'activité géographique </label>
-                </div></div></div>
+                <input type="password" name="Confirmation" required >
+                <label> Confirmation de Mot de passe </label>
+                </div>
+    
+            
+              </div></div>
                 <div class="div2">
            <input style="margin-left:33%;" class="button2" type="submit" name="devenir_transp" value="envoyer"/>
           </div></div>
