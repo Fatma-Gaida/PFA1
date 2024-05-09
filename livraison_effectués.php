@@ -28,7 +28,7 @@
   <body>
         <nav> 
               <div class="nav_items">
-              <div ><img src="" alt="logo"></div>
+              <div ><img src="images/logo.png" alt="logo" style="width:30% ;height:30%;margin-left:0%"></div>
               <div ><span style="font-weight:bold; font-size:20px; margin-left:18%;">Espace livreur</span></div>
                   <span style="display:flex; text-align:center; position:absolute;right:2%;">Bonjour <?php echo $result1['PRENOM_LIV']?></span>  
               </div>   
@@ -38,11 +38,11 @@
             <ul>
             <li><a href="espace_livreur.php" class="nav-link ">Mon Profil</a></li>
               <li> <a href="nvl.php" class="nav-link">Nouvelle Commande</a></li>
-              <li> <a href="#" class="nav-link active">livraisons effectués</a></li>
+              <li> <a href="" class="nav-link active">livraisons effectués</a></li>
               <!-- <li> <a href="#" class="nav-link">Reclamation</a></li> -->
              
               <li>
-              <form  style="background-color:white; padding:0; width:fit-content; margin:0;" action="?logout=true" method="get"><input type="submit" id="logout" name="logout" value="Deconnexion"></form> </li></ul>
+              <form  style="background-color:white; padding:0; width:fit-content; margin:0; " action="?logout=true" method="get"><input type="submit" id="logout" name="logout" value="Deconnexion" style="font-weight:bold;font-size:20px;" ;></form> </li></ul>
               <div style="color:white;">
               <ul>
                                 <?php
@@ -95,7 +95,7 @@
           </div>
         </div>
         <footer>
-          <img src="" alt="logo">
+          <img src="images/logo.png" style="width:10% ;height:10%;margin-left:0%" alt="logo">
           <span>Copyright &copy;.All right reserved</span>
           <span>Mail:<a href="#">relaiscolis2024@gmail.com</a></span> 
           <span>Phone:+216 50 100 100</span>
