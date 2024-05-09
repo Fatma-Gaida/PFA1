@@ -10,7 +10,7 @@
   <body>
   <nav> 
               <div class="nav_items">
-              <div ><img src="images/logo.png" style="width:30% ;height:30%;margin-left:0px" alt="logo"></div>
+              <div ><img src="images/logo.png" style="width:30% ;height:30%;margin-left:0%" alt="logo"></div>
               <div ><span style="font-weight:bold; font-size:20px; margin-left:18%;">Espace admin</span></div>
                   <span style="display:flex; text-align:center; position:absolute;right:2%;">Bonjour admin!  
               </div>   
@@ -31,33 +31,34 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Traitement du formulaire de mise à jour du statut de la réclamation
-   if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
-   
-    $new_status = $_POST['new_status'];
-
-    if ($new_status === 'Closed') {
-        // Supprimer la réclamation de la base de données
-        $delete_sql = "DELETE FROM reclamations WHERE ID_REC = :reclamation_id";
-        $stmt = $pdo->prepare($delete_sql);
-        $stmt->bindParam(':reclamation_id', $reclamation_id, PDO::PARAM_INT);
-        $stmt->execute();
-    } else {
-        // Mettre à jour le statut de la réclamation dans la base de données
-        $update_sql = "UPDATE reclamations SET statut = :new_status WHERE ID_REC = :reclamation_id";
-        $stmt = $pdo->prepare($update_sql);
-        $stmt->bindParam(':new_status', $new_status, PDO::PARAM_STR);
-        $stmt->bindParam(':reclamation_id', $reclamation_id, PDO::PARAM_INT);
-        $stmt->execute();
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
+         // Ajoutez cette ligne pour récupérer l'ID_REC du formulaire
+        $new_status = $_POST['new_status'];
+    
+        if ($new_status === 'Closed') {
+            // Supprimer la réclamation de la base de données
+            $delete_sql = "DELETE FROM reclamations WHERE ID_REC = :reclamation_id";
+            $stmt = $pdo->prepare($delete_sql);
+            $stmt->bindParam(':reclamation_id', $reclamation_id, PDO::PARAM_INT);
+            $stmt->execute();
+        } else {
+            // Mettre à jour le statut de la réclamation dans la base de données
+            $update_sql = "UPDATE reclamations SET statut = :new_status WHERE ID_REC = :reclamation_id";
+            $stmt = $pdo->prepare($update_sql);
+            $stmt->bindParam(':new_status', $new_status, PDO::PARAM_STR);
+            $stmt->bindParam(':reclamation_id', $reclamation_id, PDO::PARAM_INT);
+            $stmt->execute();
+        }
     }
 
     // Envoyer une notification au client (remplacez cette partie par votre propre logique d'envoi de notification)
     // Exemple de code pour l'envoi de notification par e-mail :
     // mail($client_email, "Votre réclamation a été mise à jour", "Le statut de votre réclamation a été mis à jour à : $new_status");
-}
+
 
 
     // Requête pour récupérer toutes les données de la table reclamation avec le nom du client associé
-    $sql = "SELECT  c.NOM_CLI, r.description, r.statut, r.temps_rec
+    $sql = "SELECT  c.NOM_CLI,c.PRENOM_CLI, r.description, r.statut, r.temps_rec
             FROM reclamations r
             INNER JOIN client c ON r.ID_CLIENT = c.ID_CLIENT
             WHERE r.statut != 'Fermé'  -- Exclure les réclamations fermées
@@ -69,10 +70,10 @@ try {
     if (!empty($reclamations)) {
       
       echo '<table >';
-      echo '<tr><th>Nom du client</th><th>Description</th><th>Statut</th><th>Temps de réclamation</th></tr>';
+      echo '<tr><th>Nom du client</th><th>Prenom du client</th><th>Description</th><th>Statut</th><th>Temps de réclamation</th></tr>';
       foreach ($reclamations as $reclamation) {
           echo '<tr>';
-          
+          echo '<td>' . $reclamation['PRENOM_CLI'] . '</td>';
           echo '<td>' . $reclamation['NOM_CLI'] . '</td>';
           echo '<td>' . $reclamation['description'] . '</td>';
           echo '<td>';
@@ -94,8 +95,8 @@ try {
        
     } else {
         echo "Aucune réclamation trouvée.";
-    }
-} catch (PDOException $e) {
+    }} 
+catch (PDOException $e) {
     echo "Erreur de connexion : " . $e->getMessage();
 }
 ?>
