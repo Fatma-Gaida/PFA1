@@ -47,14 +47,35 @@
     </div>
       <label>Point de Relais</label><br>
       <div class="select">
-      <select name="pr_ex">
-        <option value="option 1">First select</option>
-        <option value="option2">Option 1</option>
-        <option value="option3">Option</option>
-        <option value="option4">Option</option>
-        <option value="option5">Option</option>
-        <option value="option6">Option</option>
-      </select>
+      <?php
+$host = 'localhost';
+$dbname = 'mysql';
+$username = 'root';
+$password = '';
+
+try {
+    // Création d'une connexion PDO
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Pour activer la gestion des exceptions
+
+    // Préparation et exécution de la requête SQL
+    $st = $pdo->prepare('SELECT * FROM point_relais');
+    $st->execute();
+    $pr = $st->fetchAll(PDO::FETCH_ASSOC);
+
+    echo '<select name="pr_ex" id="pr_ex">'; // Ajout de l'ID pr_ex
+
+    foreach ($pr as $p) {
+        echo '<option value="' . $p['ID_PR'] . '">' . $p['ACTIVITE'] . " " . $p['NOM_PR'] . " " . $p['VILLE'] . " " . $p['CODE_POSTAL'] . '</option>';
+    }
+    echo '</select>';
+} catch (PDOException $e) {
+    // Gestion des exceptions
+    echo "Erreur lors de la sélection : " . $e->getMessage();
+}
+?>
+
+
       </div>
       </div></div>
 

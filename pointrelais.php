@@ -133,7 +133,7 @@
     $hostname = 'localhost';
     $username = 'root';
     $password = '';
-    $dbName = 'app';
+    $dbName = 'mysql';
 
     // Create a PDO connection
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
