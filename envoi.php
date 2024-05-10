@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page1'])) {
 
   // Informations de connexion à la base de données
   $host = 'localhost';
-  $dbname = 'app';
+  $dbname = 'tunirelais';
   $username = 'root';
   $password = '';
 
@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page2']) && $_POST['pa
 
   // Informations de connexion à la base de données
   $host = 'localhost';
-  $dbname = 'app';
+  $dbname = 'tunirelais';
   $username = 'root';
   $password = '';
 
@@ -140,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page3']) && $_POST['pa
 
     // Informations de connexion à la base de données
     $host = 'localhost';
-    $dbname = 'mysql';
+    $dbname = 'tunirelais';
     $username = 'root';
     $password = '';
     echo "$contenance ; $poids ; $largeur ; $longueur ; $description ; $date_depot ;$pr_ex,$pr_d";
@@ -165,7 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page3']) && $_POST['pa
 echo "$id_colis";
 if( isset($_POST['page4'])){
   $host = 'localhost';
-  $dbname = 'app';
+  $dbname = 'tunirelais';
   $username = 'root';
   $password = '';
 
@@ -229,9 +229,9 @@ if( isset($_POST['page5']) && $_POST['page5'] == "Terminer"){
       <ul>
       <li><img src="images/logo.png"  style="width:100% ;height:100%;margin-left:0%"  alt="logo"></li>
         <li><a href="acceuil.php">acceuil</a></li>
-        <li><a href="suivi.html">suivi de colis </a></li>
+        <li><a href="suivi.php">suivi de colis </a></li>
         <li><a href="envoi.php">envoi de colis</a></li>
-        <li><a href="pr.html">Nos points de relais </a></li>
+        <li><a href="pointrelais.php">Nos points de relais </a></li>
         <li>
         <div id="loginContainer" style="padding-top: 2.5px;">
           <div id="loginButton" style="display: flex; align-items: center; justify-content: center; width: fit-content;">

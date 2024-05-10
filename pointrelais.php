@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Relais Colis</title>
-  
+  <link rel="stylesheet" href="nav.css">
   <link rel="stylesheet" href="pointrelais.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=1.4.2"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
@@ -14,8 +14,8 @@
     <nav>
       <ul style="justify-content:left;">
       <li><img src="images/logo.png"  style="width:30% ;height:30%;margin-left:0%"  alt="logo"></li>
-        <li><a href="#">acceuil</a></li>
-        <li><a href="suivi.html">suivi de colis </a></li>
+        <li><a href="acceuil.php">acceuil</a></li>
+        <li><a href="suivi.php">suivi de colis </a></li>
         <li><a href="envoi.php">envoi de colis</a></li>
         <li><a href="#">Nos points de relais </a></li>
         <li>
@@ -133,7 +133,7 @@
     $hostname = 'localhost';
     $username = 'root';
     $password = '';
-    $dbName = 'mysql';
+    $dbName = 'tunirelais';
 
     // Create a PDO connection
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);

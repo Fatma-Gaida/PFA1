@@ -4,7 +4,7 @@
     $hostname = 'localhost';
     $username = 'root';
     $password = '';
-    $dbName = 'app';
+    $dbName = 'tunirelais';
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $pdo->prepare('SELECT * FROM client WHERE ID_CLIENT = :id');
@@ -74,7 +74,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page1'])){
 
   // Informations de connexion à la base de données
   $host = 'localhost';
-  $dbname = 'app';
+  $dbname = 'tunirelais';
   $username = 'root';
   $password = '';
 
@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page2']) && $_POST['pa
 
   // Informations de connexion à la base de données
   $host = 'localhost';
-  $dbname = 'app';
+  $dbname = 'tunirelais';
   $username = 'root';
   $password = '';
 
@@ -156,7 +156,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page3']) && $_POST['pag
 
   // Informations de connexion à la base de données
   $host = 'localhost';
-  $dbname = 'app';
+  $dbname = 'tunirelais';
   $username = 'root';
   $password = '';
 
@@ -181,7 +181,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['page3']) && $_POST['pag
 
 if( isset($_POST['page4'])){
   $host = 'localhost';
-  $dbname = 'app';
+  $dbname = 'tunirelais';
   $username = 'root';
   $password = '';
 

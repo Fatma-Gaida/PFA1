@@ -4,7 +4,7 @@
     $hostname = 'localhost';
     $username = 'root';
     $password = '';
-    $dbName = 'app';
+    $dbName = 'tunirelais';
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
     $stmt1 = $pdo->prepare('SELECT * FROM livreur WHERE CIN_LIVREUR = :id');
@@ -67,7 +67,7 @@ function position_actuelle($id){
     $hostname = 'localhost';
     $username = 'root';
     $password = '';
-    $dbName = 'app';
+    $dbName = 'tunirelais';
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
 
@@ -104,7 +104,7 @@ function position_actuelle($id){
   $hostname="localhost";
   $username='root';
   $password='';
-  $dbname='app';
+  $dbname='tunirelais';
   $pdo=new PDO("mysql:host=$hostname;dbname=$dbname",$username,$password);
   $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
   $stmt=$pdo->prepare(' SELECT * from point_relais where ID_PR in (SELECT ID_PR_FINALE from colis where ID_COLIS=:id)');

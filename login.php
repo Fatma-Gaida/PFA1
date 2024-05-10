@@ -8,7 +8,7 @@
 $hostname = 'localhost';
 $username = 'root';
 $password = '';
-$dbName = 'app';
+$dbName = 'tunirelais';
 session_start();
 try {
     // Create a PDO instance for database connection
@@ -83,7 +83,7 @@ try {
                 $errorMsg = 'Mot de passe invalide.';
                 
             }
-        } else {
+        } else  {
             // Username does not exist
             echo 'eamil incorrecte';
         }   

@@ -4,7 +4,7 @@
     $hostname = 'localhost';
     $username = 'root';
     $password = '';
-    $dbName = 'app';
+    $dbName = 'tunirelais';
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $pdo->prepare('SELECT * FROM livreur WHERE CIN_LIVREUR = :id');

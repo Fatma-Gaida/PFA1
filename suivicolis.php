@@ -119,7 +119,7 @@
         $hostname = 'localhost';
         $username = 'root';
         $password = '';
-        $dbName = 'app';
+        $dbName = 'tunirelais';
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
         $stmt = $pdo->prepare('SELECT * FROM point_relais WHERE ID_PR in( select
@@ -143,77 +143,14 @@
         
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Requête pour récupérer les détails du colis
-        $sql = "SELECT c1.NOM_CLI AS NOM_EXPEDITEUR, c1.PRENOM_CLI AS PRENOM_EXPEDITEUR,
-        c2.NOM_CLI AS NOM_DESTINATAIRE, c2.PRENOM_CLI AS PRENOM_DESTINATAIRE,
-        pr1.NOM_PR AS NOM_PR_INITIAL, pr2.NOM_PR AS NOM_PR_FINALE,
-        colis.ID_COLIS, colis.POIDS_COLIS, colis.TYPE_COLIS,
-        colis.DATE_DEPART_COLIS, colis.COUT_COLIS_ESTIME, colis.COUT_EFFECTIF,
-        colis.LARGEUR_COLIS, colis.LONGUEUR_COLIS
-        FROM colis
-        JOIN client c1 ON colis.ID_CLIENT_EXPEDITEUR = c1.ID_CLIENT
-        JOIN client c2 ON colis.ID_CLIENT_DESTINATAIRE = c2.ID_CLIENT
-        JOIN point_relais pr1 ON colis.ID_PR_INITIAL = pr1.ID_PR
-        JOIN point_relais pr2 ON colis.ID_PR_FINALE = pr2.ID_PR
-        WHERE colis.ID_COLIS = :idColis";
+        
 
-        // Récupération de l'identifiant de colis depuis le formulaire
-        if(isset($_GET['idColis'])) {
-            $idColis = $_GET['idColis'];
-    
-            // Exécution de la requête
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':idColis', $idColis, PDO::PARAM_INT);
-            $stmt->execute();
-            $colis = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-            if ($colis) {
-                echo '<link rel="stylesheet" type="text/css" href="suivicolis.css">';
-                echo '<h1 style="text-align: center; font-size: xx-large; color: #96154a ;">Détails de votre colis :</h1>';
-                echo '<table style="border-collapse: collapse; width: 80%; margin: 0 auto; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);">';
-                echo '<tr>';
-                echo '<th>ID client expéditeur</th>';
-                echo '<th>ID client destinataire</th>';
-                echo '<th>ID point relais initial</th>';
-                echo '<th>ID point relais final</th>';
-                echo '<th>Poids </th>';
-                echo '<th>Largeur</th>';
-                echo '<th>Longueur</th>';
-                echo '<th>Date de départ</th>';
-                echo '<th>Description</th>';
-                echo '<th>Cout éstimé</th>';
-                echo '<th>Cout effectif</th>';
-                echo '</tr>';
-                echo '<tr>';
-                echo '<td>' . $colis['NOM_EXPEDITEUR'] . ' ' . $colis['PRENOM_EXPEDITEUR'] . '</td>';
-                echo '<td>' . $colis['NOM_DESTINATAIRE'] . ' ' . $colis['PRENOM_DESTINATAIRE'] . '</td>';
-                echo '<td>' . $colis['NOM_PR_INITIAL'] . '</td>';
-                echo '<td>' . $colis['NOM_PR_FINALE'] . '</td>';
-                echo '<td>' . $colis['POIDS_COLIS'] . '</td>';
-                echo '<td>' . $colis['LARGEUR_COLIS'] . '</td>';
-                echo '<td>' . $colis['LONGUEUR_COLIS'] . '</td>';
-                echo '<td>' . $colis['DATE_DEPART_COLIS'] . '</td>';
-                echo '<td>' . $colis['TYPE_COLIS'] . '</td>';
-                echo '<td>' . $colis['COUT_COLIS_ESTIME'] . '</td>';
-                echo '<td>' . $colis['COUT_EFFECTIF'] . '</td>';
-                echo '</tr>';
-                echo '</table>';
-
-                // Position actuelle du colis
-                function position_actuelle($id){
-                    $hostname = 'localhost';
-                    $username = 'root';
-                    $password = '';
-                    $dbName = 'tunirelais';
-                    $port = 3306;
-                    $pdo = new PDO("mysql:host=$hostname;port=$port;dbname=$dbName", $username, $password);
-                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
-    $dbName = 'app';
+            
     function position_actuelle($id){
         $hostname = 'localhost';
         $username = 'root';
         $password = '';
-        $dbName = 'app';
+        $dbName = 'tunirelais';
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
 
@@ -248,7 +185,7 @@
         $hostname = "localhost";
         $username = "root";
         $password = "";
-        $dbName = "app";
+        $dbName = "tunirelais";
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $stmt1 = $pdo->prepare('SELECT ID_LIVRAISON, DATE_LIVRAISON FROM livraison WHERE ID_LIVRAISON IN (SELECT ID_LIVRAISON FROM livre WHERE ID_COLIS = :id) ORDER BY DATE_LIVRAISON ASC');
@@ -285,7 +222,7 @@
         $hostname="localhost";
         $username='root';
         $password='';
-        $dbname='app';
+        $dbname='tunirelais';
         $pdo=new PDO("mysql:host=$hostname;dbname=$dbname",$username,$password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $stmt=$pdo->prepare(' SELECT * from point_relais where ID_PR in (SELECT ID_PR_FINALE from colis where ID_COLIS=:id)');
@@ -295,6 +232,10 @@
         $pos=$res["ACTIVITE"]." ".$res["NOM_PR"]." ".$res["VILLE"]." ".$res["CODE_POSTAL"];
         return $pos;
        }
+       
+}catch (PDOException $e) {
+    echo "Erreur de connexion : " . $e->getMessage();
+}
 
     try {
         // Create a PDO connection
@@ -428,7 +369,7 @@
 $hostname = 'localhost';
 $username = 'root';
 $password = '';
-$dbName = 'app';
+$dbName = 'tunirelais';
 
 try {
     // Create a PDO connection
@@ -447,10 +388,10 @@ try {
         WHEN l.date_livraison > DATE_ADD(c.DATE_DEPART_COLIS, INTERVAL 7 DAY) THEN 'Diminution de prix'
         ELSE 'Pas de diminution de prix'
     END AS reduction_prix
-FROM livraison l
-JOIN livre lv ON l.id_livraison = lv.id_livraison
-JOIN colis c ON lv.id_colis = c.id_colis
-WHERE l.id_livraison = (SELECT id_livraison FROM livre WHERE id_colis = :idColis LIMIT 1)";
+ FROM livraison l
+ JOIN livre lv ON l.id_livraison = lv.id_livraison
+ JOIN colis c ON lv.id_colis = c.id_colis
+ WHERE l.id_livraison = (SELECT id_livraison FROM livre WHERE id_colis = :idColis LIMIT 1)";
 
     // Requête pour récupérer le prix estimé du colis
     $sql = "SELECT COUT_COLIS_ESTIME
@@ -461,54 +402,37 @@ WHERE l.id_livraison = (SELECT id_livraison FROM livre WHERE id_colis = :idColis
     if(isset($_GET['idColis'])) {
         $idColis = $_GET['idColis'];
 
-       // Exécution de la première requête
-$stmt1 = $pdo->prepare($sql1);
-$stmt1->bindParam(':idColis', $idColis, PDO::PARAM_INT);
-$stmt1->execute();
-$rows1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+        // Exécution de la première requête
+        $stmt1 = $pdo->prepare($sql1);
+        $stmt1->bindParam(':idColis', $idColis, PDO::PARAM_INT);
+        $stmt1->execute();
+        $rows1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 
-// Exécution de la troisième requête
-$stmt = $pdo->prepare($sql);
-$stmt->bindParam(':idColis', $idColis, PDO::PARAM_INT);
-$stmt->execute();
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Exécution de la deuxième requête
+        $stmt2 = $pdo->prepare($sql2);
+        $stmt2->bindParam(':idColis', $idColis, PDO::PARAM_INT);
+        $stmt2->execute();
+        $rows2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-// Exécution de la deuxième requête
-$stmt2 = $pdo->prepare($sql2);
-$stmt2->bindParam(':idColis', $idColis, PDO::PARAM_INT);
-$stmt2->execute();
-$rows2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-
-if (!$row || !$rows1 || !$rows2) {
-    echo "Aucune information trouvée pour ce colis.";
-} else {
-    $prixEstime = $row['COUT_COLIS_ESTIME'];
-    
-    // Affichage des informations
-    echo '<link rel="stylesheet" type="text/css" href="suivicolis.css">';
-    echo '<table style="border-collapse: collapse; width: 80%; margin: 0 auto; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);">';
-    echo '<tr>';
-    echo '<td colspan="12">'; // Spanning across all columns
-    echo "Prix estimé du colis : $prixEstime DT<br>";
-    echo '</td>';
-    echo '</tr>';
-    foreach ($rows1 as $row1) {
-        $nombreItineraires = $row1['nombre_itineraires'];
-        echo '<tr>';
-        echo '<td colspan="12">'; // Spanning across all columns
-        echo "<br>Nombre d'itinéraires pour le colis : $nombreItineraires<br>";
-        foreach ($rows2 as $row2) {
         // Exécution de la troisième requête
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':idColis', $idColis, PDO::PARAM_INT);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if (!$row || !$row1 || !$row2) {
+
+        if (!$row || !$rows1 || !$rows2) {
             echo "Aucune information trouvée pour ce colis.";
         } else {
-            $nombreItineraires = $row1['nombre_itineraires'];
-            $dateLivraison = $row2['date_livraison'];
-            $reductionPrix = $row2['reduction_prix'];
+            $prixEstime = $row['COUT_COLIS_ESTIME'];
+
+            foreach ($rows1 as $row1) {
+                $nombreItineraires = $row1['nombre_itineraires'];
+            }
+
+            foreach ($rows2 as $row2) {
+                $dateLivraison = $row2['date_livraison'];
+                $reductionPrix = $row2['reduction_prix'];
+            }
 
             // Calcul des réductions/augmentations en fonction des délais et des points relais
             $reductionPointRelaisInitial = 0.500;
@@ -521,13 +445,10 @@ if (!$row || !$rows1 || !$rows2) {
                 $prixEffectif -= $reductionPointRelaisInitial;
             }
             // Supposons que $pointRelaisIntermediaire est récupéré de la base de données
-          
-                $prixEffectif -= ($nombreItineraires-1) * $reductionPointRelaisIntermediaire;
-        
+            $prixEffectif -= ($nombreItineraires - 1) * $reductionPointRelaisIntermediaire;
 
             // Affichage des informations
-            echo "<br>Date de livraison : $dateLivraison<br>";
-            echo "Réduction de prix : $reductionPrix<br>";
+           
             
             echo '<link rel="stylesheet" type="text/css" href="suivicolis.css">';
             echo "<h1  style='color:#96145a; text-align:center;' ><span style='color:#96145a; text-align:center;'>Prix :</span></h1>";
@@ -540,18 +461,9 @@ if (!$row || !$rows1 || !$rows2) {
             echo "Réduction de prix a cause de retard : $reductionPrix<br>";
             echo "Prix estimé du colis : $prixEstime DT<br>";
             echo "Prix effectif du colis : $prixEffectif DT";
-        }
-        echo '</td>';
-        echo '</tr>';
-    }
-    echo '</table>';
-}
-
             echo '</td>';
             echo '</tr>';
-            
             echo '</table>';
-
 
             // Mise à jour du champ COUT_COLIS_EFFECTIF dans la base de données
             $sqlUpdate = "UPDATE colis SET COUT_EFFECTIF = :prixEffectif WHERE id_colis = :idColis";
@@ -561,7 +473,7 @@ if (!$row || !$rows1 || !$rows2) {
             $stmtUpdate->execute();
         }
     }
-}catch (PDOException $e) {
+} catch (PDOException $e) {
 } catch (PDOException $e) {
    
     echo "Erreur de connexion : " . $e->getMessage();

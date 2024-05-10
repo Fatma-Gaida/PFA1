@@ -4,7 +4,7 @@
     $hostname = 'localhost';
     $username = 'root';
     $password = '';
-    $dbName = 'app';
+    $dbName = 'tunirelais';
     $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $pdo->prepare('SELECT * FROM client WHERE ID_CLIENT = :id');
@@ -78,7 +78,7 @@
         $hostname = 'localhost';
         $username = 'root';
         $password = '';
-        $dbName = 'app';
+        $dbName = 'tunirelais';
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
         $stmt = $pdo->prepare('SELECT * FROM point_relais WHERE ID_PR in( select
@@ -93,12 +93,12 @@
     $hostname = 'localhost';
     $username = 'root';
     $password = '';
-    $dbName = 'app';
+    $dbName = 'tunirelais';
     function position_actuelle($id){
         $hostname = 'localhost';
         $username = 'root';
         $password = '';
-        $dbName = 'app';
+        $dbName = 'tunirelais';
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
 
@@ -133,7 +133,7 @@
         $hostname = "localhost";
         $username = "root";
         $password = "";
-        $dbName = "app";
+        $dbName = "tunirelais";
         $pdo = new PDO("mysql:host=$hostname;dbname=$dbName", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $stmt1 = $pdo->prepare('SELECT ID_LIVRAISON, DATE_LIVRAISON FROM livraison WHERE ID_LIVRAISON IN (SELECT ID_LIVRAISON FROM livre WHERE ID_COLIS = :id) ORDER BY DATE_LIVRAISON ASC');
@@ -170,7 +170,7 @@
         $hostname="localhost";
         $username='root';
         $password='';
-        $dbname='app';
+        $dbname='tunirelais';
         $pdo=new PDO("mysql:host=$hostname;dbname=$dbname",$username,$password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $stmt=$pdo->prepare(' SELECT * from point_relais where ID_PR in (SELECT ID_PR_FINALE from colis where ID_COLIS=:id)');
@@ -313,7 +313,7 @@
 $hostname = 'localhost';
 $username = 'root';
 $password = '';
-$dbName = 'app';
+$dbName = 'tunirelais';
 
 try {
     // Create a PDO connection
